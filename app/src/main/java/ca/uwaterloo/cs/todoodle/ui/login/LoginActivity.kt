@@ -1,6 +1,7 @@
 package ca.uwaterloo.cs.todoodle.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -15,6 +16,7 @@ import android.widget.Toast
 import ca.uwaterloo.cs.todoodle.databinding.ActivityLoginBinding
 
 import ca.uwaterloo.cs.todoodle.R
+import ca.uwaterloo.cs.todoodle.TodoActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -62,7 +64,9 @@ class LoginActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
-            finish()
+            // finish()
+            val intent = Intent(this, TodoActivity::class.java)
+            startActivity(intent)
         })
 
         username.afterTextChanged {
