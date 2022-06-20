@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
+import ca.uwaterloo.cs.todoodle.data.AppDatabase
+import ca.uwaterloo.cs.todoodle.data.UserDao
 import ca.uwaterloo.cs.todoodle.databinding.FragmentFirstBinding
 
 /**
@@ -19,10 +22,14 @@ class FirstFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var dao: UserDao
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        dao = AppDatabase.getInstance(requireContext()).userDao()
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
