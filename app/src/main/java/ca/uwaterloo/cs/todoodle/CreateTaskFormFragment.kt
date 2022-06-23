@@ -14,6 +14,7 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
+import java.text.SimpleDateFormat
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -33,7 +34,7 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         _binding = FragmentCreateTaskFormBinding.inflate(inflater, container, false)
 
-        initCatSpinner()
+        initSpinner()
 
         initDateTimePicker()
 
@@ -57,7 +58,6 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
-        println(id)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
@@ -67,21 +67,28 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
     /**
      * Initialize task category spinner
      */
-    private fun initCatSpinner() {
-        val spinner: Spinner = binding.createTaskFormCat
-        spinner.onItemSelectedListener = this
+    private fun initSpinner() {
+        val config = hashMapOf<Spinner, Int>(
+            binding.createTaskFormCat to R.array.task_cat_array,
+            binding.createTaskFormGoal to R.array.task_goal_array,
+        )
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(
-            context!!,
-            R.array.task_cat_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            spinner.adapter = adapter
+        for ((spinner, resId) in config) {
+            spinner.onItemSelectedListener = this
+
+            // Create an ArrayAdapter using the string array and a default spinner layout
+            ArrayAdapter.createFromResource(
+                context!!,
+                resId,
+                android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                // Apply the adapter to the spinner
+                spinner.adapter = adapter
+            }
         }
+
     }
 
     /**
@@ -110,12 +117,36 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         // Set value and open time dialog if input valid
+        // Notice that all date and time are in UTC
         datePicker.addOnPositiveButtonClickListener {
+            // Pass date to time picker for atomicity
+            // Timezone depends on device settings
+            val args = Bundle()
+            val date = datePicker.selection!!
+            args.putLong("date", date)
+            timePicker.arguments = args
+
             timePicker.show(parentFragmentManager, "TIME_PICKER")
         }
 
+        // Set date and time input value
         timePicker.addOnPositiveButtonClickListener {
-            println(it)
+            // Date passed from date picker
+            val args = timePicker.arguments!!
+            val date = args.getLong("date")
+
+            // Set deadline input
+            val hour = timePicker.hour
+            val minute = timePicker.minute
+            var input = SimpleDateFormat("yyyy-MM-dd").format(date)
+            input += " "
+            if (hour < 10) input += 0
+            input += hour
+            input += ":"
+            if (minute < 10) input += 0
+            input += timePicker.minute
+
+            binding.createTaskFormDdl.setText(input)
         }
     }
 

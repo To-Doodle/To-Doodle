@@ -56,14 +56,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createTaskFormDdl" />
 
-    <EditText
+    <Spinner
         android:id="@+id/createTaskFormGoal"
         android:layout_width="365dp"
-        android:layout_height="48dp"
+        android:layout_height="46dp"
         android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textShortMessage"
-        android:text="Doodled Goal"
+        android:minHeight="48dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createTaskFormDuration" />
