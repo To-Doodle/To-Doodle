@@ -8,87 +8,172 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <EditText
-        android:id="@+id/createTaskFormName"
-        android:layout_width="365dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textShortMessage"
-        android:text="Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- TextInputLayout does not fit the UI on the prototype-->
 
-    <Spinner
-        android:id="@+id/createTaskFormCat"
-        android:layout_width="365dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="32dp"
-        android:minHeight="48dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTaskFormName" />
-
-    <EditText
-        android:id="@+id/createTaskFormDdl"
-        android:layout_width="365dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="none"
-        android:text="Deadline"
-        android:focusable="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTaskFormCat" />
-
-    <EditText
-        android:id="@+id/createTaskFormDuration"
-        android:layout_width="365dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textShortMessage"
-        android:text="Estimated Duration"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTaskFormDdl" />
-
-    <Spinner
-        android:id="@+id/createTaskFormGoal"
-        android:layout_width="365dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="32dp"
-        android:minHeight="48dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTaskFormDuration" />
-
-    <EditText
-        android:id="@+id/createTaskFormNote"
-        android:layout_width="365dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textShortMessage"
-        android:text="Additional Notes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTaskFormGoal" />
-
-    <Button
-        android:id="@+id/button_create_task_form_done"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/done"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.943" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/createTaskFormNameWrapper"
+                android:layout_width="365dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="32dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/createTaskFormNameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Task name"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/createTaskFormName"
+                    android:layout_width="365dp"
+                    android:layout_height="48dp"
+                    android:ems="10"
+                    android:hint="Enter Your task name"
+                    android:inputType="textShortMessage" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/createTaskFormDdlWrapper"
+                android:layout_width="365dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/createTaskFormDdlLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deadline"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/createTaskFormDdl"
+                    android:layout_width="365dp"
+                    android:layout_height="48dp"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="yyyy-mm-dd hh:mm"
+                    android:inputType="textShortMessage" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/createTaskFormCatWrapper"
+                android:layout_width="365dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/createTaskFormCatLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Category"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/createTaskFormCat"
+                    android:layout_width="365dp"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/createTaskFormDurationWrapper"
+                android:layout_width="365dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/createTaskFormDurationLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estimated Duration"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/createTaskFormDuration"
+                    android:layout_width="365dp"
+                    android:layout_height="48dp"
+                    android:ems="10"
+                    android:hint="How long might this take?"
+                    android:inputType="textShortMessage" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/createTaskFormGoalWrapper"
+                android:layout_width="365dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/createTaskFormGoalLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Doodled Goal"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/createTaskFormGoal"
+                    android:layout_width="365dp"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/createTaskFormNoteWrapper"
+                android:layout_width="365dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/createTaskFormNoteLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Additional notes"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/createTaskFormNote"
+                    android:layout_width="365dp"
+                    android:layout_height="48dp"
+                    android:ems="10"
+                    android:hint="Anything else to add?"
+                    android:inputType="textShortMessage" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_create_task_form_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/done" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
