@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import ca.uwaterloo.cs.todoodle.databinding.FragmentCreateTaskFormBinding
 import com.google.android.material.datepicker.CalendarConstraints
@@ -27,16 +29,18 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    // Navigation controller
+    private lateinit var navCtr: NavController
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
         _binding = FragmentCreateTaskFormBinding.inflate(inflater, container, false)
+        navCtr = findNavController()
 
         initSpinner()
-
-        initDateTimePicker()
 
         return binding.root
 
@@ -45,8 +49,24 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Calendar is hidden at first render
+        initDateTimePicker()
+
+        // Pass form data to the previous screen for display purpose. Will store into DB in the future.
         binding.buttonCreateTaskFormDone.setOnClickListener {
-            findNavController().navigate(R.id.action_CreateTaskFormFragment_to_SecondFragment)
+            val formData = bundleOf(
+                "name" to binding.createTaskFormName.text,
+                "cat" to binding.createTaskFormCat.selectedItem,
+                "ddl" to binding.createTaskFormDdl.text,
+                "duration" to binding.createTaskFormDuration.text,
+                "goal" to binding.createTaskFormGoal.selectedItem,
+                "note" to binding.createTaskFormNote.text,
+            )
+
+            navCtr.navigate(
+                R.id.action_CreateTaskFormFragment_to_SecondFragment,
+                formData,
+            )
         }
     }
 
@@ -55,11 +75,17 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
         _binding = null
     }
 
+    /**
+     * Required for dropdown adapter
+     */
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
     }
 
+    /**
+     * Required for dropdown adapter
+     */
     override fun onNothingSelected(parent: AdapterView<*>) {
         // Another interface callback
     }
@@ -121,9 +147,9 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
         datePicker.addOnPositiveButtonClickListener {
             // Pass date to time picker for atomicity
             // Timezone depends on device settings
-            val args = Bundle()
-            val date = datePicker.selection!!
-            args.putLong("date", date)
+            val args = bundleOf(
+                "date" to it,
+            )
             timePicker.arguments = args
 
             timePicker.show(parentFragmentManager, "TIME_PICKER")
