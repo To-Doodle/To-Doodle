@@ -35,6 +35,9 @@ class SecondFragment : Fragment() {
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
+        binding.buttonCreateTaskForm.setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
+        }
     }
 
     override fun onDestroyView() {

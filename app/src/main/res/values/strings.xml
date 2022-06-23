@@ -13,9 +13,19 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="create_task_form_fragment_label">Create Task Form</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="done">Done</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="task_cat_array">
+        <item>School</item>
+        <item>Academic Achievement</item>
+        <item>Dream Job</item>
+    </string-array>
 </resources>
