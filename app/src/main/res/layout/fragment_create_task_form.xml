@@ -26,7 +26,7 @@
             <LinearLayout
                 android:id="@+id/createTaskFormNameWrapper"
                 android:layout_width="365dp"
-                android:layout_height="64dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:orientation="vertical">
 
@@ -41,16 +41,17 @@
                 <EditText
                     android:id="@+id/createTaskFormName"
                     android:layout_width="365dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Enter Your task name"
-                    android:inputType="textShortMessage" />
+                    android:inputType="textShortMessage"
+                    android:minHeight="48dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/createTaskFormDdlWrapper"
                 android:layout_width="365dp"
-                android:layout_height="64dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
@@ -65,17 +66,18 @@
                 <EditText
                     android:id="@+id/createTaskFormDdl"
                     android:layout_width="365dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:focusable="false"
                     android:hint="yyyy-mm-dd hh:mm"
-                    android:inputType="textShortMessage" />
+                    android:inputType="textShortMessage"
+                    android:minHeight="48dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/createTaskFormCatWrapper"
                 android:layout_width="365dp"
-                android:layout_height="64dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
@@ -90,7 +92,7 @@
                 <Spinner
                     android:id="@+id/createTaskFormCat"
                     android:layout_width="365dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:minHeight="48dp"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
@@ -98,7 +100,7 @@
             <LinearLayout
                 android:id="@+id/createTaskFormDurationWrapper"
                 android:layout_width="365dp"
-                android:layout_height="64dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
@@ -113,16 +115,17 @@
                 <EditText
                     android:id="@+id/createTaskFormDuration"
                     android:layout_width="365dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="How long might this take?"
-                    android:inputType="textShortMessage" />
+                    android:inputType="textShortMessage"
+                    android:minHeight="48dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/createTaskFormGoalWrapper"
                 android:layout_width="365dp"
-                android:layout_height="64dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
@@ -137,7 +140,7 @@
                 <Spinner
                     android:id="@+id/createTaskFormGoal"
                     android:layout_width="365dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:minHeight="48dp"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
@@ -145,7 +148,7 @@
             <LinearLayout
                 android:id="@+id/createTaskFormNoteWrapper"
                 android:layout_width="365dp"
-                android:layout_height="64dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
@@ -160,10 +163,11 @@
                 <EditText
                     android:id="@+id/createTaskFormNote"
                     android:layout_width="365dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Anything else to add?"
-                    android:inputType="textShortMessage" />
+                    android:inputType="textMultiLine|text"
+                    android:minHeight="48dp" />
             </LinearLayout>
 
             <Button
