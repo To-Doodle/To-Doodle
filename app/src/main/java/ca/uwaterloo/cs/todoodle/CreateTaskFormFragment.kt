@@ -54,19 +54,13 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         // Pass form data to the previous screen for display purpose. Will store into DB in the future.
         binding.buttonCreateTaskFormDone.setOnClickListener {
-            val formData = bundleOf(
-                "name" to binding.createTaskFormName.text,
-                "cat" to binding.createTaskFormCat.selectedItem,
-                "ddl" to binding.createTaskFormDdl.text,
-                "duration" to binding.createTaskFormDuration.text,
-                "goal" to binding.createTaskFormGoal.selectedItem,
-                "note" to binding.createTaskFormNote.text,
-            )
+            val formData = validatedForm()
 
-            navCtr.navigate(
-                R.id.action_CreateTaskFormFragment_to_SecondFragment,
-                formData,
-            )
+            if (formData != null)
+                navCtr.navigate(
+                    R.id.action_CreateTaskFormFragment_to_SecondFragment,
+                    formData,
+                )
         }
     }
 
@@ -176,4 +170,30 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
+    /**
+     * Validate form input.
+     * @return validated form data
+     */
+    private fun validatedForm(): Bundle? {
+
+        // Very basic validation. May use third-party lib for this.
+        val requiredText = "Required"
+        if (binding.createTaskFormName.text.isEmpty()) {
+            binding.createTaskFormName.error = requiredText
+            return null
+        }
+        if (binding.createTaskFormDdl.text.isEmpty()) {
+            binding.createTaskFormDdl.error = requiredText
+            return null
+        }
+
+        return bundleOf(
+            "name" to binding.createTaskFormName.text,
+            "cat" to binding.createTaskFormCat.selectedItem,
+            "ddl" to binding.createTaskFormDdl.text,
+            "duration" to binding.createTaskFormDuration.text,
+            "goal" to binding.createTaskFormGoal.selectedItem,
+            "note" to binding.createTaskFormNote.text,
+        )
+    }
 }
