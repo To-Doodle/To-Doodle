@@ -140,9 +140,11 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
         // Notice that all date and time are in UTC
         datePicker.addOnPositiveButtonClickListener {
             // Pass date to time picker for atomicity
-            // Timezone depends on device settings
+            // Date picker has an timezone issue which is unresolved still.
+            // https://github.com/material-components/material-components-android/issues/882
+            // To avoid such bug, we manually move the timestamp forward by 5 hours.
             val args = bundleOf(
-                "date" to it,
+                "date" to it + 3600000 * 5,
             )
             timePicker.arguments = args
 
