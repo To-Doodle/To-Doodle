@@ -36,4 +36,8 @@
         <item>More income</item>
         <item>Other</item>
     </string-array>
+    <string-array name="task_level_array">
+        <item>Non-negotiables</item>
+        <item>Nice to haves</item>
+    </string-array>
 </resources>

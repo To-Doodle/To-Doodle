@@ -52,6 +52,11 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
         // Calendar is hidden at first render
         initDateTimePicker()
 
+        // Helper tooltip shows when clicking the helper icon as if long pressing it
+        binding.createTaskFormDurationHelper.setOnClickListener {
+            it.performLongClick()
+        }
+
         // Pass form data to the previous screen for display purpose. Will store into DB in the future.
         binding.buttonCreateTaskFormDone.setOnClickListener {
             val formData = validatedForm()
@@ -91,6 +96,7 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val config = hashMapOf<Spinner, Int>(
             binding.createTaskFormCat to R.array.task_cat_array,
             binding.createTaskFormGoal to R.array.task_goal_array,
+            binding.createTaskFormLevel to R.array.task_level_array,
         )
 
         for ((spinner, resId) in config) {
@@ -188,6 +194,12 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
             binding.createTaskFormDdl.error = requiredText
             return null
         }
+        // > 1 days and 1-23 hours and no leading zeroes
+        val regex = "^([1-9]\\d*d)?( (1\\d|2[0-3]?|[3-9])h)?\$".toRegex()
+        if (!regex.matches(binding.createTaskFormDuration.text)) {
+            binding.createTaskFormDuration.error = "Invalid format"
+            return null
+        }
 
         return bundleOf(
             "name" to binding.createTaskFormName.text,
@@ -195,6 +207,7 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
             "ddl" to binding.createTaskFormDdl.text,
             "duration" to binding.createTaskFormDuration.text,
             "goal" to binding.createTaskFormGoal.selectedItem,
+            "level" to binding.createTaskFormLevel.selectedItem,
             "note" to binding.createTaskFormNote.text,
         )
     }
