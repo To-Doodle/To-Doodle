@@ -40,9 +40,10 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
-            navCtr.navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
+        // Restore FirstFragment by uncommenting lines below
+//        binding.buttonSecond.setOnClickListener {
+//            navCtr.navigate(R.id.action_SecondFragment_to_FirstFragment)
+//        }
         binding.buttonCreateTaskForm.setOnClickListener {
             navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
         }
