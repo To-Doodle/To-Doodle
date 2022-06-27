@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/SecondFragment">
+<!--    // Restore FirstFragment by uncommenting line below and deleting line above-->
+<!--    app:startDestination="@id/FirstFragment">-->
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -24,5 +26,18 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_CreateTaskFormFragment"
+            app:destination="@id/CreateTaskFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CreateTaskFormFragment"
+        android:name="ca.uwaterloo.cs.todoodle.CreateTaskFormFragment"
+        android:label="@string/create_task_form_fragment_label"
+        tools:layout="@layout/fragment_create_task_form">
+
+        <action
+            android:id="@+id/action_CreateTaskFormFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>
