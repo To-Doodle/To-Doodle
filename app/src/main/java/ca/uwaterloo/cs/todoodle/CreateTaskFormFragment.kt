@@ -195,7 +195,7 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
             return null
         }
         // > 1 days and 1-23 hours and no leading zeroes
-        val regex = "^([1-9]\\d*d)?( (1\\d|2[0-3]?|[3-9])h)?\$".toRegex()
+        val regex = "^([1-9]\\d*d)?((1\\d?|2[0-3]?|[3-9])h)?\$".toRegex()
         if (!regex.matches(binding.createTaskFormDuration.text)) {
             binding.createTaskFormDuration.error = "Invalid format"
             return null

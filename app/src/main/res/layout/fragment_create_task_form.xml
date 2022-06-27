@@ -176,7 +176,7 @@
                         android:layout_weight="1"
                         android:scaleType="center"
                         android:src="@drawable/ic_baseline_help_24"
-                        android:tooltipText="Use arbitrary combination of days and hours.\ne.g. 1d, 2h, 3d 4h, etc." />
+                        android:tooltipText="Use arbitrary combination of days and hours.\ne.g. 1d, 2h, 3d4h, etc." />
 
                     <TextView
                         android:layout_width="match_parent"
