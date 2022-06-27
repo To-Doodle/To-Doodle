@@ -31,9 +31,9 @@
         <item>Other</item>
     </string-array>
     <string-array name="task_goal_array">
-        <item>School</item>
-        <item>Work</item>
-        <item>Life</item>
+        <item>Lose weight</item>
+        <item>Better grade</item>
+        <item>More income</item>
         <item>Other</item>
     </string-array>
 </resources>
