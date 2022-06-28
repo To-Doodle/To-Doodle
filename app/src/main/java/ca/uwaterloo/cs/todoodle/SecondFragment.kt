@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import ca.uwaterloo.cs.todoodle.data.AppDatabase
+import ca.uwaterloo.cs.todoodle.data.TaskDao
+import ca.uwaterloo.cs.todoodle.data.UserDao
 import ca.uwaterloo.cs.todoodle.databinding.FragmentSecondBinding
 
 /**
@@ -23,10 +26,15 @@ class SecondFragment : Fragment() {
     // Navigation controller
     private lateinit var navCtr: NavController
 
+    private lateinit var dao: TaskDao
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        dao = AppDatabase.getInstance(requireContext()).taskDao()
+        println(dao.getAll())
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         navCtr = findNavController()
