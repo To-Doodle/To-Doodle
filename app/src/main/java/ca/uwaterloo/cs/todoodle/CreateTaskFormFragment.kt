@@ -11,6 +11,10 @@ import android.widget.Spinner
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import ca.uwaterloo.cs.todoodle.data.AppDatabase
+import ca.uwaterloo.cs.todoodle.data.Task
+import ca.uwaterloo.cs.todoodle.data.TaskDao
+import ca.uwaterloo.cs.todoodle.data.UserDao
 import ca.uwaterloo.cs.todoodle.databinding.FragmentCreateTaskFormBinding
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -31,6 +35,8 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     // Navigation controller
     private lateinit var navCtr: NavController
+
+    private lateinit var dao: TaskDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,11 +67,16 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.buttonCreateTaskFormDone.setOnClickListener {
             val formData = validatedForm()
 
-            if (formData != null)
+            if (formData != null) {
+                dao = AppDatabase.getInstance(requireContext()).taskDao()
+                val task = Task(0, "task1")
+                dao.insertAll(task)
+
                 navCtr.navigate(
                     R.id.action_CreateTaskFormFragment_to_SecondFragment,
                     formData,
                 )
+            }
         }
     }
 
