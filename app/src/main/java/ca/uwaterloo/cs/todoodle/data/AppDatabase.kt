@@ -15,7 +15,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         private const val TAG = "AppDatabase"
 
-        const val VERSION = 1
+        const val VERSION = 2
         private const val DATABASE_NAME = "todoodle.db"
 
         @Volatile
