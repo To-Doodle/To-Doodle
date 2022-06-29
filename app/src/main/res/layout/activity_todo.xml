@@ -45,7 +45,8 @@
             android:text="1200"
             android:textColor="#FFFFFF"
             android:textColorHint="#673AB7"
-            android:translationX="225dp" />
+            android:textSize="25dp"
+            android:translationX="210dp" />
     </androidx.appcompat.widget.Toolbar>
 
 
