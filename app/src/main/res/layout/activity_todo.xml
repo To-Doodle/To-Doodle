@@ -38,12 +38,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:width="56dp"
+            android:background="@null"
             android:ems="10"
+            android:fontFamily="sans-serif-condensed-medium"
             android:inputType="textPersonName"
             android:text="1200"
             android:textColor="#FFFFFF"
             android:textColorHint="#673AB7"
-            android:translationX="210dp" />
+            android:translationX="225dp" />
     </androidx.appcompat.widget.Toolbar>
 
 
