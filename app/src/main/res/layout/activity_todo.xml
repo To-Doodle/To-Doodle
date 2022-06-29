@@ -37,7 +37,7 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:inputType="textPersonName"
-                android:text="1200"
+                android:text="1000"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#673AB7"
                 android:textSize="25dp"
