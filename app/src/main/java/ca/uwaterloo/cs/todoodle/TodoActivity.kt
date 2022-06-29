@@ -1,5 +1,6 @@
 package ca.uwaterloo.cs.todoodle
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toolbar
 import com.google.android.material.snackbar.Snackbar
@@ -28,8 +29,10 @@ class TodoActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+            val intent = Intent(this, RewardsActivity::class.java)
+            startActivity(intent)
         }
     }
 
