@@ -52,7 +52,7 @@ class SecondFragment : Fragment() {
 //        binding.buttonSecond.setOnClickListener {
 //            navCtr.navigate(R.id.action_SecondFragment_to_FirstFragment)
 //        }
-        binding.buttonCreateTaskForm.setOnClickListener {
+        binding.todoList.setOnClickListener {
             navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
         }
     }
