@@ -69,7 +69,7 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
             if (formData != null) {
                 dao = AppDatabase.getInstance(requireContext()).taskDao()
-                val task = Task(null, formData.get("name").toString())
+                val task = Task(null, formData.get("name").toString(), formData.get("ddl").toString())
                 dao.insertAll(task)
 
                 navCtr.navigate(
