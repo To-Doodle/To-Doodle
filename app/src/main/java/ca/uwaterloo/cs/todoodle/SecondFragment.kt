@@ -1,16 +1,17 @@
 package ca.uwaterloo.cs.todoodle
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import ca.uwaterloo.cs.todoodle.data.AppDatabase
 import ca.uwaterloo.cs.todoodle.data.TaskDao
-import ca.uwaterloo.cs.todoodle.data.UserDao
 import ca.uwaterloo.cs.todoodle.databinding.FragmentSecondBinding
+
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -54,6 +55,11 @@ class SecondFragment : Fragment() {
 //        }
         binding.buttonCreateTaskForm.setOnClickListener {
             navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
+        }
+
+        binding.coinIndicator.setOnClickListener {
+            val intent = Intent(activity, RewardsActivity::class.java)
+            startActivity(intent)
         }
     }
 

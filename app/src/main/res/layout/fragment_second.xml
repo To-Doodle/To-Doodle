@@ -26,7 +26,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-<!--    // Restore FirstFragment by uncommenting all lines below and deleting TextView above-->
+
+    <TextView
+        android:id="@+id/coinIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="1000 coins"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--    // Restore FirstFragment by uncommenting all lines below and deleting TextView above-->
 <!--    <TextView-->
 <!--        android:id="@+id/textview_second"-->
 <!--        android:layout_width="wrap_content"-->
