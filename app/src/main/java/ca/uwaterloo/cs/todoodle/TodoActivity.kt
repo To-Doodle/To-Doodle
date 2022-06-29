@@ -28,12 +28,12 @@ class TodoActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-            val intent = Intent(this, RewardsActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.fab.setOnClickListener { view ->
+////            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                .setAction("Action", null).show()
+//            val intent = Intent(this, RewardsActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
