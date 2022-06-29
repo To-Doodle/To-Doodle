@@ -26,23 +26,25 @@
                 android:maxWidth="50dp"
                 android:minWidth="50dp"
                 android:translationX="300dp"
+                android:layout_alignParentRight="true"
                 app:srcCompat="@drawable/ic_action_name" />
 
-            <EditText
-                android:id="@+id/editTextTextPersonName2"
+            <TextView
+                android:id="@+id/coinIndicator2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:width="56dp"
                 android:background="@null"
-                android:ems="10"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:inputType="textPersonName"
                 android:text="1000"
+                android:textAlignment="viewStart"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#673AB7"
-                android:textSize="25dp"
+                android:textSize="24sp"
+                android:translationY="12dp"
                 android:translationX="210dp" />
         </androidx.appcompat.widget.Toolbar>
+
     </com.google.android.material.appbar.AppBarLayout>
 
 

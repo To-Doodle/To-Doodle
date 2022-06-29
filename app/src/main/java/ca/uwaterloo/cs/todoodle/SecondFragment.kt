@@ -70,11 +70,10 @@ class SecondFragment : Fragment() {
 //        binding.buttonCreateTaskForm.setOnClickListener {
 //            navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
 //        }
-
-        binding.coinIndicator.setOnClickListener {
+        /*binding.coinIndicator.setOnClickListener {
             val intent = Intent(activity, RewardsActivity::class.java)
             startActivity(intent)
-        }
+        }*/
     }
 
     override fun onDestroyView() {
