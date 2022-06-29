@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scaleX="1.2"
     android:textAlignment="textEnd"
     android:textDirection="firstStrong"
     tools:context=".TodoActivity">
@@ -48,12 +47,7 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-    <include
-        layout="@layout/content_todo"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:minWidth="56dp"
-        android:textAlignment="center" />
+    <include layout="@layout/content_todo" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
