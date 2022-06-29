@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp"
+    app:cardMaxElevation="12dp"
+    app:cardPreventCornerOverlap="true"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:id="@+id/rl_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Task 1"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/date_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="30dp"
+            android:text="Due: dd/mm/yyyy"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/task_tag"
+            android:text="School" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="30dp"
+            android:text="100 pts"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

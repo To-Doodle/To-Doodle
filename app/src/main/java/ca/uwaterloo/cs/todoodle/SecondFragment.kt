@@ -3,12 +3,15 @@ package ca.uwaterloo.cs.todoodle
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.SoundEffectConstants
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import ca.uwaterloo.cs.todoodle.data.AppDatabase
+import ca.uwaterloo.cs.todoodle.data.Task
 import ca.uwaterloo.cs.todoodle.data.TaskDao
 import ca.uwaterloo.cs.todoodle.databinding.FragmentSecondBinding
 
@@ -29,17 +32,32 @@ class SecondFragment : Fragment() {
 
     private lateinit var dao: TaskDao
 
+    private lateinit var taskList: List<Task>
+
+    private var titlesList = mutableListOf<String>()
+    private var deadlinesList = mutableListOf<String>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
         dao = AppDatabase.getInstance(requireContext()).taskDao()
-        println(dao.getAll())
+//        println(dao.getAll().get(0).taskName.toString())
+        taskList = dao.getAll()
+        for (i in taskList) {
+            addToList(i.taskName.toString(), i.dueDate.toString())
+        }
+
+
+//        postToList()
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         navCtr = findNavController()
 
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+        binding.recyclerView.adapter = RecycleViewAdapter(titlesList, deadlinesList)
         initCreateTaskFormData()
 
         return binding.root
@@ -53,9 +71,9 @@ class SecondFragment : Fragment() {
 //        binding.buttonSecond.setOnClickListener {
 //            navCtr.navigate(R.id.action_SecondFragment_to_FirstFragment)
 //        }
-        binding.buttonCreateTaskForm.setOnClickListener {
-            navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
-        }
+//        binding.buttonCreateTaskForm.setOnClickListener {
+//            navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
+//        }
 
         binding.coinIndicator.setOnClickListener {
             val intent = Intent(activity, RewardsActivity::class.java)
@@ -75,6 +93,18 @@ class SecondFragment : Fragment() {
         val from = navCtr.previousBackStackEntry?.destination?.id
         if (from == R.id.CreateTaskFormFragment && arguments != null) {
             println(arguments)
+            addToList(arguments!!["name"].toString(), arguments!!["ddl"].toString())
+        }
+    }
+
+    private fun addToList(title:String, deadLine:String) {
+        titlesList.add(title)
+        deadlinesList.add(deadLine)
+    }
+
+    private fun postToList() {
+        for (i in 1..25){
+            addToList("Title $i", "Deadlines $i")
         }
     }
 }
