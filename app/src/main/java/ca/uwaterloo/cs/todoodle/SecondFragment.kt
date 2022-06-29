@@ -53,7 +53,7 @@ class SecondFragment : Fragment() {
 
 
         binding.recyclerView.layoutManager = LinearLayoutManager(activity!!.applicationContext)
-        binding.recyclerView.adapter = RecycleViewAdapter(titlesList, deadlinesList)
+        binding.recyclerView.adapter = RecycleViewAdapter(titlesList, deadlinesList, taskList)
         initCreateTaskFormData()
 
         return binding.root
