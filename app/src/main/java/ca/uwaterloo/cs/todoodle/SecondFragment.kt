@@ -43,14 +43,10 @@ class SecondFragment : Fragment() {
     ): View {
 
         dao = AppDatabase.getInstance(requireContext()).taskDao()
-//        println(dao.getAll().get(0).taskName.toString())
         taskList = dao.getAll()
         for (i in taskList) {
             addToList(i.taskName.toString(), i.dueDate.toString())
         }
-
-
-//        postToList()
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         navCtr = findNavController()
@@ -93,18 +89,11 @@ class SecondFragment : Fragment() {
         val from = navCtr.previousBackStackEntry?.destination?.id
         if (from == R.id.CreateTaskFormFragment && arguments != null) {
             println(arguments)
-            addToList(arguments!!["name"].toString(), arguments!!["ddl"].toString())
         }
     }
 
     private fun addToList(title:String, deadLine:String) {
         titlesList.add(title)
         deadlinesList.add(deadLine)
-    }
-
-    private fun postToList() {
-        for (i in 1..25){
-            addToList("Title $i", "Deadlines $i")
-        }
     }
 }
