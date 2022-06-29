@@ -46,6 +46,16 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/task_tag"
             android:text="School" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="30dp"
+            android:text="100 pts"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
