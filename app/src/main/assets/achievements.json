@@ -1,35 +1,56 @@
 [
   {
+<<<<<<< HEAD
     "imageURI": "ic_baseline_add_task_24",
+=======
+    "imageURI": "ic_baseline_card_giftcard_24",
+>>>>>>> Refactor reward page to achievement page
     "id": "set_sail",
     "title": "Set Sail",
     "desc": "Illustrate your first goal."
   },
   {
+<<<<<<< HEAD
     "imageURI": "ic_baseline_add_task_24",
+=======
+    "imageURI": "ic_baseline_card_giftcard_24",
+>>>>>>> Refactor reward page to achievement page
     "id": "set_sail_2",
     "title": "Set Sail 2",
     "desc": "Create your first task."
   },
   {
+<<<<<<< HEAD
     "imageURI": "ic_baseline_add_task_24",
+=======
+    "imageURI": "ic_baseline_card_giftcard_24",
+>>>>>>> Refactor reward page to achievement page
     "id": "the_sea",
     "title": "The Sea",
     "desc": "Illustrate 2 goals."
   },
   {
+<<<<<<< HEAD
     "imageURI": "ic_baseline_add_task_24",
+=======
+    "imageURI": "ic_baseline_card_giftcard_24",
+>>>>>>> Refactor reward page to achievement page
     "id": "the_sea_2",
     "title": "The Sea 2",
     "desc": "Create 5 tasks."
   },
   {
+<<<<<<< HEAD
     "imageURI": "ic_baseline_add_task_24",
+=======
+    "imageURI": "ic_baseline_card_giftcard_24",
+>>>>>>> Refactor reward page to achievement page
     "id": "the_ocean",
     "title": "The Ocean",
     "desc": "Illustrate 5 goals."
   },
   {
+<<<<<<< HEAD
     "imageURI": "ic_baseline_add_task_24",
     "id": "the_ocean_2",
     "title": "The Ocean 2",
@@ -70,5 +91,11 @@
     "id": "grand_slam",
     "title": "Grand Slam",
     "desc": "Complete all achievements."
+=======
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "the_ocean_2",
+    "title": "The Ocean 2",
+    "desc": "Create 20 tasks."
+>>>>>>> Refactor reward page to achievement page
   }
 ]
