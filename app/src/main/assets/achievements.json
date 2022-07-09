@@ -1,0 +1,38 @@
+[
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "set_sail",
+    "title": "Set Sail",
+    "desc": "Illustrate your first goal."
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "set_sail_2",
+    "title": "Set Sail 2",
+    "desc": "Create your first task."
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "the_sea",
+    "title": "The Sea",
+    "desc": "Illustrate 2 goals."
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "the_sea_2",
+    "title": "The Sea 2",
+    "desc": "Create 5 tasks."
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "the_ocean",
+    "title": "The Ocean",
+    "desc": "Illustrate 5 goals."
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "the_ocean_2",
+    "title": "The Ocean 2",
+    "desc": "Create 20 tasks."
+  }
+]
