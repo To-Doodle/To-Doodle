@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_doodle"
         android:name="ca.uwaterloo.cs.todoodle.ui.doodle.DoodleFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_doodle"
         tools:layout="@layout/fragment_doodle" />
 
     <fragment
