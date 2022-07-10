@@ -44,6 +44,8 @@ class SecondFragment : Fragment() {
 
         dao = AppDatabase.getInstance(requireContext()).taskDao()
         taskList = dao.getAll()
+        titlesList.clear()
+        deadlinesList.clear()
         for (i in taskList) {
             addToList(i.taskName.toString(), i.dueDate.toString())
         }
