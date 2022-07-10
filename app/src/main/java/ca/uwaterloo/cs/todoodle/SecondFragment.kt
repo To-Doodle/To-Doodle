@@ -53,6 +53,9 @@ class SecondFragment : Fragment() {
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         navCtr = findNavController()
 
+        binding.fab.setOnClickListener { view ->
+            findNavController().navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
+        }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(activity!!.applicationContext)
         binding.recyclerView.adapter = RecycleViewAdapter(titlesList, deadlinesList, taskList)
