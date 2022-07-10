@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ca.uwaterloo.cs.todoodle.data.AppDatabase
 import ca.uwaterloo.cs.todoodle.data.Task
 import ca.uwaterloo.cs.todoodle.data.TaskDao
-import ca.uwaterloo.cs.todoodle.databinding.FragmentSecondBinding
+import ca.uwaterloo.cs.todoodle.databinding.FragmentTodoBinding
 
 
 /**
@@ -21,7 +21,7 @@ import ca.uwaterloo.cs.todoodle.databinding.FragmentSecondBinding
  */
 class SecondFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentTodoBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -50,7 +50,7 @@ class SecondFragment : Fragment() {
             addToList(i.taskName.toString(), i.dueDate.toString())
         }
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentTodoBinding.inflate(inflater, container, false)
         navCtr = findNavController()
 
         binding.fab.setOnClickListener { view ->
