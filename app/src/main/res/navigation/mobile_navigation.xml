@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/nav_todo"
         android:name="ca.uwaterloo.cs.todoodle.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
