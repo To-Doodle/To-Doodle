@@ -16,7 +16,32 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.ToDoodle.PopupOverlay" />
+            app:popupTheme="@style/Theme.ToDoodle.PopupOverlay">
+
+            <TextView
+                android:id="@+id/coinIndicator2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:width="56dp"
+                android:background="@null"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="1000"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#673AB7"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:duplicateParentState="false"
+                android:maxWidth="50dp"
+                android:minWidth="50dp"
+                app:srcCompat="@drawable/ic_action_name" />
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
