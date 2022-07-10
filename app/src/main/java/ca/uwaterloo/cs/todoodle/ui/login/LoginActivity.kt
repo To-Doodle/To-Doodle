@@ -13,6 +13,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import ca.uwaterloo.cs.todoodle.MainActivity
 import ca.uwaterloo.cs.todoodle.databinding.ActivityLoginBinding
 
 import ca.uwaterloo.cs.todoodle.R
@@ -65,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
 
             //Complete and destroy login activity once successful
             // finish()
-            val intent = Intent(this, TodoActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         })
 
