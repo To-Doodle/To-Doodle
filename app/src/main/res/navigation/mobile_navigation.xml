@@ -22,4 +22,26 @@
         android:name="ca.uwaterloo.cs.todoodle.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="ca.uwaterloo.cs.todoodle.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_CreateTaskFormFragment"
+            app:destination="@id/CreateTaskFormFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/CreateTaskFormFragment"
+        android:name="ca.uwaterloo.cs.todoodle.CreateTaskFormFragment"
+        android:label="@string/create_task_form_fragment_label"
+        tools:layout="@layout/fragment_create_task_form">
+
+        <action
+            android:id="@+id/action_CreateTaskFormFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
 </navigation>
