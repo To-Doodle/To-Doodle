@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="ca.uwaterloo.cs.todoodle.ui.gallery.GalleryFragment"
+        android:name="ca.uwaterloo.cs.todoodle.ui.doodle.DoodleFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_doodle" />
 
     <fragment
         android:id="@+id/nav_slideshow"

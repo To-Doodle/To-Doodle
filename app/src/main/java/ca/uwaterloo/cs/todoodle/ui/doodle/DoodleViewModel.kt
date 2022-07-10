@@ -1,13 +1,13 @@
-package ca.uwaterloo.cs.todoodle.ui.gallery
+package ca.uwaterloo.cs.todoodle.ui.doodle
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class GalleryViewModel : ViewModel() {
+class DoodleViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is gallery Fragment"
+        value = "Draw a doodle!"
     }
     val text: LiveData<String> = _text
 }
