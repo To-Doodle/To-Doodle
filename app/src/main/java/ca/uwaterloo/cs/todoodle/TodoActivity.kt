@@ -29,7 +29,7 @@ class TodoActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.coinIndicator2.setOnClickListener{
-            val intent = Intent(this, RewardsActivity::class.java)
+            val intent = Intent(this, AchievementsActivity::class.java)
             startActivity(intent)
         }
         binding.fab.setOnClickListener { view ->

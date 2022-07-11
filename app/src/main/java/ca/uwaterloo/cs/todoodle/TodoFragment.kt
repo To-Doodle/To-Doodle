@@ -76,7 +76,7 @@ class SecondFragment : Fragment() {
 //            navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
 //        }
         /*binding.coinIndicator.setOnClickListener {
-            val intent = Intent(activity, RewardsActivity::class.java)
+            val intent = Intent(activity, AchievementsActivity::class.java)
             startActivity(intent)
         }*/
     }
