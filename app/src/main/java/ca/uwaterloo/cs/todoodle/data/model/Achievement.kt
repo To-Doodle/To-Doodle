@@ -7,5 +7,6 @@ data class Achievement(
     val imageURI: String,
     val id: String,
     val title: String,
-    val desc: String
+    val desc: String,
+    var done: Boolean = false,
 )

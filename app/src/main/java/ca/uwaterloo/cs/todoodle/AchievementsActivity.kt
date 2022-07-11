@@ -16,13 +16,18 @@ class AchievementsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_rewards)
         title = "Achievements"
 
+        // Initialize achievements ViewModel
         val achievementsViewModel =
             ViewModelProvider(
                 this,
                 AchievementsViewModelFactory(application, "achievements.json")
             )[AchievementsViewModel::class.java]
+
+        // Get updated achievements info from local asset and DB and render the page
         achievementsViewModel.loadAchievements().observe(this) { achievements ->
-            initAchievementsLayout(achievements)
+            val updatedAchievements =
+                achievementsViewModel.updateAchievementCompletionStatus(achievements)
+            initAchievementsLayout(updatedAchievements)
         }
 
     }
