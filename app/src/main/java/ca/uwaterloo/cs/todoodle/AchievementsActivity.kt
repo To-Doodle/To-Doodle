@@ -7,26 +7,30 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.io.IOException
+import androidx.lifecycle.ViewModelProvider
+import ca.uwaterloo.cs.todoodle.data.model.Achievement
 
-class RewardsActivity : AppCompatActivity() {
+class AchievementsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rewards)
         title = "Achievements"
 
-        initAchievementsLayout()
+        val achievementsViewModel =
+            ViewModelProvider(
+                this,
+                AchievementsViewModelFactory(application, "achievements.json")
+            )[AchievementsViewModel::class.java]
+        achievementsViewModel.loadAchievements().observe(this) { achievements ->
+            initAchievementsLayout(achievements)
+        }
 
     }
 
     /**
      * Programmatically create the layout. This is a trade-off between configurability and performance
      */
-    private fun initAchievementsLayout() {
-        val achievements = parseAchievementJSON("achievements.json")
-
+    private fun initAchievementsLayout(achievements: List<Achievement>) {
         // Must create a LinearLayout inside ScrollView
         val wrapper = LinearLayout(this)
         wrapper.orientation = LinearLayout.VERTICAL
@@ -84,34 +88,5 @@ class RewardsActivity : AppCompatActivity() {
         findViewById<ScrollView>(R.id.achievementsWrapper).addView(wrapper)
     }
 
-    /**
-     * Load achievement data form local asset
-     */
-    private fun parseAchievementJSON(filename: String): List<Achievement> {
-        // Read asset file
-        val jsonString: String
-        try {
-            jsonString = assets.open(filename).bufferedReader()
-                .use { it.readText() }
-        } catch (ioException: IOException) {
-            ioException.printStackTrace()
-            return listOf()
-        }
 
-        // Parse JSON string
-        val gson = Gson()
-        val listAchievementType = object : TypeToken<List<Achievement>>() {}.type
-
-        return gson.fromJson(jsonString, listAchievementType)
-    }
 }
-
-/**
- * Achievement Interface. Keep consistent with asset JSON
- */
-data class Achievement(
-    val imageURI: String,
-    val id: String,
-    val title: String,
-    val desc: String
-) {}
