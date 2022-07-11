@@ -14,12 +14,16 @@ class AchievementsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 <<<<<<< HEAD
+<<<<<<< HEAD
         setContentView(R.layout.activity_achievements)
         title = "Achievements"
 
         // Initialize achievements ViewModel
 =======
         setContentView(R.layout.activity_rewards)
+=======
+        setContentView(R.layout.activity_achievements)
+>>>>>>> Totally refactor rewards to achievement
         title = "Achievements"
 
 <<<<<<< HEAD
@@ -48,7 +52,8 @@ class AchievementsActivity : AppCompatActivity() {
 =======
 
         // Get updated achievements info from local asset and DB and render the page
-        achievementsViewModel.loadAchievements().observe(this) { achievements ->
+        val observable = achievementsViewModel.loadAchievements()
+        observable.observe(this) { achievements ->
             val updatedAchievements =
                 achievementsViewModel.updateAchievementCompletionStatus(achievements)
             initAchievementsLayout(updatedAchievements)

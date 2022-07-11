@@ -19,7 +19,7 @@
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.ToDoodle.NoActionBar" />
         <activity
-            android:name=".RewardsActivity"
+            android:name=".AchievementsActivity"
             android:exported="false" />
         <activity
             android:name=".TodoActivity"

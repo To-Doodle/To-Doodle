@@ -12,10 +12,14 @@ class AchievementsViewModelFactory(
     private val application: Application,
     private val filename: String
 <<<<<<< HEAD
+<<<<<<< HEAD
 ) : ViewModelProvider.AndroidViewModelFactory(application) {
 =======
 ) : ViewModelProvider.Factory {
 >>>>>>> Apply MVVM to achievements
+=======
+) : ViewModelProvider.AndroidViewModelFactory(application) {
+>>>>>>> Totally refactor rewards to achievement
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

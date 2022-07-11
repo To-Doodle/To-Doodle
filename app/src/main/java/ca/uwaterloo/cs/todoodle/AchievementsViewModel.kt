@@ -49,8 +49,12 @@ class AchievementsViewModel(application: Application, private val filename: Stri
      * @return A map of completed achievements in {<achievement_id>: 1}
 =======
      * Check in DB (or local copy) if the achievements have complete
+<<<<<<< HEAD
      * @return A map of completed achievements in {[achievement_id]: 1}
 >>>>>>> Add achievement status handler
+=======
+     * @return A map of completed achievements in {<achievement_id>: 1}
+>>>>>>> Totally refactor rewards to achievement
      */
     private fun getCompletedAchievements(): HashMap<String, Int> {
         /**
@@ -58,9 +62,13 @@ class AchievementsViewModel(application: Application, private val filename: Stri
          * Loop through the achievements and change the `done` attribute
          * That's why we store the achievement info as hashmap/dictionary instead of an array/list in DB
 <<<<<<< HEAD
+<<<<<<< HEAD
          * We got O(n) complexity with hashmap but O(n^2) complexity with array
 =======
 >>>>>>> Add achievement status handler
+=======
+         * We got O(n) complexity with hashmap but O(n^2) complexity with array
+>>>>>>> Totally refactor rewards to achievement
          */
         return hashMapOf()
     }
