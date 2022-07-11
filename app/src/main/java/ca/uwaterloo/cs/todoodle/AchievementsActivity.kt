@@ -13,7 +13,7 @@ import ca.uwaterloo.cs.todoodle.data.model.Achievement
 class AchievementsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rewards)
+        setContentView(R.layout.activity_achievements)
         title = "Achievements"
 
         // Initialize achievements ViewModel
@@ -24,7 +24,8 @@ class AchievementsActivity : AppCompatActivity() {
             )[AchievementsViewModel::class.java]
 
         // Get updated achievements info from local asset and DB and render the page
-        achievementsViewModel.loadAchievements().observe(this) { achievements ->
+        val observable = achievementsViewModel.loadAchievements()
+        observable.observe(this) { achievements ->
             val updatedAchievements =
                 achievementsViewModel.updateAchievementCompletionStatus(achievements)
             initAchievementsLayout(updatedAchievements)

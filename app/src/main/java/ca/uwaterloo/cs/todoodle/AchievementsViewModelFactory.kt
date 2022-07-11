@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 class AchievementsViewModelFactory(
     private val application: Application,
     private val filename: String
-) : ViewModelProvider.Factory {
+) : ViewModelProvider.AndroidViewModelFactory(application) {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
