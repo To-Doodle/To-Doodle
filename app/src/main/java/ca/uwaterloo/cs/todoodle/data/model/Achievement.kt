@@ -7,6 +7,10 @@ data class Achievement(
     val imageURI: String,
     val id: String,
     val title: String,
+<<<<<<< HEAD
     val desc: String,
     var done: Boolean = false,
+=======
+    val desc: String
+>>>>>>> Apply MVVM to achievements
 )

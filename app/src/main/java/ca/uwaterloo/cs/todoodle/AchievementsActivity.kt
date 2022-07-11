@@ -13,15 +13,22 @@ import ca.uwaterloo.cs.todoodle.data.model.Achievement
 class AchievementsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+<<<<<<< HEAD
         setContentView(R.layout.activity_achievements)
         title = "Achievements"
 
         // Initialize achievements ViewModel
+=======
+        setContentView(R.layout.activity_rewards)
+        title = "Achievements"
+
+>>>>>>> Apply MVVM to achievements
         val achievementsViewModel =
             ViewModelProvider(
                 this,
                 AchievementsViewModelFactory(application, "achievements.json")
             )[AchievementsViewModel::class.java]
+<<<<<<< HEAD
 
         // Get updated achievements info from local asset and DB and render the page
         val observable = achievementsViewModel.loadAchievements()
@@ -29,6 +36,10 @@ class AchievementsActivity : AppCompatActivity() {
             val updatedAchievements =
                 achievementsViewModel.updateAchievementCompletionStatus(achievements)
             initAchievementsLayout(updatedAchievements)
+=======
+        achievementsViewModel.loadAchievements().observe(this) { achievements ->
+            initAchievementsLayout(achievements)
+>>>>>>> Apply MVVM to achievements
         }
 
     }

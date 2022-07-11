@@ -9,7 +9,10 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
 
+<<<<<<< HEAD
 // Must use AndroidViewModel to obtain the application context
+=======
+>>>>>>> Apply MVVM to achievements
 class AchievementsViewModel(application: Application, private val filename: String) :
     AndroidViewModel(application) {
     private val app = getApplication<Application>()
@@ -22,13 +25,17 @@ class AchievementsViewModel(application: Application, private val filename: Stri
 
     /**
      * Async achievements getter
+<<<<<<< HEAD
      * @return Achievements observable
+=======
+>>>>>>> Apply MVVM to achievements
      */
     fun loadAchievements(): LiveData<List<Achievement>> {
         return achievements
     }
 
     /**
+<<<<<<< HEAD
      * Check in DB (or local copy) if the achievements have complete
      * @return A map of completed achievements in {<achievement_id>: 1}
      */
@@ -62,6 +69,9 @@ class AchievementsViewModel(application: Application, private val filename: Stri
     /**
      * Load achievement data form local asset.
      * @return Parsed achievements in list of hashmap
+=======
+     * Load achievement data form local asset.
+>>>>>>> Apply MVVM to achievements
      */
     private fun parseAchievementJSON(): List<Achievement> {
         // Read asset file
