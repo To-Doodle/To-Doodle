@@ -22,12 +22,17 @@ class AchievementsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_rewards)
         title = "Achievements"
 
+<<<<<<< HEAD
 >>>>>>> Apply MVVM to achievements
+=======
+        // Initialize achievements ViewModel
+>>>>>>> Add achievement status handler
         val achievementsViewModel =
             ViewModelProvider(
                 this,
                 AchievementsViewModelFactory(application, "achievements.json")
             )[AchievementsViewModel::class.java]
+<<<<<<< HEAD
 <<<<<<< HEAD
 
         // Get updated achievements info from local asset and DB and render the page
@@ -40,6 +45,14 @@ class AchievementsActivity : AppCompatActivity() {
         achievementsViewModel.loadAchievements().observe(this) { achievements ->
             initAchievementsLayout(achievements)
 >>>>>>> Apply MVVM to achievements
+=======
+
+        // Get updated achievements info from local asset and DB and render the page
+        achievementsViewModel.loadAchievements().observe(this) { achievements ->
+            val updatedAchievements =
+                achievementsViewModel.updateAchievementCompletionStatus(achievements)
+            initAchievementsLayout(updatedAchievements)
+>>>>>>> Add achievement status handler
         }
 
     }

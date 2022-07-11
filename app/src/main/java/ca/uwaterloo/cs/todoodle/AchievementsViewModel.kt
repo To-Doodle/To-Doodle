@@ -10,9 +10,13 @@ import com.google.gson.reflect.TypeToken
 import java.io.IOException
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Must use AndroidViewModel to obtain the application context
 =======
 >>>>>>> Apply MVVM to achievements
+=======
+// Must use AndroidViewModel to obtain the application context
+>>>>>>> Add achievement status handler
 class AchievementsViewModel(application: Application, private val filename: String) :
     AndroidViewModel(application) {
     private val app = getApplication<Application>()
@@ -26,9 +30,13 @@ class AchievementsViewModel(application: Application, private val filename: Stri
     /**
      * Async achievements getter
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return Achievements observable
 =======
 >>>>>>> Apply MVVM to achievements
+=======
+     * @return Achievements observable
+>>>>>>> Add achievement status handler
      */
     fun loadAchievements(): LiveData<List<Achievement>> {
         return achievements
@@ -36,15 +44,23 @@ class AchievementsViewModel(application: Application, private val filename: Stri
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Check in DB (or local copy) if the achievements have complete
      * @return A map of completed achievements in {<achievement_id>: 1}
+=======
+     * Check in DB (or local copy) if the achievements have complete
+     * @return A map of completed achievements in {[achievement_id]: 1}
+>>>>>>> Add achievement status handler
      */
     private fun getCompletedAchievements(): HashMap<String, Int> {
         /**
          * Query all completed achievements from the target
          * Loop through the achievements and change the `done` attribute
          * That's why we store the achievement info as hashmap/dictionary instead of an array/list in DB
+<<<<<<< HEAD
          * We got O(n) complexity with hashmap but O(n^2) complexity with array
+=======
+>>>>>>> Add achievement status handler
          */
         return hashMapOf()
     }
@@ -67,11 +83,16 @@ class AchievementsViewModel(application: Application, private val filename: Stri
     }
 
     /**
+<<<<<<< HEAD
      * Load achievement data form local asset.
      * @return Parsed achievements in list of hashmap
 =======
      * Load achievement data form local asset.
 >>>>>>> Apply MVVM to achievements
+=======
+     * Load achievement data form local asset.
+     * @return Parsed achievements in list of hashmap
+>>>>>>> Add achievement status handler
      */
     private fun parseAchievementJSON(): List<Achievement> {
         // Read asset file

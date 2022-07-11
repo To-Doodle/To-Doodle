@@ -8,9 +8,14 @@ data class Achievement(
     val id: String,
     val title: String,
 <<<<<<< HEAD
+<<<<<<< HEAD
     val desc: String,
     var done: Boolean = false,
 =======
     val desc: String
 >>>>>>> Apply MVVM to achievements
+=======
+    val desc: String,
+    var done: Boolean = false,
+>>>>>>> Add achievement status handler
 )
