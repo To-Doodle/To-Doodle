@@ -9,6 +9,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
 
+// Must use AndroidViewModel to obtain the application context
 class AchievementsViewModel(application: Application, private val filename: String) :
     AndroidViewModel(application) {
     private val app = getApplication<Application>()
@@ -21,13 +22,45 @@ class AchievementsViewModel(application: Application, private val filename: Stri
 
     /**
      * Async achievements getter
+     * @return Achievements observable
      */
     fun loadAchievements(): LiveData<List<Achievement>> {
         return achievements
     }
 
     /**
+     * Check in DB (or local copy) if the achievements have complete
+     * @return A map of completed achievements in {[achievement_id]: 1}
+     */
+    private fun getCompletedAchievements(): HashMap<String, Int> {
+        /**
+         * Query all completed achievements from the target
+         * Loop through the achievements and change the `done` attribute
+         * That's why we store the achievement info as hashmap/dictionary instead of an array/list in DB
+         */
+        return hashMapOf()
+    }
+
+    /**
+     * Update the completion status of achievements
+     * @param achievements Achievements before update
+     * @return Achievements after update
+     */
+    fun updateAchievementCompletionStatus(achievements: List<Achievement>): List<Achievement> {
+        val completedAchievements = getCompletedAchievements()
+
+        for (achievement in achievements) {
+            if (achievement.id in completedAchievements) {
+                achievement.done = true
+            }
+        }
+
+        return achievements
+    }
+
+    /**
      * Load achievement data form local asset.
+     * @return Parsed achievements in list of hashmap
      */
     private fun parseAchievementJSON(): List<Achievement> {
         // Read asset file
