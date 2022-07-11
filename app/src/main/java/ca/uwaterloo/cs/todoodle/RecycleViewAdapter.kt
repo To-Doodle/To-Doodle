@@ -15,6 +15,7 @@ import ca.uwaterloo.cs.todoodle.data.TaskDao
 class RecycleViewAdapter(private val titles: List<String>, private val deadlines: List<String>, private val tasks: List<Task>) : RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
 
     private lateinit var dao: TaskDao
+    private lateinit var dialog: TaskDialogFragment
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.title_view)
@@ -26,6 +27,8 @@ class RecycleViewAdapter(private val titles: List<String>, private val deadlines
                 Toast.makeText(itemView.context, "Task complete!", Toast.LENGTH_SHORT).show()
                 itemTitle.text = "DONE!"
                 dao = AppDatabase.getInstance(itemView.context).taskDao()
+                dialog = TaskDialogFragment()
+//                dialog.show('','TaskDialog')
                 dao.delete(itemTask)
             }
         }
