@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         binding.appBarMain.coinIndicator2.setOnClickListener{
-            val intent = Intent(this, RewardsActivity::class.java)
+            val intent = Intent(this, AchievementsActivity::class.java)
             startActivity(intent)
         }
     }
