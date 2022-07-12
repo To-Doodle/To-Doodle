@@ -23,7 +23,7 @@ class AchievementsViewModel(application: Application, private val filename: Stri
 
     private val achievements: LiveData<List<Achievement>> by lazy {
         MutableLiveData<List<Achievement>>().also {
-            parseAchievementJSON()
+            it.postValue(parseAchievementJSON())
         }
     }
 
