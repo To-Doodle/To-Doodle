@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ca.uwaterloo.cs.todoodle.data.*
 import ca.uwaterloo.cs.todoodle.data.model.Achievement
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -19,6 +20,11 @@ class AchievementsViewModel(application: Application, private val filename: Stri
             it.postValue(parseAchievementJSON())
         }
     }
+
+    // initialize dao and repository
+    private val userDao = AppDatabase.getInstance(app).userDao()
+    private val userRepository = UserRepository(userDao)
+    private val loginRepository = LoginRepository(LoginDataSource())
 
     /**
      * Async achievements getter
@@ -39,7 +45,16 @@ class AchievementsViewModel(application: Application, private val filename: Stri
          * That's why we store the achievement info as hashmap/dictionary instead of an array/list in DB
          * We got O(n) complexity with hashmap but O(n^2) complexity with array
          */
-        return hashMapOf()
+        val userId = loginRepository.user!!.userId
+
+        // userId is string or int?
+        val userObj = userRepository.findById(1)
+
+        if (userObj.completedAchievements == null) {
+            return hashMapOf()
+        }
+
+        return userObj.completedAchievements
     }
 
     /**

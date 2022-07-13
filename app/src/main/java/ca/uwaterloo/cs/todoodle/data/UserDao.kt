@@ -22,4 +22,8 @@ interface UserDao {
 
     @Delete
     fun delete(user: User)
+
+    @Query("SELECT * FROM user WHERE uid = :userId")
+    fun findById(userId: Int): User
+
 }
