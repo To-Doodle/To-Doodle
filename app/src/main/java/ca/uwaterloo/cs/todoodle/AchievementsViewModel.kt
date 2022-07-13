@@ -76,16 +76,18 @@ class AchievementsViewModel(application: Application, private val filename: Stri
          * We got O(n) complexity with hashmap but O(n^2) complexity with array
 >>>>>>> Totally refactor rewards to achievement
          */
-        val userId = loginRepository.user!!.userId
 
-        // userId is string or int?
-        val userObj = userRepository.findById(1)
-
-        if (userObj.completedAchievements == null) {
+        // Now we don't have user in the DB so fake it
+//        val userId = loginRepository.user!!.userId
+        val userId = 1
+        val userObj = userRepository.findById(userId)
+//        val completedAchievements = userObj.completedAchievements
+        val completedAchievements = hashMapOf<String, Int>()
+        if (completedAchievements == null || completedAchievements.isEmpty()) {
             return hashMapOf()
         }
 
-        return userObj.completedAchievements
+        return completedAchievements
     }
 
     /**
@@ -96,9 +98,11 @@ class AchievementsViewModel(application: Application, private val filename: Stri
     fun updateAchievementCompletionStatus(achievements: List<Achievement>): List<Achievement> {
         val completedAchievements = getCompletedAchievements()
 
-        for (achievement in achievements) {
-            if (achievement.id in completedAchievements) {
-                achievement.done = true
+        if (completedAchievements.isNotEmpty()) {
+            for (achievement in achievements) {
+                if (achievement.id in completedAchievements) {
+                    achievement.done = true
+                }
             }
         }
 
