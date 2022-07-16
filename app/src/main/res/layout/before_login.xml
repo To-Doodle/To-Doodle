@@ -15,20 +15,58 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginBottom="15dp"
         android:layout_marginTop="-300dp"
+        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/loading"
         app:srcCompat="@drawable/logo_1" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="91dp"
+        android:layout_height="32dp"
+        android:fontFamily="casual"
+        android:text="Login as:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="305dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="32dp"
+        android:layout_height="27dp"
+        android:text=">"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:translationZ="90dp"
+        android:textStyle="bold"
+        android:fontFamily="casual"
+        tools:layout_editor_absoluteX="310dp"
+        tools:layout_editor_absoluteY="382dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="32dp"
+        android:layout_height="27dp"
+        android:text=">"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:translationZ="90dp"
+        android:textStyle="bold"
+        android:fontFamily="casual"
+        tools:layout_editor_absoluteX="310dp"
+        tools:layout_editor_absoluteY="545dp" />
+
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="340dp"
         android:layout_height="120dp"
+        android:background="@drawable/roundcorner"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/children"
-        android:background="@drawable/roundcorner"
         tools:layout_editor_absoluteX="25dp"
         tools:layout_editor_absoluteY="340dp" />
 
@@ -36,9 +74,9 @@
         android:id="@+id/imageButton2"
         android:layout_width="340dp"
         android:layout_height="120dp"
+        android:background="@drawable/roundcorner"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/parents"
-        android:background="@drawable/roundcorner"
         tools:layout_editor_absoluteX="25dp"
         tools:layout_editor_absoluteY="500dp" />
 
