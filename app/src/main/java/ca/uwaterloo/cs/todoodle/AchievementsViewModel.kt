@@ -6,9 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ca.uwaterloo.cs.todoodle.data.*
 import ca.uwaterloo.cs.todoodle.data.model.Achievement
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.io.IOException
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -22,16 +19,13 @@ class AchievementsViewModel(application: Application, private val filename: Stri
     AndroidViewModel(application) {
     private val app = getApplication<Application>()
 
+    private val achievementRepository = AchievementRepository(app, filename)
+
     private val achievements: LiveData<List<Achievement>> by lazy {
         MutableLiveData<List<Achievement>>().also {
-            it.postValue(parseAchievementJSON())
+            it.postValue(achievementRepository.achievements)
         }
     }
-
-    // initialize dao and repository
-    private val userDao = AppDatabase.getInstance(app).userDao()
-    private val userRepository = UserRepository(userDao)
-    private val loginRepository = LoginRepository(LoginDataSource())
 
     /**
      * Async achievements getter
@@ -49,6 +43,7 @@ class AchievementsViewModel(application: Application, private val filename: Stri
     }
 
     /**
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
      * Check in DB (or local copy) if the achievements have complete
@@ -91,12 +86,14 @@ class AchievementsViewModel(application: Application, private val filename: Stri
     }
 
     /**
+=======
+>>>>>>> Create achievement repository
      * Update the completion status of achievements
      * @param achievements Achievements before update
      * @return Achievements after update
      */
     fun updateAchievementCompletionStatus(achievements: List<Achievement>): List<Achievement> {
-        val completedAchievements = getCompletedAchievements()
+        val completedAchievements = achievementRepository.getCompletedAchievements()
 
         if (completedAchievements.isNotEmpty()) {
             for (achievement in achievements) {
@@ -108,6 +105,7 @@ class AchievementsViewModel(application: Application, private val filename: Stri
 
         return achievements
     }
+<<<<<<< HEAD
 
     /**
 <<<<<<< HEAD
@@ -138,4 +136,6 @@ class AchievementsViewModel(application: Application, private val filename: Stri
 
         return gson.fromJson(jsonString, listAchievementType)
     }
+=======
+>>>>>>> Create achievement repository
 }
