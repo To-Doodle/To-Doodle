@@ -1,73 +1,73 @@
 [
   {
     "imageURI": "ic_baseline_add_task_24",
-    "id": "set_sail",
+    "id": "series_goal_1",
     "title": "Set Sail",
     "desc": "Illustrate your first goal."
   },
   {
     "imageURI": "ic_baseline_add_task_24",
-    "id": "set_sail_2",
+    "id": "series_task_1",
     "title": "Set Sail 2",
     "desc": "Create your first task."
   },
   {
     "imageURI": "ic_baseline_add_task_24",
-    "id": "the_sea",
+    "id": "series_goal_2",
     "title": "The Sea",
     "desc": "Illustrate 2 goals."
   },
   {
     "imageURI": "ic_baseline_add_task_24",
-    "id": "the_sea_2",
+    "id": "series_task_2",
     "title": "The Sea 2",
     "desc": "Create 5 tasks."
   },
   {
     "imageURI": "ic_baseline_add_task_24",
-    "id": "the_ocean",
+    "id": "series_goal_3",
     "title": "The Ocean",
     "desc": "Illustrate 5 goals."
   },
   {
     "imageURI": "ic_baseline_add_task_24",
-    "id": "the_ocean_2",
+    "id": "series_task_3",
     "title": "The Ocean 2",
     "desc": "Create 20 tasks."
   },
   {
     "imageURI": "ic_baseline_access_time_24",
-    "id": "job_done",
+    "id": "single_task_due_1",
     "title": "Job Done",
     "desc": "Finish a task before due date."
   },
   {
     "imageURI": "ic_baseline_access_time_24",
-    "id": "job_done_2",
+    "id": "single_task_due_2",
     "title": "Job Done 2",
     "desc": "Finish 20 tasks before due date."
   },
   {
     "imageURI": "ic_baseline_access_time_24",
-    "id": "job_done_3",
+    "id": "single_task_due_3",
     "title": "Job Done 3",
     "desc": "Finish 100 tasks before due date."
   },
   {
     "imageURI": "ic_baseline_card_giftcard_24",
-    "id": "harvest",
+    "id": "series_acvm_1",
     "title": "Harvest",
     "desc": "Complete 3 achievements."
   },
   {
     "imageURI": "ic_baseline_card_giftcard_24",
-    "id": "big_harvest",
+    "id": "series_acvm_2",
     "title": "Big Harvest",
     "desc": "Complete 10 achievements."
   },
   {
     "imageURI": "ic_baseline_card_giftcard_24",
-    "id": "grand_slam",
+    "id": "series_acvm_3",
     "title": "Grand Slam",
     "desc": "Complete all achievements."
   }
