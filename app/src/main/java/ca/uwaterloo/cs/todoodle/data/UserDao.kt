@@ -1,9 +1,7 @@
 package ca.uwaterloo.cs.todoodle.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import ca.uwaterloo.cs.todoodle.data.model.Achievement
 
 @Dao
 interface UserDao {
@@ -26,4 +24,6 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE uid = :userId")
     fun findById(userId: Int): User
 
+    @Query("UPDATE user SET completed_achievements = :achievements WHERE uid = :userId")
+    fun updateCompletedAchievements(userId: Int, achievements: HashMap<String, Int>)
 }

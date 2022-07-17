@@ -18,6 +18,9 @@ class AchievementRepository(
     private val userRepository = UserRepository(userDao)
     private val loginRepository = LoginRepository(LoginDataSource())
 
+    private val userId = 1
+//    private val userId = loginRepository.user!!.userId
+
     val achievements = parseAchievementJSON()
 
     /**
@@ -55,9 +58,8 @@ class AchievementRepository(
          */
 
         // Now we don't have user in the DB so fake it
-//        val userId = loginRepository.user!!.userId
-        val userId = 1
-        val userObj = userRepository.findById(userId)
+//        val userId = 1
+//        val userObj = userRepository.findById(userId)
 //        val completedAchievements = userObj.completedAchievements
         val completedAchievements = hashMapOf<String, Int>()
         if (completedAchievements == null || completedAchievements.isEmpty()) {
@@ -108,6 +110,6 @@ class AchievementRepository(
      * @param achievements The new completed achievements
      */
     private fun updateAchievements(achievements: HashMap<String, Int>) {
-        // Call userdao.update to update the completed_achievements field
+        userRepository.updateCompletedAchievements(userId, achievements)
     }
 }
