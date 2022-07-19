@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import ca.uwaterloo.cs.todoodle.data.model.Achievement
 
@@ -64,6 +65,7 @@ class AchievementsActivity : AppCompatActivity() {
 
     /**
      * Programmatically create the layout. This is a trade-off between configurability and performance
+     * @param achievements Achievements list
      */
     private fun initAchievementsLayout(achievements: List<Achievement>) {
         // Must create a LinearLayout inside ScrollView
@@ -77,10 +79,18 @@ class AchievementsActivity : AppCompatActivity() {
         layoutParams.marginEnd = 16
         wrapper.layoutParams = layoutParams
 
+        // For body content
+        val layoutParamsBody = LinearLayout.LayoutParams(
+            0,
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            1.0f
+        )
+
         for (achievement in achievements) {
             // Achievement wrapper
             val row = LinearLayout(this)
             row.orientation = LinearLayout.HORIZONTAL
+            row.gravity = Gravity.CENTER
 
             // Image
             val image = ImageView(this)
@@ -91,30 +101,29 @@ class AchievementsActivity : AppCompatActivity() {
             // Title & description
             val body = LinearLayout(this)
             body.orientation = LinearLayout.VERTICAL
-            val layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-            )
-            body.layoutParams = layoutParams
+            body.layoutParams = layoutParamsBody
+            body.gravity = Gravity.CENTER
 
             val title = TextView(this)
             title.text = achievement.title
-            title.gravity = Gravity.CENTER
+            title.gravity = Gravity.CENTER_HORIZONTAL
             title.textSize = 20F
-            title.translationY = 20F
+            title.translationY = -20F
 
             val desc = TextView(this)
             desc.text = achievement.desc
-            desc.gravity = Gravity.CENTER
-            desc.translationY = 30F
+            desc.gravity = Gravity.CENTER_HORIZONTAL
+            desc.translationY = -30F
 
             body.addView(title)
             body.addView(desc)
             row.addView(body)
 
-            /**
-             * May add AP
-             */
+            // Point
+            val point = ImageView(this)
+            val pointID = resources.getIdentifier(achievement.pointsURI, "drawable", packageName)
+            point.setImageResource(pointID)
+            row.addView(point)
 
             wrapper.addView(row)
         }

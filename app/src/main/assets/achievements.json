@@ -15,7 +15,9 @@
     "id": "series_goal_1",
 >>>>>>> Rename achievement ids
     "title": "Set Sail",
-    "desc": "Illustrate your first goal."
+    "desc": "Illustrate your first goal.",
+    "points": 10,
+    "pointsURI": "points_10"
   },
   {
 <<<<<<< HEAD
@@ -36,8 +38,14 @@
     "title": "Set Sail 2",
 =======
     "title": "Here You Go",
+<<<<<<< HEAD
 >>>>>>> More achievements
     "desc": "Create your first task."
+=======
+    "desc": "Create your first task.",
+    "points": 10,
+    "pointsURI": "points_10"
+>>>>>>> Add point icon
   },
   {
 <<<<<<< HEAD
@@ -55,7 +63,9 @@
     "id": "series_goal_2",
 >>>>>>> Rename achievement ids
     "title": "The Sea",
-    "desc": "Illustrate 2 goals."
+    "desc": "Illustrate 2 goals.",
+    "points": 20,
+    "pointsURI": "points_20"
   },
   {
 <<<<<<< HEAD
@@ -77,8 +87,14 @@
     "desc": "Create 5 tasks."
 =======
     "title": "On The Pace",
+<<<<<<< HEAD
     "desc": "Create 10 tasks."
 >>>>>>> More achievements
+=======
+    "desc": "Create 10 tasks.",
+    "points": 20,
+    "pointsURI": "points_20"
+>>>>>>> Add point icon
   },
   {
 <<<<<<< HEAD
@@ -96,7 +112,9 @@
     "id": "series_goal_3",
 >>>>>>> Rename achievement ids
     "title": "The Ocean",
-    "desc": "Illustrate 5 goals."
+    "desc": "Illustrate 5 goals.",
+    "points": 50,
+    "pointsURI": "points_50"
   },
   {
 <<<<<<< HEAD
@@ -151,70 +169,104 @@
     "imageURI": "ic_baseline_add_task_24",
     "id": "series_task_3",
     "title": "A Sprint",
-    "desc": "Create 50 tasks."
+    "desc": "Create 50 tasks.",
+    "points": 50,
+    "pointsURI": "points_50"
   },
   {
     "imageURI": "ic_baseline_access_time_24",
     "id": "series_task_due_1",
     "title": "Job Done",
-    "desc": "Finish a task before due date."
+    "desc": "Finish a task before due date.",
+    "points": 10,
+    "pointsURI": "points_10"
   },
   {
     "imageURI": "ic_baseline_access_time_24",
     "id": "series_task_due_2",
     "title": "Keep Going",
-    "desc": "Finish 10 tasks before due date."
+    "desc": "Finish 10 tasks before due date.",
+    "points": 20,
+    "pointsURI": "points_20"
   },
   {
     "imageURI": "ic_baseline_access_time_24",
     "id": "series_task_due_3",
     "title": "That's Discipline",
-    "desc": "Finish 50 tasks before due date."
+    "desc": "Finish 50 tasks before due date.",
+    "points": 50,
+    "pointsURI": "points_50"
   },
   {
     "imageURI": "ic_baseline_card_giftcard_24",
-    "id": "series_acvm_1",
-    "title": "Harvest",
-    "desc": "Complete 3 achievements."
+    "id": "single_calendar",
+    "title": "Straightforward Look",
+    "desc": "Use calendar view to modify task.",
+    "points": 10,
+    "pointsURI": "points_10"
   },
   {
     "imageURI": "ic_baseline_card_giftcard_24",
-    "id": "series_acvm_2",
-    "title": "Big Harvest",
-    "desc": "Complete 10 achievements."
+    "id": "single_parent",
+    "title": "Your Child Behaves",
+    "desc": "Log in as parent.",
+    "points": 10,
+    "pointsURI": "points_10"
   },
   {
     "imageURI": "ic_baseline_card_giftcard_24",
+<<<<<<< HEAD
     "id": "series_acvm_3",
     "title": "Grand Slam",
     "desc": "Complete all achievements."
 <<<<<<< HEAD
 >>>>>>> A bit more achievements with images
 =======
-  },
-  {
-    "imageURI": "ic_baseline_card_giftcard_24",
-    "id": "single_calendar",
-    "title": "Straightforward Look",
-    "desc": "Use calendar view to modify task."
-  },
-  {
-    "imageURI": "ic_baseline_card_giftcard_24",
-    "id": "single_parent",
-    "title": "Your Child Behaves",
-    "desc": "Log in as parent."
-  },
-  {
-    "imageURI": "ic_baseline_card_giftcard_24",
+=======
     "id": "single_child",
     "title": "Time To Fight",
-    "desc": "Log in as child."
+    "desc": "Log in as child.",
+    "points": 10,
+    "pointsURI": "points_10"
+>>>>>>> Add point icon
   },
   {
     "imageURI": "ic_baseline_card_giftcard_24",
     "id": "single_makeover",
     "title": "Makeover",
+    "desc": "Change profile.",
+    "points": 10,
+    "pointsURI": "points_10"
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "series_acvm_1",
+    "title": "Harvest",
+    "desc": "Complete 3 achievements.",
+    "points": 10,
+    "pointsURI": "points_10"
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "series_acvm_2",
+    "title": "Big Harvest",
+    "desc": "Complete 10 achievements.",
+    "points": 50,
+    "pointsURI": "points_50"
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+<<<<<<< HEAD
+    "id": "single_makeover",
+    "title": "Makeover",
     "desc": "Change profile."
 >>>>>>> More achievements
+=======
+    "id": "series_acvm_3",
+    "title": "Grand Slam",
+    "desc": "Complete all achievements.",
+    "points": 100,
+    "pointsURI": "points_100"
+>>>>>>> Add point icon
   }
 ]

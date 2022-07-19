@@ -10,6 +10,8 @@ data class Achievement(
 <<<<<<< HEAD
 <<<<<<< HEAD
     val desc: String,
+    val points: Int,
+    val pointsURI: String,
     var done: Boolean = false,
 =======
     val desc: String
