@@ -8,5 +8,7 @@ data class Achievement(
     val id: String,
     val title: String,
     val desc: String,
+    val points: Int,
+    val pointsURI: String,
     var done: Boolean = false,
 )
