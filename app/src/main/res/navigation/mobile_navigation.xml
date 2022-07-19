@@ -42,6 +42,6 @@
 
         <action
             android:id="@+id/action_CreateTaskFormFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/nav_todo" />
     </fragment>
 </navigation>
