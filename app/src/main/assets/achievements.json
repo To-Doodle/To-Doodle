@@ -31,8 +31,12 @@
     "id": "set_sail_2",
 =======
     "id": "series_task_1",
+<<<<<<< HEAD
 >>>>>>> Rename achievement ids
     "title": "Set Sail 2",
+=======
+    "title": "Here You Go",
+>>>>>>> More achievements
     "desc": "Create your first task."
   },
   {
@@ -67,9 +71,14 @@
     "id": "the_sea_2",
 =======
     "id": "series_task_2",
+<<<<<<< HEAD
 >>>>>>> Rename achievement ids
     "title": "The Sea 2",
     "desc": "Create 5 tasks."
+=======
+    "title": "On The Pace",
+    "desc": "Create 10 tasks."
+>>>>>>> More achievements
   },
   {
 <<<<<<< HEAD
@@ -141,26 +150,26 @@
 =======
     "imageURI": "ic_baseline_add_task_24",
     "id": "series_task_3",
-    "title": "The Ocean 2",
-    "desc": "Create 20 tasks."
+    "title": "A Sprint",
+    "desc": "Create 50 tasks."
   },
   {
     "imageURI": "ic_baseline_access_time_24",
-    "id": "single_task_due_1",
+    "id": "series_task_due_1",
     "title": "Job Done",
     "desc": "Finish a task before due date."
   },
   {
     "imageURI": "ic_baseline_access_time_24",
-    "id": "single_task_due_2",
-    "title": "Job Done 2",
-    "desc": "Finish 20 tasks before due date."
+    "id": "series_task_due_2",
+    "title": "Keep Going",
+    "desc": "Finish 10 tasks before due date."
   },
   {
     "imageURI": "ic_baseline_access_time_24",
-    "id": "single_task_due_3",
-    "title": "Job Done 3",
-    "desc": "Finish 100 tasks before due date."
+    "id": "series_task_due_3",
+    "title": "That's Discipline",
+    "desc": "Finish 50 tasks before due date."
   },
   {
     "imageURI": "ic_baseline_card_giftcard_24",
@@ -179,6 +188,33 @@
     "id": "series_acvm_3",
     "title": "Grand Slam",
     "desc": "Complete all achievements."
+<<<<<<< HEAD
 >>>>>>> A bit more achievements with images
+=======
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "single_calendar",
+    "title": "Straightforward Look",
+    "desc": "Use calendar view to modify task."
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "single_parent",
+    "title": "Your Child Behaves",
+    "desc": "Log in as parent."
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "single_child",
+    "title": "Time To Fight",
+    "desc": "Log in as child."
+  },
+  {
+    "imageURI": "ic_baseline_card_giftcard_24",
+    "id": "single_makeover",
+    "title": "Makeover",
+    "desc": "Change profile."
+>>>>>>> More achievements
   }
 ]
