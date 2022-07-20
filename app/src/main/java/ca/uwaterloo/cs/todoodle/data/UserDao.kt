@@ -26,4 +26,7 @@ interface UserDao {
 
     @Query("UPDATE user SET completed_achievements = :achievements WHERE uid = :userId")
     fun updateCompletedAchievements(userId: Int, achievements: HashMap<String, Int>)
+
+    @Query("UPDATE user SET points = :points WHERE uid = :userId")
+    fun updatePoints(userId: Int, points: Int)
 }
