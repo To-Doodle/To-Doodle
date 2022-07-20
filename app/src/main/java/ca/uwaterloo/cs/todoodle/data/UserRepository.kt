@@ -16,4 +16,12 @@ class UserRepository(private val userDao: UserDao) {
      */
     fun updateCompletedAchievements(userId: Int, achievements: HashMap<String, Int>) =
         userDao.updateCompletedAchievements(userId, achievements)
+
+    /**
+     * Update the user points
+     * @param userId User id
+     * @param points The new completed achievements
+     */
+    fun updatePoints(userId: Int, points: Int) =
+        userDao.updatePoints(userId, points)
 }
