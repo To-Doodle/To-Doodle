@@ -11,7 +11,6 @@ data class Achievement(
 <<<<<<< HEAD
     val desc: String,
     val points: Int,
-    val pointsURI: String,
     var done: Boolean = false,
 =======
     val desc: String

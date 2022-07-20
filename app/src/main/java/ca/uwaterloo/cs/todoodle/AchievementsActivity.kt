@@ -1,5 +1,6 @@
 package ca.uwaterloo.cs.todoodle
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -8,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.view.GravityCompat
+import androidx.core.view.marginStart
 import androidx.lifecycle.ViewModelProvider
 import ca.uwaterloo.cs.todoodle.data.model.Achievement
 
@@ -75,16 +77,23 @@ class AchievementsActivity : AppCompatActivity() {
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-        layoutParams.marginStart = 16
-        layoutParams.marginEnd = 16
+        layoutParams.marginStart = 32
+        layoutParams.marginEnd = 32
         wrapper.layoutParams = layoutParams
+
+        // For icon content
+        val layoutParamsIcon = LinearLayout.LayoutParams(
+            256,
+            320
+        )
 
         // For body content
         val layoutParamsBody = LinearLayout.LayoutParams(
-            0,
+            LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT,
             1.0f
         )
+        layoutParamsBody.marginStart = -128
 
         for (achievement in achievements) {
             // Achievement wrapper
@@ -92,11 +101,19 @@ class AchievementsActivity : AppCompatActivity() {
             row.orientation = LinearLayout.HORIZONTAL
             row.gravity = Gravity.CENTER
 
-            // Image
-            val image = ImageView(this)
+            // Points Border
+            val border = ImageView(this)
+            val borderResID = resources.getIdentifier("points_border", "drawable", packageName)
+            border.setImageResource(borderResID)
+            border.layoutParams = layoutParamsIcon
+            row.addView(border)
+
+            // Points
+            val icon = ImageView(this)
             val resID = resources.getIdentifier(achievement.imageURI, "drawable", packageName)
-            image.setImageResource(resID)
-            row.addView(image)
+            icon.setImageResource(resID)
+            icon.translationX = -208F
+            row.addView(icon)
 
             // Title & description
             val body = LinearLayout(this)
@@ -104,26 +121,27 @@ class AchievementsActivity : AppCompatActivity() {
             body.layoutParams = layoutParamsBody
             body.gravity = Gravity.CENTER
 
+            val badge = ImageView(this)
+            val badgeResID = resources.getIdentifier("points_title", "drawable", packageName)
+            badge.setImageResource(badgeResID)
+            badge.adjustViewBounds = true
+
             val title = TextView(this)
             title.text = achievement.title
             title.gravity = Gravity.CENTER_HORIZONTAL
-            title.textSize = 20F
-            title.translationY = -20F
+            title.textSize = 32F
+            title.translationY = -128F
 
             val desc = TextView(this)
             desc.text = achievement.desc
             desc.gravity = Gravity.CENTER_HORIZONTAL
-            desc.translationY = -30F
+            title.textSize = 24F
+            desc.translationY = -60F
 
+            body.addView(badge)
             body.addView(title)
             body.addView(desc)
             row.addView(body)
-
-            // Point
-            val point = ImageView(this)
-            val pointID = resources.getIdentifier(achievement.pointsURI, "drawable", packageName)
-            point.setImageResource(pointID)
-            row.addView(point)
 
             wrapper.addView(row)
         }
