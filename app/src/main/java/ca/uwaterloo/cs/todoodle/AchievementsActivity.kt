@@ -4,12 +4,11 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import androidx.core.view.GravityCompat
-import androidx.core.view.marginStart
 import androidx.lifecycle.ViewModelProvider
 import ca.uwaterloo.cs.todoodle.data.model.Achievement
 
@@ -52,6 +51,13 @@ class AchievementsActivity : AppCompatActivity() {
         layoutParams.marginEnd = 32
         wrapper.layoutParams = layoutParams
 
+        // For row container
+        val layoutParamsRow = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT,
+        )
+        layoutParamsRow.setMargins(0, 16, 0, 16)
+
         // For icon content
         val layoutParamsIcon = LinearLayout.LayoutParams(
             256,
@@ -66,11 +72,18 @@ class AchievementsActivity : AppCompatActivity() {
         )
         layoutParamsBody.marginStart = -128
 
+        // For divider
+        val layoutParamsDivider = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            1,
+        )
+
         for (achievement in achievements) {
             // Achievement wrapper
             val row = LinearLayout(this)
             row.orientation = LinearLayout.HORIZONTAL
             row.gravity = Gravity.CENTER
+            row.layoutParams = layoutParamsRow
 
             // Points Border
             val border = ImageView(this)
@@ -91,30 +104,36 @@ class AchievementsActivity : AppCompatActivity() {
             body.orientation = LinearLayout.VERTICAL
             body.layoutParams = layoutParamsBody
             body.gravity = Gravity.CENTER
-
-            val badge = ImageView(this)
-            val badgeResID = resources.getIdentifier("points_title", "drawable", packageName)
-            badge.setImageResource(badgeResID)
-            badge.adjustViewBounds = true
+            body.setBackgroundResource(R.drawable.points_title)
 
             val title = TextView(this)
             title.text = achievement.title
             title.gravity = Gravity.CENTER_HORIZONTAL
-            title.textSize = 32F
-            title.translationY = -128F
+            title.textSize = 24F
+            title.translationY = -32F
 
             val desc = TextView(this)
             desc.text = achievement.desc
             desc.gravity = Gravity.CENTER_HORIZONTAL
-            title.textSize = 24F
-            desc.translationY = -60F
+            desc.textSize = 18F
+            desc.translationY = 64F
+            desc.maxLines = 1
 
-            body.addView(badge)
+            // Fill body
             body.addView(title)
             body.addView(desc)
+
+            // Fill row
             row.addView(body)
 
+            // Append row
             wrapper.addView(row)
+
+            val divider = View(this)
+            divider.layoutParams = layoutParamsDivider
+            divider.setBackgroundColor(Color.GRAY)
+            wrapper.addView(divider)
+
         }
 
         // Append wrapper to scrollview
