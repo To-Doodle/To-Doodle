@@ -54,14 +54,17 @@ class AchievementsActivity : AppCompatActivity() {
 =======
 
         // Get updated achievements info from local asset and DB and render the page
-        val observable = achievementsViewModel.loadAchievements()
-        observable.observe(this) { achievements ->
+        val achievementsObservable = achievementsViewModel.loadAchievements()
+        achievementsObservable.observe(this) { achievements ->
             val updatedAchievements =
                 achievementsViewModel.updateAchievementCompletionStatus(achievements)
             initAchievementsLayout(updatedAchievements)
 >>>>>>> Add achievement status handler
         }
 
+        // Render the points indicator
+        val points = achievementsViewModel.getPoints()
+        initPoints(points)
     }
 
     /**
@@ -108,7 +111,6 @@ class AchievementsActivity : AppCompatActivity() {
         )
 
         for (achievement in achievements) {
-            achievement.done = true
             // Achievement wrapper
             val row = LinearLayout(this)
             row.orientation = LinearLayout.HORIZONTAL
@@ -192,5 +194,12 @@ class AchievementsActivity : AppCompatActivity() {
         findViewById<ScrollView>(R.id.achievementsWrapper).addView(wrapper)
     }
 
-
+    /**
+     * Change the text of points indicator
+     * @param points User points
+     */
+    private fun initPoints(points: Int) {
+        val indicator = findViewById<TextView>(R.id.coinIndicator)
+        indicator.text = "$points AP"
+    }
 }

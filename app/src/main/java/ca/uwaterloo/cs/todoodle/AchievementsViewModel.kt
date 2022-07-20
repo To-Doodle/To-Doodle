@@ -106,6 +106,7 @@ class AchievementsViewModel(application: Application, private val filename: Stri
         return achievements
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     /**
 <<<<<<< HEAD
@@ -138,4 +139,15 @@ class AchievementsViewModel(application: Application, private val filename: Stri
     }
 =======
 >>>>>>> Create achievement repository
+=======
+
+    /**
+     * Get user points
+     * @return User points
+     */
+    fun getPoints(): Int {
+        return achievementRepository.getPoints()
+    }
+
+>>>>>>> Add points retriever. Display in achievement page
 }
