@@ -46,4 +46,13 @@ class AchievementsViewModel(application: Application, private val filename: Stri
 
         return achievements
     }
+
+    /**
+     * Get user points
+     * @return User points
+     */
+    fun getPoints(): Int {
+        return achievementRepository.getPoints()
+    }
+
 }

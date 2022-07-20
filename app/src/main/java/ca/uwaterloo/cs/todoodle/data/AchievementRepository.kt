@@ -70,6 +70,27 @@ class AchievementRepository(
     }
 
     /**
+     * Get user points
+     * @return User points
+     */
+    fun getPoints(): Int {
+        /**
+         * Query all completed achievements from the target
+         * Loop through the achievements and change the `done` attribute
+         * That's why we store the achievement info as hashmap/dictionary instead of an array/list in DB
+         * We got O(n) complexity with hashmap but O(n^2) complexity with array
+         */
+
+        // Now we don't have user in the DB so fake it
+//        val userId = 1
+//        val userObj = userRepository.findById(userId)
+//        val points = userObj.points
+
+        return 0
+//        return points
+    }
+
+    /**
      * Check and update achievements after DB manipulation
      * @param userId user id
      */
