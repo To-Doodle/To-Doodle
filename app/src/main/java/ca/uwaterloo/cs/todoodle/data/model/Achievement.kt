@@ -9,6 +9,5 @@ data class Achievement(
     val title: String,
     val desc: String,
     val points: Int,
-    val pointsURI: String,
     var done: Boolean = false,
 )
