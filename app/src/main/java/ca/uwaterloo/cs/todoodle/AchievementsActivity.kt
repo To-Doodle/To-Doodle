@@ -108,6 +108,7 @@ class AchievementsActivity : AppCompatActivity() {
         )
 
         for (achievement in achievements) {
+            achievement.done = true
             // Achievement wrapper
             val row = LinearLayout(this)
             row.orientation = LinearLayout.HORIZONTAL
@@ -116,7 +117,8 @@ class AchievementsActivity : AppCompatActivity() {
 
             // Points Border
             val border = ImageView(this)
-            val borderResID = resources.getIdentifier("points_border", "drawable", packageName)
+            val borderResID =
+                if (achievement.done) R.drawable.points_border_done else R.drawable.points_border
             border.setImageResource(borderResID)
             border.layoutParams = layoutParamsIcon
             row.addView(border)
@@ -131,15 +133,23 @@ class AchievementsActivity : AppCompatActivity() {
             // Title & description
             val body = LinearLayout(this)
             body.orientation = LinearLayout.VERTICAL
+            if (achievement.done) {
+                layoutParamsBody.marginEnd = -128
+            }
             body.layoutParams = layoutParamsBody
             body.gravity = Gravity.CENTER
-            body.setBackgroundResource(R.drawable.points_title)
+            val bodyResID =
+                if (achievement.done) R.drawable.points_title_done else R.drawable.points_title
+            body.setBackgroundResource(bodyResID)
 
             val title = TextView(this)
             title.text = achievement.title
             title.gravity = Gravity.CENTER_HORIZONTAL
             title.textSize = 24F
             title.translationY = -32F
+            if (achievement.done) {
+                title.setTextColor(Color.WHITE)
+            }
 
             val desc = TextView(this)
             desc.text = achievement.desc
@@ -147,6 +157,9 @@ class AchievementsActivity : AppCompatActivity() {
             desc.textSize = 18F
             desc.translationY = 64F
             desc.maxLines = 1
+            if (achievement.done) {
+                desc.setTextColor(Color.BLACK)
+            }
 
             // Fill body
             body.addView(title)
@@ -154,6 +167,16 @@ class AchievementsActivity : AppCompatActivity() {
 
             // Fill row
             row.addView(body)
+
+            // Done badge
+            if (achievement.done) {
+                val badge = ImageView(this)
+                val badgeResID = R.drawable.medal
+                badge.setImageResource(badgeResID)
+                badge.translationX = -576F
+                badge.translationY = -64F
+                row.addView(badge)
+            }
 
             // Append row
             wrapper.addView(row)
