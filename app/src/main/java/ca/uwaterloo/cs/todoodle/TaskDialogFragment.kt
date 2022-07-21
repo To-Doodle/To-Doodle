@@ -12,7 +12,8 @@ class TaskDialogFragment:DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var rootView: View = inflater.inflate(R.layout.item_card, container, false)
+        var rootView: View = inflater.inflate(R.layout.task_dialog, container, false)
         return  rootView
+
     }
 }
