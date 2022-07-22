@@ -27,10 +27,10 @@ class TodoActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.coinIndicator2.setOnClickListener{
-            val intent = Intent(this, AchievementsFragment::class.java)
-            startActivity(intent)
-        }
+//        binding.coinIndicator2.setOnClickListener{
+//            val intent = Intent(this, AchievementsFragment::class.java)
+//            startActivity(intent)
+//        }
         binding.fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show()
