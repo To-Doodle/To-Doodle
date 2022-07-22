@@ -2,7 +2,7 @@
   {
     "id": "series_goal_1",
     "title": "Set Sail",
-    "desc": "Illustrate your first goal.",
+    "desc": "Illustrate your first doodle.",
     "points": 10,
     "imageURI": "points_10"
   },
@@ -16,7 +16,7 @@
   {
     "id": "series_goal_2",
     "title": "The Sea",
-    "desc": "Illustrate 2 goals.",
+    "desc": "Illustrate 2 doodles.",
     "points": 20,
     "imageURI": "points_20"
   },
@@ -30,7 +30,7 @@
   {
     "id": "series_goal_3",
     "title": "The Ocean",
-    "desc": "Illustrate 5 goals.",
+    "desc": "Illustrate 5 doodles.",
     "points": 50,
     "imageURI": "points_50"
   },
