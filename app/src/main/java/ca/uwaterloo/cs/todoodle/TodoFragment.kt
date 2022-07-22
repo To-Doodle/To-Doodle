@@ -36,6 +36,8 @@ class SecondFragment : Fragment() {
 
     private var titlesList = mutableListOf<String>()
     private var deadlinesList = mutableListOf<String>()
+    private var categoryList = mutableListOf<String>()
+    private var notesList = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +48,10 @@ class SecondFragment : Fragment() {
         taskList = dao.getAll()
         titlesList.clear()
         deadlinesList.clear()
+        categoryList.clear()
+        notesList.clear()
         for (i in taskList) {
-            addToList(i.taskName.toString(), i.dueDate.toString())
+            addToList(i.taskName.toString(), i.dueDate.toString(), i.category.toString(), i.additionalNotes.toString())
         }
 
         _binding = FragmentTodoBinding.inflate(inflater, container, false)
@@ -96,8 +100,10 @@ class SecondFragment : Fragment() {
         }
     }
 
-    private fun addToList(title:String, deadLine:String) {
+    private fun addToList(title:String, deadLine:String, category:String, note:String) {
         titlesList.add(title)
         deadlinesList.add(deadLine)
+        categoryList.add(category)
+        notesList.add(note)
     }
 }

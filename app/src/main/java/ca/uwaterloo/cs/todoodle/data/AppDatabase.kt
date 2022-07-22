@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
 
-@Database(entities = [User::class, Task::class], version = 2)
+@Database(entities = [User::class, Task::class], version = 5)
 @TypeConverters(AchievementConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
