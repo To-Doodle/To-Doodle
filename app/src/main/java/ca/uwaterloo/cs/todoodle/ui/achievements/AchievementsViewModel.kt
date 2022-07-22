@@ -1,4 +1,4 @@
-package ca.uwaterloo.cs.todoodle
+package ca.uwaterloo.cs.todoodle.ui.achievements
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
