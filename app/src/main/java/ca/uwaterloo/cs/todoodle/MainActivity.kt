@@ -3,7 +3,6 @@ package ca.uwaterloo.cs.todoodle
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import ca.uwaterloo.cs.todoodle.databinding.ActivityMainBinding
+import ca.uwaterloo.cs.todoodle.ui.achievements.AchievementsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         binding.appBarMain.coinIndicator2.setOnClickListener{
-            val intent = Intent(this, AchievementsActivity::class.java)
+            val intent = Intent(this, AchievementsFragment::class.java)
             startActivity(intent)
         }
     }

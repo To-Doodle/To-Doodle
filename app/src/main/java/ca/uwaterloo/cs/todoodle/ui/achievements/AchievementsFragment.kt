@@ -1,33 +1,41 @@
-package ca.uwaterloo.cs.todoodle
+package ca.uwaterloo.cs.todoodle.ui.achievements
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import ca.uwaterloo.cs.todoodle.R
 import ca.uwaterloo.cs.todoodle.data.model.Achievement
+import ca.uwaterloo.cs.todoodle.databinding.FragmentAchievementsBinding
 
-class AchievementsActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_achievements)
-        title = "Achievements"
+class AchievementsFragment : Fragment() {
+    private lateinit var binding: FragmentAchievementsBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        binding = FragmentAchievementsBinding.inflate(layoutInflater)
 
         // Initialize achievements ViewModel
         val achievementsViewModel =
             ViewModelProvider(
                 this,
-                AchievementsViewModelFactory(application, "achievements.json")
+                AchievementsViewModelFactory(activity!!.application, "achievements.json")
             )[AchievementsViewModel::class.java]
 
         // Get updated achievements info from local asset and DB and render the page
         val achievementsObservable = achievementsViewModel.loadAchievements()
-        achievementsObservable.observe(this) { achievements ->
+        achievementsObservable.observe(activity!!) { achievements ->
             val updatedAchievements =
                 achievementsViewModel.updateAchievementCompletionStatus(achievements)
             initAchievementsLayout(updatedAchievements)
@@ -36,6 +44,8 @@ class AchievementsActivity : AppCompatActivity() {
         // Render the points indicator
         val points = achievementsViewModel.getPoints()
         initPoints(points)
+
+        return binding.root
     }
 
     /**
@@ -44,7 +54,7 @@ class AchievementsActivity : AppCompatActivity() {
      */
     private fun initAchievementsLayout(achievements: List<Achievement>) {
         // Must create a LinearLayout inside ScrollView
-        val wrapper = LinearLayout(this)
+        val wrapper = LinearLayout(activity!!)
         wrapper.orientation = LinearLayout.VERTICAL
         val layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -83,13 +93,14 @@ class AchievementsActivity : AppCompatActivity() {
 
         for (achievement in achievements) {
             // Achievement wrapper
-            val row = LinearLayout(this)
+//            achievement.done = true
+            val row = LinearLayout(activity!!)
             row.orientation = LinearLayout.HORIZONTAL
             row.gravity = Gravity.CENTER
             row.layoutParams = layoutParamsRow
 
             // Points Border
-            val border = ImageView(this)
+            val border = ImageView(activity!!)
             val borderResID =
                 if (achievement.done) R.drawable.points_border_done else R.drawable.points_border
             border.setImageResource(borderResID)
@@ -97,14 +108,15 @@ class AchievementsActivity : AppCompatActivity() {
             row.addView(border)
 
             // Points
-            val icon = ImageView(this)
-            val resID = resources.getIdentifier(achievement.imageURI, "drawable", packageName)
+            val icon = ImageView(activity!!)
+            val resID =
+                resources.getIdentifier(achievement.imageURI, "drawable", activity!!.packageName)
             icon.setImageResource(resID)
             icon.translationX = -208F
             row.addView(icon)
 
             // Title & description
-            val body = LinearLayout(this)
+            val body = LinearLayout(activity!!)
             body.orientation = LinearLayout.VERTICAL
             if (achievement.done) {
                 layoutParamsBody.marginEnd = -128
@@ -115,7 +127,7 @@ class AchievementsActivity : AppCompatActivity() {
                 if (achievement.done) R.drawable.points_title_done else R.drawable.points_title
             body.setBackgroundResource(bodyResID)
 
-            val title = TextView(this)
+            val title = TextView(activity!!)
             title.text = achievement.title
             title.gravity = Gravity.CENTER_HORIZONTAL
             title.textSize = 24F
@@ -124,7 +136,7 @@ class AchievementsActivity : AppCompatActivity() {
                 title.setTextColor(Color.WHITE)
             }
 
-            val desc = TextView(this)
+            val desc = TextView(activity!!)
             desc.text = achievement.desc
             desc.gravity = Gravity.CENTER_HORIZONTAL
             desc.textSize = 18F
@@ -143,7 +155,7 @@ class AchievementsActivity : AppCompatActivity() {
 
             // Done badge
             if (achievement.done) {
-                val badge = ImageView(this)
+                val badge = ImageView(activity!!)
                 val badgeResID = R.drawable.medal
                 badge.setImageResource(badgeResID)
                 badge.translationX = -576F
@@ -154,7 +166,7 @@ class AchievementsActivity : AppCompatActivity() {
             // Append row
             wrapper.addView(row)
 
-            val divider = View(this)
+            val divider = View(activity!!)
             divider.layoutParams = layoutParamsDivider
             divider.setBackgroundColor(Color.GRAY)
             wrapper.addView(divider)
@@ -162,7 +174,7 @@ class AchievementsActivity : AppCompatActivity() {
         }
 
         // Append wrapper to scrollview
-        findViewById<ScrollView>(R.id.achievementsWrapper).addView(wrapper)
+        binding.achievementsWrapper.addView(wrapper)
     }
 
     /**
@@ -170,7 +182,7 @@ class AchievementsActivity : AppCompatActivity() {
      * @param points User points
      */
     private fun initPoints(points: Int) {
-        val indicator = findViewById<TextView>(R.id.coinIndicator)
+        val indicator = binding.coinIndicator
         indicator.text = "$points AP"
     }
 }
