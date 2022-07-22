@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        binding.appBarMain.coinIndicator2.setOnClickListener{
-            val intent = Intent(this, AchievementsFragment::class.java)
-            startActivity(intent)
-        }
+//        binding.appBarMain.coinIndicator2.setOnClickListener{
+//            val intent = Intent(this, AchievementsFragment::class.java)
+//            startActivity(intent)
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
