@@ -11,3 +11,18 @@ data class Achievement(
     val points: Int,
     var done: Boolean = false,
 )
+
+/**
+ * Type of achievement. Pass this to achievement updater during DB manipulation
+ * @param id Partial of the achievement id defined in the JSON file
+ */
+enum class AchievementType(val id: String){
+    TASK("series_task"),
+    GOAL("series_goal"),
+    DUE("series_task_due"),
+    CALENDAR("single_calendar"),
+    PARENT("single_parent"),
+    CHILD("single_child"),
+    PROFILE("single_makeover"),
+    ACHIEVEMENT("series_acvm"),
+}

@@ -2,6 +2,7 @@ package ca.uwaterloo.cs.todoodle.data
 
 import android.app.Application
 import ca.uwaterloo.cs.todoodle.data.model.Achievement
+import ca.uwaterloo.cs.todoodle.data.model.AchievementType
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
@@ -14,7 +15,8 @@ class AchievementRepository(
     private val filename: String,
 ) {
     // initialize dao and repository
-    private val userDao = AppDatabase.getInstance(app).userDao()
+    private val appDB = AppDatabase.getInstance(app)
+    private val userDao = appDB.userDao()
     private val userRepository = UserRepository(userDao)
     private val loginRepository = LoginRepository(LoginDataSource())
 
@@ -92,35 +94,67 @@ class AchievementRepository(
 
     /**
      * Check and update achievements after DB manipulation
-     * @param userId user id
+     * @param type Achievement type defined as enumeration
+     * @param amount Used for deciding the level of achievement
      */
-    fun checkAndUpdateAchievements(userId: Int) {
+    fun checkAndUpdateAchievements(type: AchievementType, amount: Int? = 0) {
         val completedAchievements = getCompletedAchievements()
+        val typeID = type.id
+
+        // Skip the completed achievement with type SINGLE
+        if (typeID.startsWith("single") && typeID in completedAchievements) return
 
         // Update the records if achievement was completed by the latest DB manipulation
-        for ((id, _) in achievements) {
-            if (id in completedAchievements) continue
-
-            val shouldUpdate = checkAchievement(id)
-            if (shouldUpdate) {
-                completedAchievements[id] = 1
-            }
-
-            updateAchievements(completedAchievements)
+        val completedAchievement = checkAchievement(type, amount)
+        if (completedAchievement != null) {
+            completedAchievements[completedAchievement] = 1
         }
+
+        // Also check for achievement itself
+        val numberOfCompletedAchievements = completedAchievements.size
+        val completedSelf =
+            checkAchievement(AchievementType.ACHIEVEMENT, numberOfCompletedAchievements)
+        if (completedSelf != null) {
+            completedAchievements[completedSelf] = 1
+        }
+
+        updateAchievements(completedAchievements)
     }
 
     /**
      * Check various objects in DB to see if meets the requirement of achievement
-     * @param achievementID The achievement to check
-     * @return If meet the requirement
+     * @param type Achievement type defined as enumeration
+     * @param amount Used for deciding the level of achievement
+     * @return The achievement ID that should be mark as completed
      */
-    private fun checkAchievement(achievementID: String): Boolean {
-        var result = false
-        when (achievementID){
-            "series_goal_1" -> result = "#goal >= 1" == ""
-            "series_goal_2" -> result = "#goal >= 2" == ""
-            // ...
+    private fun checkAchievement(
+        type: AchievementType,
+        amount: Int? = 0
+    ): String? {
+        var result: String? = null
+        when (type) {
+            AchievementType.GOAL -> {
+                // Check number of doodles
+            }
+            AchievementType.TASK -> {
+                val taskDao = appDB.taskDao()
+
+                // Get all tasks of user. Below is wrong. Need the SQL.
+                val tasks = taskDao.getAll()
+                result = when (tasks.size) {
+                    in 50..Int.MAX_VALUE -> type.id + "_3"
+                    in 10..49 -> type.id + "_2"
+                    in 1..9 -> type.id + "_1"
+                    else -> null
+                }
+            }
+            AchievementType.DUE -> {
+                // Check number of in-time tasks
+            }
+            else -> {
+                // For SINGLE achievement return its id
+                result = type.id
+            }
         }
 
         return result
