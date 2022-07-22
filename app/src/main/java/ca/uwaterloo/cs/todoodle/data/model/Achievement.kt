@@ -12,6 +12,7 @@ data class Achievement(
     val desc: String,
     val points: Int,
     var done: Boolean = false,
+<<<<<<< HEAD
 =======
     val desc: String
 >>>>>>> Apply MVVM to achievements
@@ -20,3 +21,21 @@ data class Achievement(
     var done: Boolean = false,
 >>>>>>> Add achievement status handler
 )
+=======
+)
+
+/**
+ * Type of achievement. Pass this to achievement updater during DB manipulation
+ * @param id Partial of the achievement id defined in the JSON file
+ */
+enum class AchievementType(val id: String){
+    TASK("series_task"),
+    GOAL("series_goal"),
+    DUE("series_task_due"),
+    CALENDAR("single_calendar"),
+    PARENT("single_parent"),
+    CHILD("single_child"),
+    PROFILE("single_makeover"),
+    ACHIEVEMENT("series_acvm"),
+}
+>>>>>>> Add some achievement validator
