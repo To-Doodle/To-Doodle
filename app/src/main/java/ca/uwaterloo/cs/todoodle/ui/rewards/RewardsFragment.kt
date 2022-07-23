@@ -164,7 +164,9 @@ class RewardsFragment : Fragment() {
      */
     private fun addRedeemEvent(btn: Button, reward: Reward) {
         btn.setOnClickListener {
-            println(reward.points)
+            val dialog = RewardDialogFragment()
+            val manager = activity!!.supportFragmentManager
+            dialog.show(manager, "reward")
         }
     }
 
