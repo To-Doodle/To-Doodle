@@ -17,23 +17,22 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import ca.uwaterloo.cs.todoodle.data.AppDatabase
-import ca.uwaterloo.cs.todoodle.data.Task
-import ca.uwaterloo.cs.todoodle.data.TaskDao
+import ca.uwaterloo.cs.todoodle.data.model.Task
 
-class RecycleViewAdapter(private val titles: List<String>, private val deadlines: List<String>, private val tasks: List<Task>) : RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
+class RecycleViewAdapter(private val titles: List<String>, private val deadlines: List<String>, private val categories: List<String>, private val notes: List<String>) : RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
 
-    private lateinit var dao: TaskDao
     private lateinit var navCtr: NavController
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.title_view)
         val itemDue: TextView = itemView.findViewById(R.id.date_view)
-        var itemTask: Task = Task(0, "", "", "", "")
+        var itemCategory = ""
+        var itemNote = ""
 
 
         init {
             itemView.setOnClickListener { v: View ->
-                dao = AppDatabase.getInstance(itemView.context).taskDao()
+//                dao = AppDatabase.getInstance(itemView.context).taskDao()
 
                 val builder = AlertDialog.Builder(v.context)
                 val dialogView = LayoutInflater.from(v.rootView.context).inflate(R.layout.task_dialog, null)
@@ -47,10 +46,10 @@ class RecycleViewAdapter(private val titles: List<String>, private val deadlines
                 val clearButton: ImageButton = dialogView.findViewById(R.id.clearButton)
                 val deleteButton: ImageButton = dialogView.findViewById(R.id.deleteButton)
                 val editButton: ImageButton = dialogView.findViewById(R.id.editButton)
-                dialogTitle.text = itemTask.taskName.toString()
-                dialogDate.text = "Date: " + itemTask.dueDate.toString()
-                dialogCategory.text = "Category: " + itemTask.category.toString()
-                dialogNotes.text = "Additonal notes: " + itemTask.additionalNotes.toString()
+                dialogTitle.text = itemTitle.text.toString()
+                dialogDate.text = itemDue.text.toString()
+                dialogCategory.text = itemCategory
+                dialogNotes.text = itemNote
                 editButton.setOnClickListener{
 //                    val activity = itemView.context as AppCompatActivity
 //
@@ -59,7 +58,7 @@ class RecycleViewAdapter(private val titles: List<String>, private val deadlines
 
                 }
                 deleteButton.setOnClickListener{
-                    dao.delete(itemTask)
+//                    dao.delete(itemTask)
                     dialog.dismiss()
                     itemTitle.apply {
                         paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -97,7 +96,7 @@ class RecycleViewAdapter(private val titles: List<String>, private val deadlines
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemTitle.text = titles[position]
         holder.itemDue.text = deadlines[position]
-        holder.itemTask = tasks[position]
-
+        holder.itemCategory = categories[position]
+        holder.itemNote = notes[position]
     }
 }

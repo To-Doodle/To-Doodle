@@ -1,19 +1,17 @@
 package ca.uwaterloo.cs.todoodle
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.SoundEffectConstants
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import ca.uwaterloo.cs.todoodle.data.AppDatabase
-import ca.uwaterloo.cs.todoodle.data.Task
-import ca.uwaterloo.cs.todoodle.data.TaskDao
+import ca.uwaterloo.cs.todoodle.data.model.Task
 import ca.uwaterloo.cs.todoodle.databinding.FragmentTodoBinding
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 
 /**
@@ -30,9 +28,7 @@ class SecondFragment : Fragment() {
     // Navigation controller
     private lateinit var navCtr: NavController
 
-    private lateinit var dao: TaskDao
-
-    private lateinit var taskList: List<Task>
+    private var taskList = mutableListOf<Task>()
 
     private var titlesList = mutableListOf<String>()
     private var deadlinesList = mutableListOf<String>()
@@ -44,14 +40,22 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        dao = AppDatabase.getInstance(requireContext()).taskDao()
-        taskList = dao.getAll()
         titlesList.clear()
         deadlinesList.clear()
         categoryList.clear()
         notesList.clear()
-        for (i in taskList) {
-            addToList(i.taskName.toString(), i.dueDate.toString(), i.category.toString(), i.additionalNotes.toString())
+
+        val database = Firebase.database.reference
+
+        database.child("tasks").get().addOnSuccessListener { dataSnapshot ->
+            for (postSnapshot in dataSnapshot.children) {
+                // TODO: handle the post
+                println(postSnapshot)
+                val task = postSnapshot.getValue(Task::class.java)
+                taskList.add(task!!)
+                addToList(task!!.taskName!!, task!!.deadline!!, task!!.category!!, task!!.notes!!)
+            }
+            binding.recyclerView.adapter = RecycleViewAdapter(titlesList, deadlinesList, categoryList, notesList)
         }
 
         _binding = FragmentTodoBinding.inflate(inflater, container, false)
@@ -61,28 +65,12 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
         }
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity!!.applicationContext)
-        binding.recyclerView.adapter = RecycleViewAdapter(titlesList, deadlinesList, taskList)
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
+
         initCreateTaskFormData()
 
         return binding.root
 
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Restore FirstFragment by uncommenting lines below
-//        binding.buttonSecond.setOnClickListener {
-//            navCtr.navigate(R.id.action_SecondFragment_to_FirstFragment)
-//        }
-//        binding.buttonCreateTaskForm.setOnClickListener {
-//            navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
-//        }
-        /*binding.coinIndicator.setOnClickListener {
-            val intent = Intent(activity, RewardsActivity::class.java)
-            startActivity(intent)
-        }*/
     }
 
     override fun onDestroyView() {
@@ -101,6 +89,9 @@ class SecondFragment : Fragment() {
     }
 
     private fun addToList(title:String, deadLine:String, category:String, note:String) {
+        println("addToList")
+        println(title)
+        println(deadLine)
         titlesList.add(title)
         deadlinesList.add(deadLine)
         categoryList.add(category)
