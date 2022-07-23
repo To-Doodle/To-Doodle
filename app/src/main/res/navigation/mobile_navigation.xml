@@ -18,6 +18,18 @@
         tools:layout="@layout/fragment_doodle" />
 
     <fragment
+        android:id="@+id/nav_achievements"
+        android:name="ca.uwaterloo.cs.todoodle.ui.achievements.AchievementsFragment"
+        android:label="@string/menu_achievements"
+        tools:layout="@layout/fragment_achievements" />
+
+    <fragment
+        android:id="@+id/nav_rewards"
+        android:name="ca.uwaterloo.cs.todoodle.ui.rewards.RewardsFragment"
+        android:label="@string/menu_rewards"
+        tools:layout="@layout/fragment_rewards" />
+
+    <fragment
         android:id="@+id/nav_slideshow"
         android:name="ca.uwaterloo.cs.todoodle.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
