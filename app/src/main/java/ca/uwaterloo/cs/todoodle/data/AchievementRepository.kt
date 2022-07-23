@@ -151,6 +151,14 @@ class AchievementRepository(
             AchievementType.DUE -> {
                 // Check number of in-time tasks
             }
+            AchievementType.ACHIEVEMENT -> {
+                result = when (amount) {
+                    in 12..Int.MAX_VALUE -> type.id + "_3"
+                    in 8..11 -> type.id + "_2"
+                    in 3..7 -> type.id + "_1"
+                    else -> null
+                }
+            }
             else -> {
                 // For SINGLE achievement return its id
                 result = type.id
