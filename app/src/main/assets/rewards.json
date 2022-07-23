@@ -1,0 +1,32 @@
+[
+  {
+    "id": "reward_coffee",
+    "title": "Toms Mid Dbl-dbl",
+    "points": 50
+  },
+  {
+    "id": "reward_milktea",
+    "title": "Talktime Milktea",
+    "points": 100
+  },
+  {
+    "id": "reward_burger",
+    "title": "McTrump Big Mc",
+    "points": 200
+  },
+  {
+    "id": "reward_carwash",
+    "title": "Car SPA car wash",
+    "points": 500
+  },
+  {
+    "id": "reward_gas",
+    "title": "CanadaGas #20 off",
+    "points": 500
+  },
+  {
+    "id": "reward_coat",
+    "title": "CanadaGeese $100 off",
+    "points": 2000
+  }
+]
