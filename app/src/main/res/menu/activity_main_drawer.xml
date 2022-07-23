@@ -16,5 +16,9 @@
             android:id="@+id/nav_achievements"
             android:icon="@drawable/ic_menu_achievements"
             android:title="@string/menu_achievements" />
+        <item
+            android:id="@+id/nav_rewards"
+            android:icon="@drawable/ic_menu_rewards"
+            android:title="@string/menu_rewards" />
     </group>
 </menu>
