@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.achievements.AchievementsFragment">
 
-    <TextView
-        android:id="@+id/coinIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="1000 AP"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/achievementsWrapperTittle"
         android:layout_width="match_parent"

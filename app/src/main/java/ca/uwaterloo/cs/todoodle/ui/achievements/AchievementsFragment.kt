@@ -41,10 +41,6 @@ class AchievementsFragment : Fragment() {
             initAchievementsLayout(updatedAchievements)
         }
 
-        // Render the points indicator
-        val points = achievementsViewModel.getPoints()
-        initPoints(points)
-
         return binding.root
     }
 
@@ -177,12 +173,4 @@ class AchievementsFragment : Fragment() {
         binding.achievementsWrapper.addView(wrapper)
     }
 
-    /**
-     * Change the text of points indicator
-     * @param points User points
-     */
-    private fun initPoints(points: Int) {
-        val indicator = binding.coinIndicator
-        indicator.text = "$points AP"
-    }
 }
