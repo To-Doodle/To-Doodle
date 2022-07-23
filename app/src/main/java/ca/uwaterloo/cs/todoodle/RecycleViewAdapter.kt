@@ -9,25 +9,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import ca.uwaterloo.cs.todoodle.data.AppDatabase
-import ca.uwaterloo.cs.todoodle.data.Task
-import ca.uwaterloo.cs.todoodle.data.TaskDao
 
-class RecycleViewAdapter(private val titles: List<String>, private val deadlines: List<String>, private val tasks: List<Task>) : RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
-
-    private lateinit var dao: TaskDao
+class RecycleViewAdapter(private val titles: List<String>, private val deadlines: List<String>) : RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.title_view)
         val itemDue: TextView = itemView.findViewById(R.id.date_view)
-        var itemTask: Task = Task(0, "", "")
 
         init {
-            itemView.setOnClickListener { v: View ->
-                Toast.makeText(itemView.context, "Task complete!", Toast.LENGTH_SHORT).show()
-                itemTitle.text = "DONE!"
-                dao = AppDatabase.getInstance(itemView.context).taskDao()
-                dao.delete(itemTask)
-            }
         }
     }
 
@@ -45,6 +34,5 @@ class RecycleViewAdapter(private val titles: List<String>, private val deadlines
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemTitle.text = titles[position]
         holder.itemDue.text = deadlines[position]
-        holder.itemTask = tasks[position]
     }
 }
