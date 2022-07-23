@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ca.uwaterloo.cs.todoodle.data.AchievementRepository
 import ca.uwaterloo.cs.todoodle.data.model.Reward
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -13,6 +14,8 @@ import java.io.IOException
 class RewardsViewModel(application: Application, private val filename: String) :
     AndroidViewModel(application) {
     private val app = getApplication<Application>()
+
+    private val achievementRepository = AchievementRepository(app, "achievements.json")
 
     private val rewards: LiveData<List<Reward>> by lazy {
         MutableLiveData<List<Reward>>().also {
@@ -48,6 +51,14 @@ class RewardsViewModel(application: Application, private val filename: String) :
         val listRewardType = object : TypeToken<List<Reward>>() {}.type
 
         return gson.fromJson(jsonString, listRewardType)
+    }
+
+    /**
+     * Get user points
+     * @return User points
+     */
+    fun getPoints(): Int {
+        return achievementRepository.getPoints()
     }
 
 }

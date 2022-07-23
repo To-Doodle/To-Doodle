@@ -6,18 +6,19 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import ca.uwaterloo.cs.todoodle.R
 import ca.uwaterloo.cs.todoodle.data.model.Reward
 import ca.uwaterloo.cs.todoodle.databinding.FragmentRewardsBinding
+import kotlin.properties.Delegates
 
 
 class RewardsFragment : Fragment() {
     private lateinit var binding: FragmentRewardsBinding
+    private lateinit var inf: LayoutInflater
+    private var points by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +27,7 @@ class RewardsFragment : Fragment() {
     ): View? {
 
         binding = FragmentRewardsBinding.inflate(layoutInflater)
+        inf = inflater
 
         // Initialize rewards ViewModel
         val rewardsViewModel =
@@ -39,6 +41,8 @@ class RewardsFragment : Fragment() {
         rewardsObservable.observe(activity!!) { rewards ->
             initRewardsLayout(rewards)
         }
+
+        points = rewardsViewModel.getPoints()
 
         return binding.root
     }
@@ -123,12 +127,14 @@ class RewardsFragment : Fragment() {
                 col.addView(desc)
 
                 // Button
-                val btn =
-                    LayoutInflater.from(activity)
-                        .inflate(ca.uwaterloo.cs.todoodle.R.layout.default_button, null) as Button
-                btn.text = "Redeem"
+                val btn = inf.inflate(R.layout.default_button, null) as Button
+                btn.text = if (points < reward.points) "Not enough AP" else "Redeem"
+                btn.setSingleLine()
                 btn.layoutParams = layoutParamsBtn
-                addRedeemEvent(btn, reward.id)
+                if (points < reward.points) {
+                    btn.isEnabled = false
+                }
+                addRedeemEvent(btn, reward)
                 col.addView(btn)
 
                 // Fill row
@@ -140,17 +146,25 @@ class RewardsFragment : Fragment() {
 
         }
 
+        // More rewards text
+        val moreText = TextView(activity)
+        moreText.text = "More Is Coming"
+        moreText.textSize = 24F
+        moreText.gravity = Gravity.CENTER_HORIZONTAL
+        wrapper.addView(moreText)
+
         // Append wrapper to scrollview
         binding.rewardsWrapper.addView(wrapper)
+
     }
 
     /**
      * Attach click event listener to each button
-     * @param rewardID Reward to be redeemed
+     * @param reward Reward to be redeemed
      */
-    private fun addRedeemEvent(btn: Button, rewardID: String) {
+    private fun addRedeemEvent(btn: Button, reward: Reward) {
         btn.setOnClickListener {
-            println(rewardID)
+            println(reward.points)
         }
     }
 
