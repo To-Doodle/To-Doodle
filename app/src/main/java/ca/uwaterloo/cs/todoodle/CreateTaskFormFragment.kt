@@ -20,6 +20,8 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 
 /**
@@ -68,9 +70,17 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val formData = validatedForm()
 
             if (formData != null) {
-                dao = AppDatabase.getInstance(requireContext()).taskDao()
-                val task = Task(null, formData.get("name").toString(), formData.get("ddl").toString(),formData.get("cat").toString(), formData.get("note").toString())
-                dao.insertAll(task)
+                val database = Firebase.database.reference
+
+                val task1 = ca.uwaterloo.cs.todoodle.data.model.Task(
+                    formData.get("name").toString(),
+                    formData.get("ddl").toString(),
+                    formData.get("cat").toString(),
+                    formData.get("duration").toString(),
+                    formData.get("level").toString(),
+                    formData.get("note").toString()
+                )
+                database.child("tasks").child(System.currentTimeMillis().toString()).setValue(task1)
 
                 navCtr.navigate(
                     R.id.action_CreateTaskFormFragment_to_SecondFragment,
