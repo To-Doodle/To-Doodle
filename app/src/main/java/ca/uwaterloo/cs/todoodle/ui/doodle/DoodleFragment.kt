@@ -74,6 +74,9 @@ class DoodleFragment : Fragment() {
     private fun exportImage() {
         val fileName = canvasExporter!!.saveImage(binding.paintView.bitmap)
         if (fileName != null) {
+            // Clear the doodle board
+            binding.clear.performClick()
+
             // Update achievements
             val amount = canvasExporter!!.getExistingFileCount(canvasExporter!!.subDirectory)
             doodleViewModel.updateAchievements(amount)
