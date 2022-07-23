@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.firebase:firebase-common-ktx:20.0.0'
+
     def roomVersion = "2.4.2"
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -68,6 +68,7 @@ dependencies {
     // Declare the dependency for the Realtime Database library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-database-ktx'
+
     // JSON parser
     implementation 'com.google.code.gson:gson:2.9.0'
 }

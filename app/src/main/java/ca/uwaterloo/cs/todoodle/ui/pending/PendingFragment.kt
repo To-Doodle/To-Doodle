@@ -42,6 +42,10 @@ class PendingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        // Initialize pending ViewModel for the adapter
+        val pendingViewModel = PendingViewModel(activity!!.application)
+        val taskDao = pendingViewModel.getTaskDao()
+
         titlesList.clear()
         deadlinesList.clear()
         categoryList.clear()
@@ -58,7 +62,7 @@ class PendingFragment : Fragment() {
                 addToList(task!!.taskName!!, task!!.deadline!!, task!!.category!!, task!!.notes!!)
             }
             binding.recyclerView.adapter =
-                RecycleViewAdapter(titlesList, deadlinesList, categoryList, notesList)
+                RecycleViewAdapter(titlesList, deadlinesList, categoryList, notesList, taskDao)
         }
 
         _binding = FragmentTodoBinding.inflate(inflater, container, false)
