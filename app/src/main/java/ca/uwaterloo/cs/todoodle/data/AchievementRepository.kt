@@ -12,7 +12,7 @@ import java.io.IOException
  */
 class AchievementRepository(
     private val app: Application,
-    private val filename: String,
+    private val filename: String = "",
 ) {
     // initialize dao and repository
     private val appDB = AppDatabase.getInstance(app)
@@ -30,6 +30,8 @@ class AchievementRepository(
      * @return Parsed achievements in list of hashmap
      */
     private fun parseAchievementJSON(): List<Achievement> {
+        if (filename == "") return listOf()
+
         // Read asset file
         val jsonString: String
         try {

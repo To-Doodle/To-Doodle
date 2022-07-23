@@ -22,7 +22,7 @@ class CreateTaskFormViewModel(application: Application) :
     AndroidViewModel(application) {
     private val app = getApplication<Application>()
 
-    private val achievementRepository = AchievementRepository(app, "achievements.json")
+    private val achievementRepository = AchievementRepository(app)
 
     /**
      * Validate form input.

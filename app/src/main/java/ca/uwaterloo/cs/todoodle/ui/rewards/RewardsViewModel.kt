@@ -15,7 +15,7 @@ class RewardsViewModel(application: Application, private val filename: String) :
     AndroidViewModel(application) {
     private val app = getApplication<Application>()
 
-    private val achievementRepository = AchievementRepository(app, "achievements.json")
+    private val achievementRepository = AchievementRepository(app)
 
     private val rewards: LiveData<List<Reward>> by lazy {
         MutableLiveData<List<Reward>>().also {
