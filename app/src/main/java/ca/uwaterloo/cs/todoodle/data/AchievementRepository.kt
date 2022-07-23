@@ -136,7 +136,12 @@ class AchievementRepository(
         var result: String? = null
         when (type) {
             AchievementType.GOAL -> {
-                // Check number of doodles
+                result = when (amount) {
+                    in 20..Int.MAX_VALUE -> type.id + "_3"
+                    in 5..19 -> type.id + "_2"
+                    in 1..4 -> type.id + "_1"
+                    else -> null
+                }
             }
             AchievementType.TASK -> {
                 val taskDao = appDB.taskDao()
