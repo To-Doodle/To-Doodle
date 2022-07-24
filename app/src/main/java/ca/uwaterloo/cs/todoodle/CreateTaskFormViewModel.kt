@@ -10,6 +10,7 @@ import ca.uwaterloo.cs.todoodle.data.AchievementRepository
 import ca.uwaterloo.cs.todoodle.data.model.AchievementType
 import ca.uwaterloo.cs.todoodle.data.model.Reward
 import ca.uwaterloo.cs.todoodle.data.model.Task
+import ca.uwaterloo.cs.todoodle.data.model.TaskType
 import ca.uwaterloo.cs.todoodle.databinding.FragmentCreateTaskFormBinding
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -72,7 +73,8 @@ class CreateTaskFormViewModel(application: Application) :
             formData.get("cat").toString(),
             formData.get("duration").toString(),
             formData.get("level").toString(),
-            formData.get("note").toString()
+            formData.get("note").toString(),
+            TaskType.IN_PROGRESS
         )
         database.child("tasks").child(System.currentTimeMillis().toString()).setValue(task1)
 
