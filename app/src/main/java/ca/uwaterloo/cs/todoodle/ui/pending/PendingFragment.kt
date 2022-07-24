@@ -86,7 +86,7 @@ class PendingFragment : Fragment() {
                 categoryList,
                 notesList,
                 keysList,
-                achievementRepository
+                achievementRepository,
             )
         }
 

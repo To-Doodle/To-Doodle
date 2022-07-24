@@ -13,7 +13,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import ca.uwaterloo.cs.todoodle.data.AchievementRepository
 import ca.uwaterloo.cs.todoodle.databinding.ActivityMainBinding
+import ca.uwaterloo.cs.todoodle.ui.achievements.AchievementDialogFragment
 import ca.uwaterloo.cs.todoodle.ui.achievements.AchievementsFragment
+import ca.uwaterloo.cs.todoodle.ui.rewards.RewardDialogFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,9 +43,11 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        // Use for testing achievement dialog
 //        binding.appBarMain.coinIndicator2.setOnClickListener{
-//            val intent = Intent(this, AchievementsFragment::class.java)
-//            startActivity(intent)
+//            val dialog = AchievementDialogFragment("series_task_1")
+//            val manager = supportFragmentManager
+//            dialog.show(manager, "achievement")
 //        }
 
         // Display user achievement points
