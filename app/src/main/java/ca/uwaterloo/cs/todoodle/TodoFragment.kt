@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ca.uwaterloo.cs.todoodle.data.model.Task
+import ca.uwaterloo.cs.todoodle.data.model.TaskType
 import ca.uwaterloo.cs.todoodle.databinding.FragmentTodoBinding
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -52,16 +53,17 @@ class SecondFragment : Fragment() {
         database.child("tasks").get().addOnSuccessListener { dataSnapshot ->
             for (postSnapshot in dataSnapshot.children) {
                 // TODO: handle the post
-                println(postSnapshot)
                 val task = postSnapshot.getValue(Task::class.java)
-                taskList.add(task!!)
-                addToList(
-                    task!!.taskName!!,
-                    task!!.deadline!!,
-                    task!!.category!!,
-                    task!!.notes!!,
-                    postSnapshot.key!!
-                )
+                if (task!!.status == TaskType.IN_PROGRESS) {
+                    taskList.add(task!!)
+                    addToList(
+                        task!!.taskName!!,
+                        task!!.deadline!!,
+                        task!!.category!!,
+                        task!!.notes!!,
+                        postSnapshot.key!!
+                    )
+                }
             }
             binding.recyclerView.adapter = RecycleViewAdapter(
                 titlesList, deadlinesList, categoryList, notesList, keysList)
