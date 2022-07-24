@@ -7,21 +7,9 @@ data class Achievement(
     val imageURI: String,
     val id: String,
     val title: String,
-<<<<<<< HEAD
-<<<<<<< HEAD
     val desc: String,
     val points: Int,
     var done: Boolean = false,
-<<<<<<< HEAD
-=======
-    val desc: String
->>>>>>> Apply MVVM to achievements
-=======
-    val desc: String,
-    var done: Boolean = false,
->>>>>>> Add achievement status handler
-)
-=======
 )
 
 /**
@@ -38,4 +26,3 @@ enum class AchievementType(val id: String){
     PROFILE("single_makeover"),
     ACHIEVEMENT("series_acvm"),
 }
->>>>>>> Add some achievement validator

@@ -15,15 +15,6 @@ import ca.uwaterloo.cs.todoodle.R
 import ca.uwaterloo.cs.todoodle.data.model.Achievement
 import ca.uwaterloo.cs.todoodle.databinding.FragmentAchievementsBinding
 
-<<<<<<< HEAD:app/src/main/java/ca/uwaterloo/cs/todoodle/AchievementsActivity.kt
-class AchievementsActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-<<<<<<< HEAD
-<<<<<<< HEAD
-        setContentView(R.layout.activity_achievements)
-        title = "Achievements"
-=======
 class AchievementsFragment : Fragment() {
     private lateinit var binding: FragmentAchievementsBinding
 
@@ -34,40 +25,13 @@ class AchievementsFragment : Fragment() {
     ): View? {
 
         binding = FragmentAchievementsBinding.inflate(layoutInflater)
->>>>>>> Convert achievement activity to fragment:app/src/main/java/ca/uwaterloo/cs/todoodle/ui/achievements/AchievementsFragment.kt
 
         // Initialize achievements ViewModel
-=======
-        setContentView(R.layout.activity_rewards)
-=======
-        setContentView(R.layout.activity_achievements)
->>>>>>> Totally refactor rewards to achievement
-        title = "Achievements"
-
-<<<<<<< HEAD
->>>>>>> Apply MVVM to achievements
-=======
-        // Initialize achievements ViewModel
->>>>>>> Add achievement status handler
         val achievementsViewModel =
             ViewModelProvider(
                 this,
                 AchievementsViewModelFactory(activity!!.application, "achievements.json")
             )[AchievementsViewModel::class.java]
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-        // Get updated achievements info from local asset and DB and render the page
-        val observable = achievementsViewModel.loadAchievements()
-        observable.observe(this) { achievements ->
-            val updatedAchievements =
-                achievementsViewModel.updateAchievementCompletionStatus(achievements)
-            initAchievementsLayout(updatedAchievements)
-=======
-        achievementsViewModel.loadAchievements().observe(this) { achievements ->
-            initAchievementsLayout(achievements)
->>>>>>> Apply MVVM to achievements
-=======
 
         // Get updated achievements info from local asset and DB and render the page
         val achievementsObservable = achievementsViewModel.loadAchievements()
@@ -75,7 +39,6 @@ class AchievementsFragment : Fragment() {
             val updatedAchievements =
                 achievementsViewModel.updateAchievementCompletionStatus(achievements)
             initAchievementsLayout(updatedAchievements)
->>>>>>> Add achievement status handler
         }
 
         return binding.root
