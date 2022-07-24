@@ -27,12 +27,12 @@
         android:layout_height="56dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="60dp"
         android:background="#0000"
         android:contentDescription="@string/action_settings"
         android:src="@drawable/ic_delete"
-        android:layout_marginEnd="70dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/clearButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -41,12 +41,12 @@
         android:layout_height="56dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="60dp"
         android:background="#0000"
         android:contentDescription="@string/action_sign_in"
         android:src="@drawable/ic_create"
-        android:layout_marginEnd="130dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/deleteButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -56,11 +56,11 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="190dp"
+        android:layout_marginRight="60dp"
         android:background="#0000"
         android:contentDescription="@string/action_sign_in"
         android:src="@drawable/ic_done"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/editButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
