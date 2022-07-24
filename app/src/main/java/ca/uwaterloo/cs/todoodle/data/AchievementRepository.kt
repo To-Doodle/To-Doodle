@@ -156,7 +156,7 @@ class AchievementRepository(
                 }
             }
             AchievementType.DUE -> {
-                // Check number of in-time tasks
+                // Check number of completed tasks. No ddl constraint
             }
             AchievementType.ACHIEVEMENT -> {
                 result = when (amount) {

@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import ca.uwaterloo.cs.todoodle.data.AchievementRepository
 import ca.uwaterloo.cs.todoodle.data.AppDatabase
 import ca.uwaterloo.cs.todoodle.data.TaskDao
 import ca.uwaterloo.cs.todoodle.data.model.AchievementType
@@ -30,10 +31,8 @@ class RecycleViewAdapter(
     private val categories: List<String>,
     private val notes: List<String>,
     private val keys: List<String>,
-    private val taskDao: TaskDao? = null
+    private val achievementRepository: AchievementRepository? = null,
 ) : RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
-
-    private lateinit var navCtr: NavController
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.title_view)
@@ -44,7 +43,6 @@ class RecycleViewAdapter(
 
         init {
             itemView.setOnClickListener { v: View ->
-//                dao = AppDatabase.getInstance(itemView.context).taskDao()
 
                 val builder = AlertDialog.Builder(v.context)
                 val dialogView =
@@ -57,7 +55,6 @@ class RecycleViewAdapter(
                 val dialogCategory: TextView = dialogView.findViewById(R.id.taskdialog_category)
                 val dialogNotes: TextView = dialogView.findViewById(R.id.taskdialog_notes)
                 val clearButton: ImageButton = dialogView.findViewById(R.id.clearButton)
-                val deleteButton: ImageButton = dialogView.findViewById(R.id.deleteButton)
                 val editButton: ImageButton = dialogView.findViewById(R.id.editButton)
                 dialogTitle.text = itemTitle.text.toString()
                 dialogDate.text = itemDue.text.toString()
@@ -70,18 +67,6 @@ class RecycleViewAdapter(
 
 
                 }
-                deleteButton.setOnClickListener {
-                    val database = Firebase.database.reference
-                    database.child("tasks").child(itemKey).child("status").setValue(TaskType.PENDING_APPROVAL)
-                    dialog.dismiss()
-                    itemTitle.apply {
-                        paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    }
-                    itemDue.apply {
-                        paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    }
-                    Toast.makeText(itemView.context, "Task complete!", Toast.LENGTH_SHORT).show()
-                }
 
                 clearButton.setOnClickListener {
                     dialog.dismiss()
@@ -90,13 +75,52 @@ class RecycleViewAdapter(
 
                 // Siyuan: doneButton only shows in approval page with supervisor logged in
                 val doneButton: ImageButton = dialogView.findViewById(R.id.doneButton)
-                if (taskDao != null) {
+                if (achievementRepository != null) {
                     doneButton.setOnClickListener {
                         // Set task to approved
+                        updateTaskStatus(itemKey, TaskType.COMPLETED)
+                        dialog.dismiss()
+                        itemTitle.apply {
+                            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                        }
+                        itemDue.apply {
+                            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                        }
+                        Toast.makeText(
+                            itemView.context,
+                            "Task Completed!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        // Update achievement
+                        achievementRepository.checkAndUpdateAchievements(AchievementType.DUE)
                     }
                 } else {
                     doneButton.visibility = View.GONE
                 }
+
+                // Siyuan: deleteButton only shows in task page
+                val deleteButton: ImageButton = dialogView.findViewById(R.id.deleteButton)
+                if (achievementRepository == null) {
+                    deleteButton.setOnClickListener {
+                        updateTaskStatus(itemKey, TaskType.PENDING_APPROVAL)
+                        dialog.dismiss()
+                        itemTitle.apply {
+                            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                        }
+                        itemDue.apply {
+                            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                        }
+                        Toast.makeText(
+                            itemView.context,
+                            "Waiting for Approval!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    deleteButton.visibility = View.GONE
+                }
+
             }
         }
     }
@@ -123,5 +147,16 @@ class RecycleViewAdapter(
         holder.itemCategory = categories[position]
         holder.itemNote = notes[position]
         holder.itemKey = keys[position]
+    }
+
+    /**
+     * Update task status
+     * @param itemKey DB item key
+     * @param status Task status enum
+     */
+    private fun updateTaskStatus(itemKey: String, status: TaskType) {
+        val database = Firebase.database.reference
+        database.child("tasks").child(itemKey).child("status")
+            .setValue(status)
     }
 }

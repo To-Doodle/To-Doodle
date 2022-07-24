@@ -82,7 +82,7 @@ class SecondFragment : Fragment() {
         navCtr = findNavController()
 
         binding.fab.setOnClickListener { view ->
-            findNavController().navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
+            navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)

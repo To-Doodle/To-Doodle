@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ca.uwaterloo.cs.todoodle.R
 import ca.uwaterloo.cs.todoodle.RecycleViewAdapter
+import ca.uwaterloo.cs.todoodle.data.AchievementRepository
 import ca.uwaterloo.cs.todoodle.data.SHAREDPREF_FILENAME
 import ca.uwaterloo.cs.todoodle.data.model.Task
 import ca.uwaterloo.cs.todoodle.data.model.TaskType
@@ -51,7 +52,7 @@ class PendingFragment : Fragment() {
 
         // Initialize pending ViewModel for the adapter
         val pendingViewModel = PendingViewModel(activity!!.application)
-        val taskDao = pendingViewModel.getTaskDao()
+        val achievementRepository = AchievementRepository(activity!!.application)
 
         titlesList.clear()
         deadlinesList.clear()
@@ -85,7 +86,7 @@ class PendingFragment : Fragment() {
                 categoryList,
                 notesList,
                 keysList,
-                taskDao
+                achievementRepository
             )
         }
 
@@ -93,7 +94,7 @@ class PendingFragment : Fragment() {
         navCtr = findNavController()
 
         binding.fab.setOnClickListener { view ->
-            findNavController().navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
+            navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
         }
 
         binding.recyclerView.layoutManager =
