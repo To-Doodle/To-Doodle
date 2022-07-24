@@ -241,4 +241,11 @@ class AchievementRepository(
         userRepository.updateCompletedAchievements(userId, achievements)
         userRepository.updatePoints(userId, points)
     }
+
+    /**
+     * Add points for completing a task
+     */
+    fun updatePointsForCompletion() {
+        userRepository.updatePoints(userId, 20)
+    }
 }
