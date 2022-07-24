@@ -44,21 +44,21 @@
   {
     "id": "series_task_due_1",
     "title": "Job Done",
-    "desc": "Finish a task before due date.",
+    "desc": "Finish a task.",
     "points": 10,
     "imageURI": "points_10"
   },
   {
     "id": "series_task_due_2",
     "title": "Keep Going",
-    "desc": "Finish 10 tasks before due date.",
+    "desc": "Finish 10 tasks.",
     "points": 20,
     "imageURI": "points_20"
   },
   {
     "id": "series_task_due_3",
     "title": "That's Discipline",
-    "desc": "Finish 50 tasks before due date.",
+    "desc": "Finish 50 tasks.",
     "points": 50,
     "imageURI": "points_50"
   },
