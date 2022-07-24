@@ -17,7 +17,8 @@ data class Task(
     val duration: String? = null,
     val level: String? = null,
     val notes: String? = null,
-    val status: TaskType? = null
+    val status: TaskType? = null,
+    val userKey: String? = null
 ) {
     // Null default values create a no-argument default constructor, which is needed
     // for deserialization from a DataSnapshot.

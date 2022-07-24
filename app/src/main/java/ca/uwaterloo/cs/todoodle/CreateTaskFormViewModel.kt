@@ -1,12 +1,14 @@
 package ca.uwaterloo.cs.todoodle
 
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ca.uwaterloo.cs.todoodle.data.AchievementRepository
+import ca.uwaterloo.cs.todoodle.data.SHAREDPREF_FILENAME
 import ca.uwaterloo.cs.todoodle.data.model.AchievementType
 import ca.uwaterloo.cs.todoodle.data.model.Reward
 import ca.uwaterloo.cs.todoodle.data.model.Task
@@ -65,6 +67,10 @@ class CreateTaskFormViewModel(application: Application) :
      * @param formData task data
      */
     fun createTask(formData: Bundle) {
+        val sharedPreferences = getApplication<Application>().applicationContext.getSharedPreferences(SHAREDPREF_FILENAME, Context.MODE_PRIVATE)
+        val userKey = sharedPreferences.getString("key", "defaultKey")
+        println(userKey)
+
         val database = Firebase.database.reference
 
         val task1 = Task(
@@ -74,7 +80,8 @@ class CreateTaskFormViewModel(application: Application) :
             formData.get("duration").toString(),
             formData.get("level").toString(),
             formData.get("note").toString(),
-            TaskType.IN_PROGRESS
+            TaskType.IN_PROGRESS,
+            userKey
         )
         database.child("tasks").child(System.currentTimeMillis().toString()).setValue(task1)
 
