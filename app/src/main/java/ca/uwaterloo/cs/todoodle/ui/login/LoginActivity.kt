@@ -15,21 +15,28 @@ import android.widget.EditText
 import android.widget.Toast
 import ca.uwaterloo.cs.todoodle.MainActivity
 import ca.uwaterloo.cs.todoodle.databinding.ActivityLoginBinding
+import ca.uwaterloo.cs.todoodle.databinding.BeforeLoginBinding
 
 import ca.uwaterloo.cs.todoodle.R
+import ca.uwaterloo.cs.todoodle.RewardsActivity
 import ca.uwaterloo.cs.todoodle.TodoActivity
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding2: BeforeLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding2 = BeforeLoginBinding.inflate(layoutInflater)
+        setContentView(binding2.root)
 
+        val student = binding2.childButton
+        val bparent = binding2.parentButton2
+        var student_parent = 0
         val username = binding.username
         val password = binding.password
         val login = binding.login
@@ -100,6 +107,22 @@ class LoginActivity : AppCompatActivity() {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
+        }
+
+        student.setOnClickListener{
+            student_parent = 1
+            setContentView(binding.root)
+
+        }
+
+        bparent.setOnClickListener{
+            student_parent = 2
+            setContentView(binding.root)
+        }
+
+        binding.signup?.setOnClickListener{
+            val intent = Intent(this, RewardsActivity::class.java)
+            startActivity(intent)
         }
     }
 

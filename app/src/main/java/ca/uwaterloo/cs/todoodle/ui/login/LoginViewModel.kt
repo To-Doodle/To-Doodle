@@ -8,6 +8,9 @@ import ca.uwaterloo.cs.todoodle.data.LoginRepository
 import ca.uwaterloo.cs.todoodle.data.Result
 
 import ca.uwaterloo.cs.todoodle.R
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -20,6 +23,11 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     fun login(username: String, password: String) {
         // can be launched in a separate asynchronous job
         val result = loginRepository.login(username, password)
+        //val db = Firebase.firestore
+
+        //val result = userAlreadyExists(username, db)
+        //we are going to create the user with the email and password supplied is user doesn't already exist
+        //db.collection("user").document(username)
 
         if (result is Result.Success) {
             _loginResult.value =
