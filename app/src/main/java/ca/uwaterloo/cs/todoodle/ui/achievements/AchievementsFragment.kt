@@ -172,5 +172,4 @@ class AchievementsFragment : Fragment() {
         // Append wrapper to scrollview
         binding.achievementsWrapper.addView(wrapper)
     }
-
 }
