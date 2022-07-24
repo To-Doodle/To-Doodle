@@ -36,6 +36,7 @@ class PendingFragment : Fragment() {
     private var deadlinesList = mutableListOf<String>()
     private var categoryList = mutableListOf<String>()
     private var notesList = mutableListOf<String>()
+    private var keysList = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +51,7 @@ class PendingFragment : Fragment() {
         deadlinesList.clear()
         categoryList.clear()
         notesList.clear()
+        keysList.clear()
 
         val database = Firebase.database.reference
 
@@ -59,10 +61,22 @@ class PendingFragment : Fragment() {
                 println(postSnapshot)
                 val task = postSnapshot.getValue(Task::class.java)
                 taskList.add(task!!)
-                addToList(task!!.taskName!!, task!!.deadline!!, task!!.category!!, task!!.notes!!)
+                addToList(
+                    task!!.taskName!!,
+                    task!!.deadline!!,
+                    task!!.category!!,
+                    task!!.notes!!,
+                    postSnapshot.key!!
+                )
             }
-            binding.recyclerView.adapter =
-                RecycleViewAdapter(titlesList, deadlinesList, categoryList, notesList, taskDao)
+            binding.recyclerView.adapter = RecycleViewAdapter(
+                titlesList,
+                deadlinesList,
+                categoryList,
+                notesList,
+                keysList,
+                taskDao
+            )
         }
 
         _binding = FragmentTodoBinding.inflate(inflater, container, false)
@@ -84,10 +98,17 @@ class PendingFragment : Fragment() {
         _binding = null
     }
 
-    private fun addToList(title: String, deadLine: String, category: String, note: String) {
+    private fun addToList(
+        title:String,
+        deadLine:String,
+        category:String,
+        note:String,
+        key:String
+    ) {
         titlesList.add(title)
         deadlinesList.add(deadLine)
         categoryList.add(category)
         notesList.add(note)
+        keysList.add(key)
     }
 }

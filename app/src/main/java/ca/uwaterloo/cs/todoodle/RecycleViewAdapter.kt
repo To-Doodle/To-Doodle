@@ -18,13 +18,18 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import ca.uwaterloo.cs.todoodle.data.AppDatabase
 import ca.uwaterloo.cs.todoodle.data.TaskDao
+import ca.uwaterloo.cs.todoodle.data.model.AchievementType
 import ca.uwaterloo.cs.todoodle.data.model.Task
+import ca.uwaterloo.cs.todoodle.data.model.TaskType
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class RecycleViewAdapter(
     private val titles: List<String>,
     private val deadlines: List<String>,
     private val categories: List<String>,
     private val notes: List<String>,
+    private val keys: List<String>,
     private val taskDao: TaskDao? = null
 ) : RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
 
@@ -35,7 +40,7 @@ class RecycleViewAdapter(
         val itemDue: TextView = itemView.findViewById(R.id.date_view)
         var itemCategory = ""
         var itemNote = ""
-
+        var itemKey = ""
 
         init {
             itemView.setOnClickListener { v: View ->
@@ -66,7 +71,8 @@ class RecycleViewAdapter(
 
                 }
                 deleteButton.setOnClickListener {
-//                    dao.delete(itemTask)
+                    val database = Firebase.database.reference
+                    database.child("tasks").child(itemKey).child("status").setValue(TaskType.PENDING_APPROVAL)
                     dialog.dismiss()
                     itemTitle.apply {
                         paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -116,5 +122,6 @@ class RecycleViewAdapter(
         holder.itemDue.text = deadlines[position]
         holder.itemCategory = categories[position]
         holder.itemNote = notes[position]
+        holder.itemKey = keys[position]
     }
 }
