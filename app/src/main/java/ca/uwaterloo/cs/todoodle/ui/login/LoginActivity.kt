@@ -1,7 +1,9 @@
 package ca.uwaterloo.cs.todoodle.ui.login
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -18,11 +20,13 @@ import ca.uwaterloo.cs.todoodle.databinding.ActivityLoginBinding
 
 import ca.uwaterloo.cs.todoodle.R
 import ca.uwaterloo.cs.todoodle.TodoActivity
+import ca.uwaterloo.cs.todoodle.data.SHAREDPREF_FILENAME
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +69,12 @@ class LoginActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
+
+            sharedPreferences = getSharedPreferences(SHAREDPREF_FILENAME, Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("key", username.text.toString())
+            editor.apply()
+
             // finish()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
