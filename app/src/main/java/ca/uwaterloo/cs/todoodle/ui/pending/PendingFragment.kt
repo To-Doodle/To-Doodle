@@ -1,5 +1,7 @@
 package ca.uwaterloo.cs.todoodle.ui.pending
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ca.uwaterloo.cs.todoodle.R
 import ca.uwaterloo.cs.todoodle.RecycleViewAdapter
+import ca.uwaterloo.cs.todoodle.data.SHAREDPREF_FILENAME
 import ca.uwaterloo.cs.todoodle.data.model.Task
 import ca.uwaterloo.cs.todoodle.data.model.TaskType
 import ca.uwaterloo.cs.todoodle.databinding.FragmentTodoBinding
@@ -30,6 +33,8 @@ class PendingFragment : Fragment() {
 
     // Navigation controller
     private lateinit var navCtr: NavController
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     private var taskList = mutableListOf<Task>()
 
@@ -54,13 +59,16 @@ class PendingFragment : Fragment() {
         notesList.clear()
         keysList.clear()
 
+        sharedPreferences = requireActivity().getSharedPreferences(SHAREDPREF_FILENAME, Context.MODE_PRIVATE)
+        val userKey = sharedPreferences.getString("key", "defaultKey")
+
         val database = Firebase.database.reference
 
         database.child("tasks").get().addOnSuccessListener { dataSnapshot ->
             for (postSnapshot in dataSnapshot.children) {
                 // TODO: handle the post
                 val task = postSnapshot.getValue(Task::class.java)
-                if (task!!.status == TaskType.PENDING_APPROVAL) {
+                if (task!!.userKey == userKey && task!!.status == TaskType.PENDING_APPROVAL) {
                     taskList.add(task!!)
                     addToList(
                         task!!.taskName!!,

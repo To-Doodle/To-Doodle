@@ -1,5 +1,7 @@
 package ca.uwaterloo.cs.todoodle
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import ca.uwaterloo.cs.todoodle.data.SHAREDPREF_FILENAME
 import ca.uwaterloo.cs.todoodle.data.model.Task
 import ca.uwaterloo.cs.todoodle.data.model.TaskType
 import ca.uwaterloo.cs.todoodle.databinding.FragmentTodoBinding
+import ca.uwaterloo.cs.todoodle.ui.login.LoginActivity
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -28,6 +32,8 @@ class SecondFragment : Fragment() {
 
     // Navigation controller
     private lateinit var navCtr: NavController
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     private var taskList = mutableListOf<Task>()
 
@@ -48,13 +54,16 @@ class SecondFragment : Fragment() {
         notesList.clear()
         keysList.clear()
 
+        sharedPreferences = requireActivity().getSharedPreferences(SHAREDPREF_FILENAME, Context.MODE_PRIVATE)
+        val userKey = sharedPreferences.getString("key", "defaultKey")
+
         val database = Firebase.database.reference
 
         database.child("tasks").get().addOnSuccessListener { dataSnapshot ->
             for (postSnapshot in dataSnapshot.children) {
                 // TODO: handle the post
                 val task = postSnapshot.getValue(Task::class.java)
-                if (task!!.status == TaskType.IN_PROGRESS) {
+                if (task!!.userKey == userKey && task!!.status == TaskType.IN_PROGRESS) {
                     taskList.add(task!!)
                     addToList(
                         task!!.taskName!!,
