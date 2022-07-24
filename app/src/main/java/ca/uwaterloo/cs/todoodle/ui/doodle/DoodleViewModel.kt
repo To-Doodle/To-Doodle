@@ -1,6 +1,8 @@
 package ca.uwaterloo.cs.todoodle.ui.doodle
 
+import android.app.Activity
 import android.app.Application
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,10 +22,11 @@ class DoodleViewModel(application: Application) :
 
     /**
      * Update achievements of doodle
+     * @param activity Activity for getting database
      * @param amount Number of doodles saved
      */
-    fun updateAchievements(amount: Int) {
+    fun updateAchievements(activity: FragmentActivity, amount: Int) {
         val achievementRepository = AchievementRepository(app)
-        achievementRepository.checkAndUpdateAchievements(AchievementType.GOAL, amount)
+        achievementRepository.checkAndUpdateAchievements(activity, AchievementType.GOAL, amount)
     }
 }

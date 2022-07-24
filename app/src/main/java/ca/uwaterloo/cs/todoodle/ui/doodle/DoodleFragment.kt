@@ -79,7 +79,7 @@ class DoodleFragment : Fragment() {
 
             // Update achievements
             val amount = canvasExporter!!.getExistingFileCount(canvasExporter!!.subDirectory)
-            doodleViewModel.updateAchievements(amount)
+            doodleViewModel.updateAchievements(activity!!, amount)
 
             MediaScannerConnection.scanFile(
                 context, arrayOf(fileName), null, null

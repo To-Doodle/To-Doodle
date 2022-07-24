@@ -75,7 +75,7 @@ class SecondFragment : Fragment() {
                 }
             }
             binding.recyclerView.adapter = RecycleViewAdapter(
-                titlesList, deadlinesList, categoryList, notesList, keysList)
+                titlesList, deadlinesList, categoryList, notesList, keysList, activity!!)
         }
 
         _binding = FragmentTodoBinding.inflate(inflater, container, false)

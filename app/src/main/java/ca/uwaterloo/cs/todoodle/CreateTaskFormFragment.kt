@@ -71,7 +71,7 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val formData = createTaskFormViewModel.validatedForm(binding)
 
             if (formData != null) {
-                createTaskFormViewModel.createTask(formData)
+                createTaskFormViewModel.createTask(activity!!, formData)
 
                 navCtr.navigate(
                     R.id.action_CreateTaskFormFragment_to_SecondFragment,

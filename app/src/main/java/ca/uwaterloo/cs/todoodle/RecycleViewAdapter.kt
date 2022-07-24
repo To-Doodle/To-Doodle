@@ -1,5 +1,6 @@
 package ca.uwaterloo.cs.todoodle
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.Intent.getIntent
@@ -13,6 +14,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.recreate
 import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -31,6 +33,7 @@ class RecycleViewAdapter(
     private val categories: List<String>,
     private val notes: List<String>,
     private val keys: List<String>,
+    private val activity: FragmentActivity,
     private val achievementRepository: AchievementRepository? = null,
 ) : RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
 
@@ -93,7 +96,10 @@ class RecycleViewAdapter(
                         ).show()
 
                         // Update achievement
-                        achievementRepository.checkAndUpdateAchievements(AchievementType.DUE)
+                        achievementRepository.checkAndUpdateAchievements(
+                            activity,
+                            AchievementType.DUE
+                        )
                     }
                 } else {
                     doneButton.visibility = View.GONE

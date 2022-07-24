@@ -1,8 +1,16 @@
 package ca.uwaterloo.cs.todoodle.data
 
+import android.app.Activity
 import android.app.Application
+import android.content.Context
+import androidx.fragment.app.FragmentActivity
+import ca.uwaterloo.cs.todoodle.RecycleViewAdapter
 import ca.uwaterloo.cs.todoodle.data.model.Achievement
 import ca.uwaterloo.cs.todoodle.data.model.AchievementType
+import ca.uwaterloo.cs.todoodle.data.model.Task
+import ca.uwaterloo.cs.todoodle.data.model.TaskType
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
@@ -12,13 +20,15 @@ import java.io.IOException
  */
 class AchievementRepository(
     private val app: Application,
-    private val filename: String = "",
+    private val filename: String? = "",
 ) {
     // initialize dao and repository
     private val appDB = AppDatabase.getInstance(app)
     private val userDao = appDB.userDao()
     private val userRepository = UserRepository(userDao)
     private val loginRepository = LoginRepository(LoginDataSource())
+
+    private val database = Firebase.database.reference
 
     private val userId = 1
 //    private val userId = loginRepository.user!!.userId
@@ -30,7 +40,7 @@ class AchievementRepository(
      * @return Parsed achievements in list of hashmap
      */
     private fun parseAchievementJSON(): List<Achievement> {
-        if (filename == "") return listOf()
+        if (filename == "" || filename == null) return listOf()
 
         // Read asset file
         val jsonString: String
@@ -96,10 +106,11 @@ class AchievementRepository(
 
     /**
      * Check and update achievements after DB manipulation
+     * @param activity Activity for getting database
      * @param type Achievement type defined as enumeration
      * @param amount Used for deciding the level of achievement
      */
-    fun checkAndUpdateAchievements(type: AchievementType, amount: Int? = 0) {
+    fun checkAndUpdateAchievements(activity: FragmentActivity, type: AchievementType, amount: Int? = 0) {
         val completedAchievements = getCompletedAchievements()
         val typeID = type.id
 
@@ -109,7 +120,7 @@ class AchievementRepository(
         if (typeID.startsWith("single") && typeID in completedAchievements) return
 
         // Update the records if achievement was completed by the latest DB manipulation
-        val completedAchievement = checkAchievement(type, amount)
+        val completedAchievement = checkAchievement(activity, type, amount)
         if (completedAchievement != null) {
             completedAchievements[completedAchievement] = 1
 
@@ -122,7 +133,7 @@ class AchievementRepository(
         // Also check for achievement itself
         val numberOfCompletedAchievements = completedAchievements.size
         val completedSelf =
-            checkAchievement(AchievementType.ACHIEVEMENT, numberOfCompletedAchievements)
+            checkAchievement(activity, AchievementType.ACHIEVEMENT, numberOfCompletedAchievements)
         if (completedSelf != null) {
             completedAchievements[completedSelf] = 1
 
@@ -137,11 +148,13 @@ class AchievementRepository(
 
     /**
      * Check various objects in DB to see if meets the requirement of achievement
+     * @param activity Activity for getting database
      * @param type Achievement type defined as enumeration
      * @param amount Used for deciding the level of achievement
      * @return The achievement ID that should be mark as completed
      */
     private fun checkAchievement(
+        activity: Activity,
         type: AchievementType,
         amount: Int? = 0
     ): String? {
@@ -156,19 +169,51 @@ class AchievementRepository(
                 }
             }
             AchievementType.TASK -> {
-                val taskDao = appDB.taskDao()
+                database.child("tasks").get().addOnSuccessListener { dataSnapshot ->
+                    val sharedPreferences = activity.getSharedPreferences(SHAREDPREF_FILENAME, Context.MODE_PRIVATE)
+                    val userKey = sharedPreferences.getString("key", "defaultKey")
 
-                // Get all tasks of user. Below is wrong. Need the SQL.
-                val tasks = taskDao.getAll()
-                result = when (tasks.size) {
-                    in 50..Int.MAX_VALUE -> type.id + "_3"
-                    in 10..49 -> type.id + "_2"
-                    in 1..9 -> type.id + "_1"
-                    else -> null
+                    var numberOfTask = 0
+
+                    for (postSnapshot in dataSnapshot.children) {
+                        // TODO: handle the post
+                        val task = postSnapshot.getValue(Task::class.java)
+                        if (task!!.userKey == userKey) {
+                            numberOfTask++
+                        }
+                    }
+
+                    result = when (numberOfTask) {
+                        in 50..Int.MAX_VALUE -> type.id + "_3"
+                        in 10..49 -> type.id + "_2"
+                        in 1..9 -> type.id + "_1"
+                        else -> null
+                    }
                 }
+
             }
             AchievementType.DUE -> {
-                // Check number of completed tasks. No ddl constraint
+                database.child("tasks").get().addOnSuccessListener { dataSnapshot ->
+                    val sharedPreferences = activity.getSharedPreferences(SHAREDPREF_FILENAME, Context.MODE_PRIVATE)
+                    val userKey = sharedPreferences.getString("key", "defaultKey")
+
+                    var numberOfTask = 0
+
+                    for (postSnapshot in dataSnapshot.children) {
+                        // TODO: handle the post
+                        val task = postSnapshot.getValue(Task::class.java)
+                        if (task!!.userKey == userKey && task!!.status == TaskType.COMPLETED) {
+                            numberOfTask++
+                        }
+                    }
+
+                    result = when (numberOfTask) {
+                        in 50..Int.MAX_VALUE -> type.id + "_3"
+                        in 10..49 -> type.id + "_2"
+                        in 1..9 -> type.id + "_1"
+                        else -> null
+                    }
+                }
             }
             AchievementType.ACHIEVEMENT -> {
                 result = when (amount) {
