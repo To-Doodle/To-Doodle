@@ -73,22 +73,6 @@ class SecondFragment : Fragment() {
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Restore FirstFragment by uncommenting lines below
-//        binding.buttonSecond.setOnClickListener {
-//            navCtr.navigate(R.id.action_SecondFragment_to_FirstFragment)
-//        }
-//        binding.buttonCreateTaskForm.setOnClickListener {
-//            navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
-//        }
-        /*binding.coinIndicator.setOnClickListener {
-            val intent = Intent(activity, AchievementsActivity::class.java)
-            startActivity(intent)
-        }*/
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
