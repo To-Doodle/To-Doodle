@@ -16,6 +16,8 @@ import ca.uwaterloo.cs.todoodle.ui.doodle.CanvasView.Companion.pathList
 
 class DoodleFragment : Fragment() {
 
+    private lateinit var doodleViewModel: DoodleViewModel
+
     private var _binding: FragmentDoodleBinding? = null
 
     // This property is only valid between onCreateView and
@@ -34,8 +36,9 @@ class DoodleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val doodleViewModel =
-            ViewModelProvider(this).get(DoodleViewModel::class.java)
+        doodleViewModel = DoodleViewModel(activity!!.application)
+//        val doodleViewModel =
+//            ViewModelProvider(this).get(DoodleViewModel::class.java)
 
         _binding = FragmentDoodleBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -71,6 +74,13 @@ class DoodleFragment : Fragment() {
     private fun exportImage() {
         val fileName = canvasExporter!!.saveImage(binding.paintView.bitmap)
         if (fileName != null) {
+            // Clear the doodle board
+            binding.clear.performClick()
+
+            // Update achievements
+            val amount = canvasExporter!!.getExistingFileCount(canvasExporter!!.subDirectory)
+            doodleViewModel.updateAchievements(amount)
+
             MediaScannerConnection.scanFile(
                 context, arrayOf(fileName), null, null
             )

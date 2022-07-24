@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         // Display user achievement points
-        val achievementRepository = AchievementRepository(application, "achievements.json")
+        val achievementRepository = AchievementRepository(application)
         val points = achievementRepository.getPoints()
         initPoints(points)
     }

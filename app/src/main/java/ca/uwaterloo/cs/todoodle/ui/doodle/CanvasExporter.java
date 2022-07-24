@@ -24,7 +24,7 @@ public class CanvasExporter
     public static final int FLAG_SAVE = 1;
     public static final int FLAG_SHARE = 2;
 
-    private final File subDirectory;
+    public final File subDirectory;
 
     private int exportType;
 

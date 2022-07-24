@@ -17,9 +17,16 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import ca.uwaterloo.cs.todoodle.data.AppDatabase
+import ca.uwaterloo.cs.todoodle.data.TaskDao
 import ca.uwaterloo.cs.todoodle.data.model.Task
 
-class RecycleViewAdapter(private val titles: List<String>, private val deadlines: List<String>, private val categories: List<String>, private val notes: List<String>) : RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
+class RecycleViewAdapter(
+    private val titles: List<String>,
+    private val deadlines: List<String>,
+    private val categories: List<String>,
+    private val notes: List<String>,
+    private val taskDao: TaskDao? = null
+) : RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
 
     private lateinit var navCtr: NavController
 
@@ -35,7 +42,8 @@ class RecycleViewAdapter(private val titles: List<String>, private val deadlines
 //                dao = AppDatabase.getInstance(itemView.context).taskDao()
 
                 val builder = AlertDialog.Builder(v.context)
-                val dialogView = LayoutInflater.from(v.rootView.context).inflate(R.layout.task_dialog, null)
+                val dialogView =
+                    LayoutInflater.from(v.rootView.context).inflate(R.layout.task_dialog, null)
                 builder.setView(dialogView)
                 val dialog = builder.create()
                 dialog.show()
@@ -50,14 +58,14 @@ class RecycleViewAdapter(private val titles: List<String>, private val deadlines
                 dialogDate.text = itemDue.text.toString()
                 dialogCategory.text = itemCategory
                 dialogNotes.text = itemNote
-                editButton.setOnClickListener{
+                editButton.setOnClickListener {
 //                    val activity = itemView.context as AppCompatActivity
 //
 //                    activity.supportFragmentManager.beginTransaction().replace(R.id.res,createTaskFormFragment).addToBackStack(null).commit()
 
 
                 }
-                deleteButton.setOnClickListener{
+                deleteButton.setOnClickListener {
 //                    dao.delete(itemTask)
                     dialog.dismiss()
                     itemTitle.apply {
@@ -72,6 +80,16 @@ class RecycleViewAdapter(private val titles: List<String>, private val deadlines
                 clearButton.setOnClickListener {
                     dialog.dismiss()
 
+                }
+
+                // Siyuan: doneButton only shows in approval page with supervisor logged in
+                val doneButton: ImageButton = dialogView.findViewById(R.id.doneButton)
+                if (taskDao != null) {
+                    doneButton.setOnClickListener {
+                        // Set task to approved
+                    }
+                } else {
+                    doneButton.visibility = View.GONE
                 }
             }
         }

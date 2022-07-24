@@ -49,6 +49,20 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/doneButton"
+        android:layout_width="48dp"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="190dp"
+        android:background="#0000"
+        android:contentDescription="@string/action_sign_in"
+        android:src="@drawable/ic_done"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/taskdialog_title"
         android:layout_width="match_parent"

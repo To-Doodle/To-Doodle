@@ -38,7 +38,7 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
     // Navigation controller
     private lateinit var navCtr: NavController
 
-    private lateinit var dao: TaskDao
+    private lateinit var createTaskFormViewModel: CreateTaskFormViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +47,7 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         _binding = FragmentCreateTaskFormBinding.inflate(inflater, container, false)
         navCtr = findNavController()
+        createTaskFormViewModel = CreateTaskFormViewModel(activity!!.application)
 
         initSpinner()
 
@@ -65,22 +66,12 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
             it.performLongClick()
         }
 
-        // Pass form data to the previous screen for display purpose. Will store into DB in the future.
+        // Pass form data to the previous screen for display purpose.
         binding.buttonCreateTaskFormDone.setOnClickListener {
-            val formData = validatedForm()
+            val formData = createTaskFormViewModel.validatedForm(binding)
 
             if (formData != null) {
-                val database = Firebase.database.reference
-
-                val task1 = ca.uwaterloo.cs.todoodle.data.model.Task(
-                    formData.get("name").toString(),
-                    formData.get("ddl").toString(),
-                    formData.get("cat").toString(),
-                    formData.get("duration").toString(),
-                    formData.get("level").toString(),
-                    formData.get("note").toString()
-                )
-                database.child("tasks").child(System.currentTimeMillis().toString()).setValue(task1)
+                createTaskFormViewModel.createTask(formData)
 
                 navCtr.navigate(
                     R.id.action_CreateTaskFormFragment_to_SecondFragment,
@@ -199,37 +190,5 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    /**
-     * Validate form input.
-     * @return validated form data
-     */
-    private fun validatedForm(): Bundle? {
 
-        // Very basic validation. May use third-party lib for this.
-        val requiredText = "Required"
-        if (binding.createTaskFormName.text.isEmpty()) {
-            binding.createTaskFormName.error = requiredText
-            return null
-        }
-        if (binding.createTaskFormDdl.text.isEmpty()) {
-            binding.createTaskFormDdl.error = requiredText
-            return null
-        }
-        // > 1 days and 1-23 hours and no leading zeroes
-        val regex = "^([1-9]\\d*d)?((1\\d?|2[0-3]?|[3-9])h)?\$".toRegex()
-        if (!regex.matches(binding.createTaskFormDuration.text)) {
-            binding.createTaskFormDuration.error = "Invalid format"
-            return null
-        }
-
-        return bundleOf(
-            "name" to binding.createTaskFormName.text,
-            "cat" to binding.createTaskFormCat.selectedItem,
-            "ddl" to binding.createTaskFormDdl.text,
-            "duration" to binding.createTaskFormDuration.text,
-            "goal" to binding.createTaskFormGoal.selectedItem,
-            "level" to binding.createTaskFormLevel.selectedItem,
-            "note" to binding.createTaskFormNote.text,
-        )
-    }
 }
