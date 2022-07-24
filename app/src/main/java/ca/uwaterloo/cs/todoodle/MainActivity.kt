@@ -3,7 +3,6 @@ package ca.uwaterloo.cs.todoodle
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,7 +11,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import ca.uwaterloo.cs.todoodle.data.AchievementRepository
 import ca.uwaterloo.cs.todoodle.databinding.ActivityMainBinding
+import ca.uwaterloo.cs.todoodle.ui.achievements.AchievementsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,10 +41,15 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        binding.appBarMain.coinIndicator2.setOnClickListener{
-            val intent = Intent(this, RewardsActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.appBarMain.coinIndicator2.setOnClickListener{
+//            val intent = Intent(this, AchievementsFragment::class.java)
+//            startActivity(intent)
+//        }
+
+        // Display user achievement points
+        val achievementRepository = AchievementRepository(application, "achievements.json")
+        val points = achievementRepository.getPoints()
+        initPoints(points)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -55,5 +61,14 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    /**
+     * Change the text of points indicator
+     * @param points User points
+     */
+    private fun initPoints(points: Int) {
+        val indicator = binding.appBarMain.coinIndicator2
+        indicator.text = points.toString()
     }
 }
