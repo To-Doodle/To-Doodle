@@ -103,6 +103,8 @@ class AchievementRepository(
         val completedAchievements = getCompletedAchievements()
         val typeID = type.id
 
+        var points = 0
+
         // Skip the completed achievement with type SINGLE
         if (typeID.startsWith("single") && typeID in completedAchievements) return
 
@@ -110,6 +112,11 @@ class AchievementRepository(
         val completedAchievement = checkAchievement(type, amount)
         if (completedAchievement != null) {
             completedAchievements[completedAchievement] = 1
+
+            val achievement = achievements.find {
+                it.id == completedAchievement
+            }
+            points += achievement!!.points
         }
 
         // Also check for achievement itself
@@ -118,9 +125,14 @@ class AchievementRepository(
             checkAchievement(AchievementType.ACHIEVEMENT, numberOfCompletedAchievements)
         if (completedSelf != null) {
             completedAchievements[completedSelf] = 1
+
+            val achievement = achievements.find {
+                it.id == completedSelf
+            }
+            points += achievement!!.points
         }
 
-        updateAchievements(completedAchievements)
+        updateAchievements(completedAchievements, points)
     }
 
     /**
@@ -178,8 +190,10 @@ class AchievementRepository(
     /**
      * Update the completed achievements
      * @param achievements The new completed achievements
+     * @param points Points to add on
      */
-    private fun updateAchievements(achievements: HashMap<String, Int>) {
+    private fun updateAchievements(achievements: HashMap<String, Int>, points: Int) {
         userRepository.updateCompletedAchievements(userId, achievements)
+        userRepository.updatePoints(userId, points)
     }
 }
