@@ -59,6 +59,10 @@ class RecycleViewAdapter(
                 val dialogNotes: TextView = dialogView.findViewById(R.id.taskdialog_notes)
                 val clearButton: ImageButton = dialogView.findViewById(R.id.clearButton)
                 val editButton: ImageButton = dialogView.findViewById(R.id.editButton)
+
+                // Unless we have the handler
+                editButton.visibility = View.GONE
+
                 dialogTitle.text = itemTitle.text.toString()
                 dialogDate.text = itemDue.text.toString()
                 dialogCategory.text = itemCategory
