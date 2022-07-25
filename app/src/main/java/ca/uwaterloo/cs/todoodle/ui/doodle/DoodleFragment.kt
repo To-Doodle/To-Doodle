@@ -87,10 +87,20 @@ class DoodleFragment : Fragment() {
 
     private fun requestStoragePermission() {
         val permission = Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(permission),
+        requestPermissions(
+            arrayOf(permission),
             CanvasExporter.PERMISSION_WRITE_EXTERNAL_STORAGE
         )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        // if the permission is for writing to storage
+        exportImage()
     }
 
     private fun exportImage() {
