@@ -17,7 +17,7 @@ import ca.uwaterloo.cs.todoodle.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
+    internal lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_todo, R.id.nav_doodle
+                R.id.nav_todo, R.id.nav_doodle, R.id.nav_calendar
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
