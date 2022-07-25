@@ -1,6 +1,6 @@
-package ca.uwaterloo.cs.todoodle.data
+package ca.uwaterloo.cs.todoodle.signup.data
 
-import ca.uwaterloo.cs.todoodle.data.model.LoggedInUser
+import ca.uwaterloo.cs.todoodle.signup.data.model.LoggedInUser
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -37,30 +37,6 @@ class LoginRepository(val dataSource: LoginDataSource) {
 
         return result
     }
-
-    fun signup(username: String, password: String): Result<LoggedInUser>{
-        val result = dataSource.signup(username, password)
-
-        return result
-    }
-
-    fun signupParent(username: String, password: String, children: String): Result<LoggedInUser>{
-        val result = dataSource.signupParent(username, password, children)
-
-        return result
-    }
-
-    fun loginParent(username: String, password: String): Result<LoggedInUser> {
-        // handle login
-        val result = dataSource.loginParent(username, password)
-
-        if (result is Result.Success) {
-            setLoggedInUser(result.data)
-        }
-
-        return result
-    }
-
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
         this.user = loggedInUser
