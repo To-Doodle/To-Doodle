@@ -18,8 +18,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import ca.uwaterloo.cs.todoodle.MainActivity
 import ca.uwaterloo.cs.todoodle.R
 
