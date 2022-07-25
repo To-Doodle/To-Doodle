@@ -16,6 +16,7 @@ import ca.uwaterloo.cs.todoodle.data.AchievementRepository
 import ca.uwaterloo.cs.todoodle.data.SHAREDPREF_FILENAME
 import ca.uwaterloo.cs.todoodle.data.model.Task
 import ca.uwaterloo.cs.todoodle.data.model.TaskType
+import ca.uwaterloo.cs.todoodle.databinding.FragmentPendingBinding
 import ca.uwaterloo.cs.todoodle.databinding.FragmentTodoBinding
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -26,7 +27,7 @@ import com.google.firebase.ktx.Firebase
  */
 class PendingFragment : Fragment() {
 
-    private var _binding: FragmentTodoBinding? = null
+    private var _binding: FragmentPendingBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -91,12 +92,8 @@ class PendingFragment : Fragment() {
             )
         }
 
-        _binding = FragmentTodoBinding.inflate(inflater, container, false)
+        _binding = FragmentPendingBinding.inflate(inflater, container, false)
         navCtr = findNavController()
-
-        binding.fab.setOnClickListener { view ->
-            navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
-        }
 
         binding.recyclerView.layoutManager =
             LinearLayoutManager(requireActivity().applicationContext)
