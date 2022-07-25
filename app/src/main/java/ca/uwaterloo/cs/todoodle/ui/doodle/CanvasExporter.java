@@ -15,8 +15,8 @@ import java.io.FileOutputStream;
  */
 public class CanvasExporter
 {
-    private static final String DIRECTORY_PATH = "/Pictures/Paint";
-    private static final String SAVE_FILE_NAME = "/drawing_";
+    private static final String DIRECTORY_PATH = "/Pictures/ToDoodle";
+    private static final String SAVE_FILE_NAME = "/doodle_";
     private static final String SHARE_FILE_NAME = "/shared_";
     private static final String FILE_EXTENSION = ".png";
 
