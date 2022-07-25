@@ -21,7 +21,7 @@ import kotlin.reflect.typeOf
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 class LoginDataSource {
-    private val db: FirebaseFirestore = Firebase.firestore
+    private val db = Firebase.firestore
 
 
     fun login(useremail: String, password: String): Result<LoggedInUser> {
@@ -270,7 +270,7 @@ Log.d("Lets see", loginFail.toString())
             return Result.Success(User)
 
         } catch (e: Throwable) {
-            Result.Error(IOException("Error logging in", e))
+            return Result.Error(IOException("Error logging in", e))
         }
     }
 
