@@ -1,5 +1,7 @@
 package ca.uwaterloo.cs.todoodle.ui.doodle
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Paint
 import android.graphics.Path
 import android.media.MediaScannerConnection
@@ -8,8 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import ca.uwaterloo.cs.todoodle.databinding.FragmentDoodleBinding
 import ca.uwaterloo.cs.todoodle.ui.doodle.CanvasView.Companion.colourList
 import ca.uwaterloo.cs.todoodle.ui.doodle.CanvasView.Companion.pathList
@@ -36,7 +39,7 @@ class DoodleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        doodleViewModel = DoodleViewModel(activity!!.application)
+        doodleViewModel = DoodleViewModel(requireActivity().application)
 //        val doodleViewModel =
 //            ViewModelProvider(this).get(DoodleViewModel::class.java)
 
@@ -60,7 +63,7 @@ class DoodleFragment : Fragment() {
         }
         binding.save.setOnClickListener{
             canvasExporter!!.exportType = CanvasExporter.FLAG_SAVE
-            exportImage()
+            checkForPermissions()
         }
 
         return root
@@ -69,6 +72,25 @@ class DoodleFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun checkForPermissions() {
+        val permission = ContextCompat.checkSelfPermission(
+            requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        if (permission == PackageManager.PERMISSION_DENIED) {
+            requestStoragePermission()
+        } else {
+            exportImage()
+        }
+    }
+
+    private fun requestStoragePermission() {
+        val permission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ActivityCompat.requestPermissions(
+            requireActivity(), arrayOf(permission),
+            CanvasExporter.PERMISSION_WRITE_EXTERNAL_STORAGE
+        )
     }
 
     private fun exportImage() {
@@ -85,7 +107,7 @@ class DoodleFragment : Fragment() {
                 context, arrayOf(fileName), null, null
             )
             Toast.makeText(
-                context,  "Doodle saved!.",
+                context,  "Doodle saved!",
                 Toast.LENGTH_SHORT
             ).show()
         } else {
