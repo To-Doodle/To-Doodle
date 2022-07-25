@@ -99,7 +99,7 @@ Click the tick button
 #### Expect
 Dialog closes with the text being stroke through.
 A dialog with new achievement of `Job Done` pops up.
-The coin indicator becomes `60`.
+The coin indicator becomes `80`.
 <hr>
 
 #### Action
