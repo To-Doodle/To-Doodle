@@ -261,7 +261,7 @@ class AchievementRepository(
         val user = db.collection("users").document(userId)
 
         user.update("points", points)
-        user.update("complated_achievements", achievements)
+        user.update("completed_achievements", achievements)
 //        userRepository.updateCompletedAchievements(userId, achievements)
 //        userRepository.updatePoints(userId, points)
     }
