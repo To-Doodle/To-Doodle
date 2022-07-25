@@ -105,6 +105,11 @@ class RecycleViewAdapter(
                             AchievementType.DUE
                         )
 
+                        // Update points display
+                        val points = achievementRepository.getPoints()
+                        val mainActivity = activity as MainActivity
+                        mainActivity.initPoints(points)
+
                         // Add points
                         achievementRepository.updatePointsForCompletion()
                     }

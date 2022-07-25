@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import ca.uwaterloo.cs.todoodle.MainActivity
 import ca.uwaterloo.cs.todoodle.databinding.FragmentDoodleBinding
 import ca.uwaterloo.cs.todoodle.ui.doodle.CanvasView.Companion.colourList
 import ca.uwaterloo.cs.todoodle.ui.doodle.CanvasView.Companion.pathList
@@ -80,6 +81,11 @@ class DoodleFragment : Fragment() {
             // Update achievements
             val amount = canvasExporter!!.getExistingFileCount(canvasExporter!!.subDirectory)
             doodleViewModel.updateAchievements(activity!!, amount)
+
+            // Update points display
+            val points = doodleViewModel.getPoints()
+            val mainActivity = activity as MainActivity
+            mainActivity.initPoints(points)
 
             MediaScannerConnection.scanFile(
                 context, arrayOf(fileName), null, null

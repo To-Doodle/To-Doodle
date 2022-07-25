@@ -88,6 +88,11 @@ class SecondFragment : Fragment() {
                 activity!!,
                 if (isParent) AchievementType.PARENT else AchievementType.CHILD
             )
+
+            // Update points display
+            val points = achievementRepository.getPoints()
+            val mainActivity = requireActivity() as MainActivity
+            mainActivity.initPoints(points)
         }
 
         _binding = FragmentTodoBinding.inflate(inflater, container, false)

@@ -90,4 +90,12 @@ class CreateTaskFormViewModel(application: Application) :
         // Update achievements
         achievementRepository.checkAndUpdateAchievements(activity, AchievementType.TASK)
     }
+
+    /**
+     * Get user points
+     * @return user points
+     */
+    fun getPoints(): Int {
+        return achievementRepository.getPoints()
+    }
 }

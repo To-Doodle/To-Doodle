@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
      * Change the text of points indicator
      * @param points User points
      */
-    private fun initPoints(points: Int) {
+    fun initPoints(points: Int) {
         val indicator = binding.appBarMain.coinIndicator2
         indicator.text = points.toString()
     }

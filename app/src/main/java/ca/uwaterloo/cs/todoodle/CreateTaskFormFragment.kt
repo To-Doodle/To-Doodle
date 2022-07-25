@@ -11,10 +11,8 @@ import android.widget.Spinner
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import ca.uwaterloo.cs.todoodle.data.AppDatabase
-import ca.uwaterloo.cs.todoodle.data.Task
-import ca.uwaterloo.cs.todoodle.data.TaskDao
-import ca.uwaterloo.cs.todoodle.data.UserDao
+import ca.uwaterloo.cs.todoodle.data.*
+import ca.uwaterloo.cs.todoodle.data.model.AchievementType
 import ca.uwaterloo.cs.todoodle.databinding.FragmentCreateTaskFormBinding
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -72,6 +70,19 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
             if (formData != null) {
                 createTaskFormViewModel.createTask(activity!!, formData)
+
+                // Verify login achievement
+                val achievementRepository = AchievementRepository(activity!!.application)
+                val isParent = true
+                achievementRepository.checkAndUpdateAchievements(
+                    activity!!,
+                    if (isParent) AchievementType.PARENT else AchievementType.CHILD
+                )
+
+                // Update points display
+                val points = createTaskFormViewModel.getPoints()
+                val mainActivity = requireActivity() as MainActivity
+                mainActivity.initPoints(points)
 
                 navCtr.navigate(
                     R.id.action_CreateTaskFormFragment_to_SecondFragment,

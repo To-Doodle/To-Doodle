@@ -15,6 +15,8 @@ class DoodleViewModel(application: Application) :
 
     private val app = getApplication<Application>()
 
+    private val achievementRepository = AchievementRepository(app)
+
     private val _text = MutableLiveData<String>().apply {
         value = "Draw a doodle!"
     }
@@ -26,7 +28,14 @@ class DoodleViewModel(application: Application) :
      * @param amount Number of doodles saved
      */
     fun updateAchievements(activity: FragmentActivity, amount: Int) {
-        val achievementRepository = AchievementRepository(app)
         achievementRepository.checkAndUpdateAchievements(activity, AchievementType.GOAL, amount)
+    }
+
+    /**
+     * Get user points
+     * @return user points
+     */
+    fun getPoints(): Int {
+        return achievementRepository.getPoints()
     }
 }
