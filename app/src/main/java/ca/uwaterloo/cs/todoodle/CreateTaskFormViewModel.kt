@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,7 +26,7 @@ class CreateTaskFormViewModel(application: Application) :
     AndroidViewModel(application) {
     private val app = getApplication<Application>()
 
-    private val achievementRepository = AchievementRepository(app)
+    private val achievementRepository = AchievementRepository(app, "achievements.json")
 
     /**
      * Validate form input.
@@ -64,9 +65,10 @@ class CreateTaskFormViewModel(application: Application) :
 
     /**
      * Create task in DB
+     * @param activity Activity for getting database
      * @param formData task data
      */
-    fun createTask(formData: Bundle) {
+    fun createTask(activity: FragmentActivity, formData: Bundle) {
         val sharedPreferences = getApplication<Application>().applicationContext.getSharedPreferences(SHAREDPREF_FILENAME, Context.MODE_PRIVATE)
         val userKey = sharedPreferences.getString("key", "defaultKey")
         println(userKey)
@@ -86,6 +88,14 @@ class CreateTaskFormViewModel(application: Application) :
         database.child("tasks").child(System.currentTimeMillis().toString()).setValue(task1)
 
         // Update achievements
-        achievementRepository.checkAndUpdateAchievements(AchievementType.TASK)
+        achievementRepository.checkAndUpdateAchievements(activity, AchievementType.TASK)
+    }
+
+    /**
+     * Get user points
+     * @return user points
+     */
+    fun getPoints(): Int {
+        return achievementRepository.getPoints()
     }
 }

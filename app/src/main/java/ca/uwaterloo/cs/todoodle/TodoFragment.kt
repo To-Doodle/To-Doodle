@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import ca.uwaterloo.cs.todoodle.data.AchievementRepository
 import ca.uwaterloo.cs.todoodle.data.SHAREDPREF_FILENAME
+import ca.uwaterloo.cs.todoodle.data.model.AchievementType
 import ca.uwaterloo.cs.todoodle.data.model.Task
 import ca.uwaterloo.cs.todoodle.data.model.TaskType
 import ca.uwaterloo.cs.todoodle.databinding.FragmentTodoBinding
@@ -54,7 +56,8 @@ class SecondFragment : Fragment() {
         notesList.clear()
         keysList.clear()
 
-        sharedPreferences = requireActivity().getSharedPreferences(SHAREDPREF_FILENAME, Context.MODE_PRIVATE)
+        sharedPreferences =
+            requireActivity().getSharedPreferences(SHAREDPREF_FILENAME, Context.MODE_PRIVATE)
         val userKey = sharedPreferences.getString("key", "defaultKey")
 
         val database = Firebase.database.reference
@@ -75,17 +78,33 @@ class SecondFragment : Fragment() {
                 }
             }
             binding.recyclerView.adapter = RecycleViewAdapter(
-                titlesList, deadlinesList, categoryList, notesList, keysList)
+                titlesList, deadlinesList, categoryList, notesList, keysList, activity!!
+            )
+
+            // Verify login achievement
+            val achievementRepository =
+                AchievementRepository(activity!!.application, "achievements.json")
+            val isParent = true
+            achievementRepository.checkAndUpdateAchievements(
+                activity!!,
+                if (isParent) AchievementType.PARENT else AchievementType.CHILD
+            )
+
+            // Update points display
+            val points = achievementRepository.getPoints()
+            val mainActivity = requireActivity() as MainActivity
+            mainActivity.initPoints(points)
         }
 
         _binding = FragmentTodoBinding.inflate(inflater, container, false)
         navCtr = findNavController()
 
         binding.fab.setOnClickListener { view ->
-            findNavController().navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
+            navCtr.navigate(R.id.action_SecondFragment_to_CreateTaskFormFragment)
         }
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(requireActivity().applicationContext)
 
         initCreateTaskFormData()
 
@@ -109,11 +128,11 @@ class SecondFragment : Fragment() {
     }
 
     private fun addToList(
-        title:String,
-        deadLine:String,
-        category:String,
-        note:String,
-        key:String
+        title: String,
+        deadLine: String,
+        category: String,
+        note: String,
+        key: String
     ) {
         titlesList.add(title)
         deadlinesList.add(deadLine)
