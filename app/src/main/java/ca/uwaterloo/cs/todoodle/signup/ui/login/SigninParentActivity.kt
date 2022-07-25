@@ -1,7 +1,6 @@
-package ca.uwaterloo.cs.todoodle.ui.login
+package ca.uwaterloo.cs.todoodle.signup.ui.login
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,38 +12,39 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import ca.uwaterloo.cs.todoodle.MainActivity
 import ca.uwaterloo.cs.todoodle.R
-import ca.uwaterloo.cs.todoodle.databinding.ActivityLoginBinding
-import ca.uwaterloo.cs.todoodle.databinding.BeforeLoginBinding
-import ca.uwaterloo.cs.todoodle.signup.ui.login.SigninActivity
-import ca.uwaterloo.cs.todoodle.signup.ui.login.SigninParentActivity
+import ca.uwaterloo.cs.todoodle.databinding.ActivitySigninParentBinding
 
-class LoginActivity : AppCompatActivity() {
 
-    private lateinit var loginViewModel: LoginViewModel
-    private lateinit var binding: ActivityLoginBinding
-    private lateinit var binding2: BeforeLoginBinding
+//import ca.uwaterloo.cs.todoodle.signup.R
+
+class SigninParentActivity : AppCompatActivity() {
+
+    private lateinit var loginViewModel: LoginViewModelParent
+    private lateinit var binding: ActivitySigninParentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        binding2 = BeforeLoginBinding.inflate(layoutInflater)
-        setContentView(binding2.root)
+        binding = ActivitySigninParentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val student = binding2.childButton
-        val bparent = binding2.parentButton2
-        var student_parent = 0
         val username = binding.username
         val password = binding.password
         val login = binding.login
         val loading = binding.loading
+        val confirmpassword = binding.confirmPassword
+        val childrenEmail = binding.childEmailAddress
+
+        val intents = intent
+
+
+        var student_parent = intents.getIntExtra("student_parent", -1)
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+            .get(LoginViewModelParent::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        loginViewModel.loginFormState.observe(this@SigninParentActivity, Observer {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
@@ -56,15 +56,17 @@ class LoginActivity : AppCompatActivity() {
             if (loginState.passwordError != null) {
                 password.error = getString(loginState.passwordError)
             }
+            if (loginState.confirmpasswordError != null) {
+                confirmpassword?.error = getString(loginState.confirmpasswordError)
+            }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        loginViewModel.loginResult.observe(this@SigninParentActivity, Observer {
             val loginResult = it ?: return@Observer
 
             loading.visibility = View.GONE
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
-                //this.recreate()
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
@@ -72,34 +74,25 @@ class LoginActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
-            // finish()
-            if(loginResult.error != null) {
-                val intent = intent
-                finish()
-                startActivity(intent)
-            }
-
-            if(student_parent == 1 && loginResult.error == null){
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            } else if(student_parent == 2 && loginResult.error == null){
-                finish()
-            }
-
+            finish()
         })
 
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
                 username.text.toString(),
-                password.text.toString()
+                confirmpassword?.text.toString(),
+                password.text.toString(),
+                childrenEmail.text.toString()
             )
         }
 
-        password.apply {
+        confirmpassword!!.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
                     username.text.toString(),
-                    password.text.toString()
+                    confirmpassword?.text.toString(),
+                    password.text.toString(),
+                    childrenEmail.text.toString()
                 )
             }
 
@@ -108,7 +101,8 @@ class LoginActivity : AppCompatActivity() {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
                             username.text.toString(),
-                            password.text.toString()
+                            password.text.toString(),
+                            childrenEmail.text.toString()
                         )
                 }
                 false
@@ -116,37 +110,8 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                if(student_parent == 1){
-                    loginViewModel.login(username.text.toString(), password.text.toString())
-                } else {
-                    loginViewModel.loginParent(username.text.toString(), password.text.toString())
-                }
+                loginViewModel.login(username.text.toString(), password.text.toString(), childrenEmail.text.toString())
             }
-        }
-
-        student.setOnClickListener{
-            student_parent = 1
-            setContentView(binding.root)
-
-        }
-
-        bparent.setOnClickListener{
-            student_parent = 2
-            setContentView(binding.root)
-        }
-
-        binding.signup?.setOnClickListener{
-            if(student_parent == 1){
-                val intent = Intent(this, SigninActivity::class.java)
-                intent.putExtra("student_parent", student_parent)
-                startActivity(intent)
-            } else if(student_parent == 2){
-                val intent = Intent(this, SigninParentActivity::class.java)
-                intent.putExtra("student_parent", student_parent)
-                startActivity(intent)
-            }
-
-
         }
     }
 
@@ -169,7 +134,7 @@ class LoginActivity : AppCompatActivity() {
 /**
  * Extension function to simplify setting an afterTextChanged action to EditText components.
  */
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+/*fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(editable: Editable?) {
             afterTextChanged.invoke(editable.toString())
@@ -179,4 +144,4 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     })
-}
+}*/
