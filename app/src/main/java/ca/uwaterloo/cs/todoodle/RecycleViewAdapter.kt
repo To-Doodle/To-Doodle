@@ -111,7 +111,7 @@ class RecycleViewAdapter(
                         mainActivity.initPoints(points)
 
                         // Add points
-                        achievementRepository.updatePointsForCompletion()
+                        achievementRepository.updatePointsForCompletion(points)
                     }
                 } else {
                     doneButton.visibility = View.GONE

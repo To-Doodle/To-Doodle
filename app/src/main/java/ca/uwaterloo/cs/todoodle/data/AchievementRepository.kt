@@ -10,10 +10,15 @@ import ca.uwaterloo.cs.todoodle.data.model.AchievementType
 import ca.uwaterloo.cs.todoodle.data.model.Task
 import ca.uwaterloo.cs.todoodle.data.model.TaskType
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
+import com.google.android.gms.tasks.Task as Taskk
 
 /**
  * This can be a 'repository' if we consider the assets as database
@@ -28,18 +33,37 @@ class AchievementRepository(
     private val userRepository = UserRepository(userDao)
     private val loginRepository = LoginRepository(LoginDataSource())
 
-    private val database = Firebase.database.reference
+    private val userId = "user8@gmail.com"
+    private lateinit var user: QuerySnapshot
 
-    private val userId = 1
+    private val database = Firebase.database.reference
+    private val db: FirebaseFirestore = Firebase.firestore
+
+//    private val userId = 1
 //    private val userId = loginRepository.user!!.userId
 
     val achievements = parseAchievementJSON()
+
+    private fun getUser() {
+        var Qsnap : Taskk<QuerySnapshot> = db.collection("users").whereEqualTo("useremail", userId).get()
+        while(Qsnap.isComplete() != true ){
+
+        }
+
+        var document : QuerySnapshot = Qsnap.getResult()
+
+        user = document
+    }
 
     /**
      * Load achievement data form local asset.
      * @return Parsed achievements in list of hashmap
      */
     private fun parseAchievementJSON(): List<Achievement> {
+        getUser()
+        println(user.first().get("points"))
+        println(user.first().get("completed_achievements"))
+
         if (filename == "" || filename == null) return listOf()
 
         // Read asset file
@@ -72,9 +96,7 @@ class AchievementRepository(
          */
 
         // Now we don't have user in the DB so fake it
-//        val userId = 1
-//        val userObj = userRepository.findById(userId)
-//        val completedAchievements = userObj.completedAchievements
+
         val completedAchievements = hashMapOf<String, Int>()
         if (completedAchievements == null || completedAchievements.isEmpty()) {
             return hashMapOf()
@@ -96,12 +118,9 @@ class AchievementRepository(
          */
 
         // Now we don't have user in the DB so fake it
-//        val userId = 1
-//        val userObj = userRepository.findById(userId)
-//        val points = userObj.points
 
-        return 0
-//        return points
+        return user.first().get("points")!!.toString().toInt()
+//        return user.first().get("points") as Int
     }
 
     /**
@@ -239,15 +258,24 @@ class AchievementRepository(
      * @param points Points to add on
      */
     private fun updateAchievements(achievements: HashMap<String, Int>, points: Int) {
-        userRepository.updateCompletedAchievements(userId, achievements)
-        userRepository.updatePoints(userId, points)
+        val user = db.collection("users").document(userId)
+
+        user.update("points", points)
+        user.update("complated_achievements", achievements)
+//        userRepository.updateCompletedAchievements(userId, achievements)
+//        userRepository.updatePoints(userId, points)
     }
 
     /**
      * Add points for completing a task
+     * @param points Existing points
      */
-    fun updatePointsForCompletion() {
+    fun updatePointsForCompletion(points: Int) {
         // Fixed 20 AP each task
-        userRepository.updatePoints(userId, 20)
+//        userRepository.updatePoints(userId, 20)
+        val user = db.collection("users").document(userId)
+
+        user.update("points", 20 + points)
+
     }
 }
