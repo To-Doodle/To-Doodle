@@ -82,7 +82,8 @@ class SecondFragment : Fragment() {
             )
 
             // Verify login achievement
-            val achievementRepository = AchievementRepository(activity!!.application)
+            val achievementRepository =
+                AchievementRepository(activity!!.application, "achievements.json")
             val isParent = true
             achievementRepository.checkAndUpdateAchievements(
                 activity!!,

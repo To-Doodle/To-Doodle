@@ -15,7 +15,7 @@ class DoodleViewModel(application: Application) :
 
     private val app = getApplication<Application>()
 
-    private val achievementRepository = AchievementRepository(app)
+    private val achievementRepository = AchievementRepository(app, "achievements.json")
 
     private val _text = MutableLiveData<String>().apply {
         value = "Draw a doodle!"

@@ -52,7 +52,7 @@ class PendingFragment : Fragment() {
 
         // Initialize pending ViewModel for the adapter
         val pendingViewModel = PendingViewModel(activity!!.application)
-        val achievementRepository = AchievementRepository(activity!!.application)
+        val achievementRepository = AchievementRepository(activity!!.application, "achievements.json")
 
         titlesList.clear()
         deadlinesList.clear()

@@ -71,14 +71,6 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if (formData != null) {
                 createTaskFormViewModel.createTask(activity!!, formData)
 
-                // Verify login achievement
-                val achievementRepository = AchievementRepository(activity!!.application)
-                val isParent = true
-                achievementRepository.checkAndUpdateAchievements(
-                    activity!!,
-                    if (isParent) AchievementType.PARENT else AchievementType.CHILD
-                )
-
                 // Update points display
                 val points = createTaskFormViewModel.getPoints()
                 val mainActivity = requireActivity() as MainActivity

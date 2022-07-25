@@ -127,6 +127,7 @@ class AchievementRepository(
             val achievement = achievements.find {
                 it.id == completedAchievement
             }
+
             points += achievement!!.points
         }
 
@@ -246,6 +247,7 @@ class AchievementRepository(
      * Add points for completing a task
      */
     fun updatePointsForCompletion() {
+        // Fixed 20 AP each task
         userRepository.updatePoints(userId, 20)
     }
 }
