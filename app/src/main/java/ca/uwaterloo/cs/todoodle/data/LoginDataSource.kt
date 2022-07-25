@@ -23,6 +23,7 @@ import kotlin.reflect.typeOf
 class LoginDataSource {
     private val db: FirebaseFirestore = Firebase.firestore
 
+
     fun login(useremail: String, password: String): Result<LoggedInUser> {
         try {
             // TODO: handle loggedInUser authentication
@@ -267,8 +268,9 @@ Log.d("Lets see", loginFail.toString())
                 return Result.Error(Exception("Failed"))
             }
             return Result.Success(User)
+
         } catch (e: Throwable) {
-            return Result.Error(IOException("Error logging in", e))
+            Result.Error(IOException("Error logging in", e))
         }
     }
 

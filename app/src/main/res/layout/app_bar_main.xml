@@ -26,7 +26,7 @@
                 android:width="56dp"
                 android:background="@null"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:text="1000"
+                android:text="0"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#673AB7"
                 android:textSize="24sp" />

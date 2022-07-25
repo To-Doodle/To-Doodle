@@ -8,5 +8,7 @@ import androidx.room.PrimaryKey
 data class Task(
     @PrimaryKey(autoGenerate = true) val uid: Int?,
     @ColumnInfo(name = "task_name") val taskName: String?,
-    @ColumnInfo(name = "deadline") val dueDate: String?
+    @ColumnInfo(name = "deadline") val dueDate: String?,
+    @ColumnInfo(name = "cat") val category: String?,
+    @ColumnInfo(name = "additional_notes") val additionalNotes: String?,
 )

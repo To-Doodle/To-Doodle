@@ -2,14 +2,13 @@ package ca.uwaterloo.cs.todoodle
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toolbar
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import ca.uwaterloo.cs.todoodle.databinding.ActivityTodoBinding
+import ca.uwaterloo.cs.todoodle.ui.achievements.AchievementsFragment
 
 class TodoActivity : AppCompatActivity() {
 
@@ -28,10 +27,10 @@ class TodoActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.coinIndicator2.setOnClickListener{
-            val intent = Intent(this, RewardsActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.coinIndicator2.setOnClickListener{
+//            val intent = Intent(this, AchievementsFragment::class.java)
+//            startActivity(intent)
+//        }
         binding.fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show()

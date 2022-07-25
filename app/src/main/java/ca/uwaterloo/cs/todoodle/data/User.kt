@@ -1,12 +1,12 @@
 package ca.uwaterloo.cs.todoodle.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity
 data class User(
     @PrimaryKey val uid: Int,
     @ColumnInfo(name = "first_name") val firstName: String?,
-    @ColumnInfo(name = "last_name") val lastName: String?
+    @ColumnInfo(name = "last_name") val lastName: String?,
+    @ColumnInfo(name = "points") val points: Int = 0,
+    @ColumnInfo(name = "completed_achievements") @TypeConverters(AchievementConverter::class) val completedAchievements: HashMap<String, Int>?
 )

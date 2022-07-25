@@ -1,0 +1,114 @@
+[
+  {
+    "id": "series_goal_1",
+    "title": "Set Sail",
+    "desc": "Illustrate your first doodle.",
+    "points": 10,
+    "imageURI": "points_10"
+  },
+  {
+    "id": "series_task_1",
+    "title": "Here You Go",
+    "desc": "Create your first task.",
+    "points": 10,
+    "imageURI": "points_10"
+  },
+  {
+    "id": "series_goal_2",
+    "title": "The Sea",
+    "desc": "Illustrate 5 doodles.",
+    "points": 20,
+    "imageURI": "points_20"
+  },
+  {
+    "id": "series_task_2",
+    "title": "On The Pace",
+    "desc": "Create 10 tasks.",
+    "points": 20,
+    "imageURI": "points_20"
+  },
+  {
+    "id": "series_goal_3",
+    "title": "The Ocean",
+    "desc": "Illustrate 20 doodles.",
+    "points": 50,
+    "imageURI": "points_50"
+  },
+  {
+    "id": "series_task_3",
+    "title": "A Sprint",
+    "desc": "Create 50 tasks.",
+    "points": 50,
+    "imageURI": "points_50"
+  },
+  {
+    "id": "series_task_due_1",
+    "title": "Job Done",
+    "desc": "Finish a task.",
+    "points": 10,
+    "imageURI": "points_10"
+  },
+  {
+    "id": "series_task_due_2",
+    "title": "Keep Going",
+    "desc": "Finish 10 tasks.",
+    "points": 20,
+    "imageURI": "points_20"
+  },
+  {
+    "id": "series_task_due_3",
+    "title": "That's Discipline",
+    "desc": "Finish 50 tasks.",
+    "points": 50,
+    "imageURI": "points_50"
+  },
+  {
+    "id": "single_calendar",
+    "title": "Straightforward",
+    "desc": "Use calendar view to modify task.",
+    "points": 10,
+    "imageURI": "points_10"
+  },
+  {
+    "id": "single_parent",
+    "title": "Child Behaves",
+    "desc": "Log in as parent.",
+    "points": 10,
+    "imageURI": "points_10"
+  },
+  {
+    "id": "single_child",
+    "title": "Time To Fight",
+    "desc": "Log in as child.",
+    "points": 10,
+    "imageURI": "points_10"
+  },
+  {
+    "id": "single_makeover",
+    "title": "Makeover",
+    "desc": "Change profile.",
+    "points": 10,
+    "imageURI": "points_10"
+  },
+  {
+    "id": "series_acvm_1",
+    "title": "Harvest",
+    "desc": "Complete 3 achievements.",
+    "points": 10,
+    "imageURI": "points_10"
+  },
+  {
+    "id": "series_acvm_2",
+    "title": "Big Harvest",
+    "desc": "Complete 8 achievements.",
+    "points": 50,
+    "imageURI": "points_50"
+  },
+  {
+    "id": "series_acvm_3",
+    "title": "Grand Slam",
+    "desc": "Complete all achievements.",
+    "points": 100,
+    "imageURI": "points_100"
+  }
+]

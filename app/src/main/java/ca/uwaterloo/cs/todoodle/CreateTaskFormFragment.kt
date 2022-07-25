@@ -11,15 +11,15 @@ import android.widget.Spinner
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import ca.uwaterloo.cs.todoodle.data.AppDatabase
-import ca.uwaterloo.cs.todoodle.data.Task
-import ca.uwaterloo.cs.todoodle.data.TaskDao
-import ca.uwaterloo.cs.todoodle.data.UserDao
+import ca.uwaterloo.cs.todoodle.data.*
+import ca.uwaterloo.cs.todoodle.data.model.AchievementType
 import ca.uwaterloo.cs.todoodle.databinding.FragmentCreateTaskFormBinding
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 
 /**
@@ -36,7 +36,7 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
     // Navigation controller
     private lateinit var navCtr: NavController
 
-    private lateinit var dao: TaskDao
+    private lateinit var createTaskFormViewModel: CreateTaskFormViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +45,7 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         _binding = FragmentCreateTaskFormBinding.inflate(inflater, container, false)
         navCtr = findNavController()
+        createTaskFormViewModel = CreateTaskFormViewModel(activity!!.application)
 
         initSpinner()
 
@@ -63,14 +64,17 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
             it.performLongClick()
         }
 
-        // Pass form data to the previous screen for display purpose. Will store into DB in the future.
+        // Pass form data to the previous screen for display purpose.
         binding.buttonCreateTaskFormDone.setOnClickListener {
-            val formData = validatedForm()
+            val formData = createTaskFormViewModel.validatedForm(binding)
 
             if (formData != null) {
-                dao = AppDatabase.getInstance(requireContext()).taskDao()
-                val task = Task(null, formData.get("name").toString(), formData.get("ddl").toString())
-                dao.insertAll(task)
+                createTaskFormViewModel.createTask(activity!!, formData)
+
+                // Update points display
+                val points = createTaskFormViewModel.getPoints()
+                val mainActivity = requireActivity() as MainActivity
+                mainActivity.initPoints(points)
 
                 navCtr.navigate(
                     R.id.action_CreateTaskFormFragment_to_SecondFragment,
@@ -189,37 +193,5 @@ class CreateTaskFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    /**
-     * Validate form input.
-     * @return validated form data
-     */
-    private fun validatedForm(): Bundle? {
 
-        // Very basic validation. May use third-party lib for this.
-        val requiredText = "Required"
-        if (binding.createTaskFormName.text.isEmpty()) {
-            binding.createTaskFormName.error = requiredText
-            return null
-        }
-        if (binding.createTaskFormDdl.text.isEmpty()) {
-            binding.createTaskFormDdl.error = requiredText
-            return null
-        }
-        // > 1 days and 1-23 hours and no leading zeroes
-        val regex = "^([1-9]\\d*d)?((1\\d?|2[0-3]?|[3-9])h)?\$".toRegex()
-        if (!regex.matches(binding.createTaskFormDuration.text)) {
-            binding.createTaskFormDuration.error = "Invalid format"
-            return null
-        }
-
-        return bundleOf(
-            "name" to binding.createTaskFormName.text,
-            "cat" to binding.createTaskFormCat.selectedItem,
-            "ddl" to binding.createTaskFormDdl.text,
-            "duration" to binding.createTaskFormDuration.text,
-            "goal" to binding.createTaskFormGoal.selectedItem,
-            "level" to binding.createTaskFormLevel.selectedItem,
-            "note" to binding.createTaskFormNote.text,
-        )
-    }
 }

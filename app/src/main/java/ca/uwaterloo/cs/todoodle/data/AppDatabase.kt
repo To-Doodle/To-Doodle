@@ -1,12 +1,13 @@
 package ca.uwaterloo.cs.todoodle.data
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.File
 
-@Database(entities = [User::class, Task::class], version = 2)
+@Database(entities = [User::class, Task::class], version = 5)
+@TypeConverters(AchievementConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun taskDao(): TaskDao
@@ -51,5 +52,22 @@ abstract class AppDatabase : RoomDatabase() {
 
             return builder.build()
         }
+    }
+}
+
+/**
+ * This allows us to store data in hashmap which can be populated directly
+ */
+object AchievementConverter {
+    @TypeConverter
+    @JvmStatic
+    fun parse(value: String): HashMap<String, Int> {
+        return Gson().fromJson(value, object : TypeToken<HashMap<String, Int>>() {}.type)
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun stringify(value: HashMap<String, Int>?): String {
+        return if (value == null) "" else Gson().toJson(value)
     }
 }

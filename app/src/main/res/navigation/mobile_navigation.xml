@@ -12,10 +12,28 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/nav_pending"
+        android:name="ca.uwaterloo.cs.todoodle.ui.pending.PendingFragment"
+        android:label="@string/menu_pending"
+        tools:layout="@layout/fragment_pending" />
+
+    <fragment
         android:id="@+id/nav_doodle"
         android:name="ca.uwaterloo.cs.todoodle.ui.doodle.DoodleFragment"
         android:label="@string/menu_doodle"
         tools:layout="@layout/fragment_doodle" />
+
+    <fragment
+        android:id="@+id/nav_achievements"
+        android:name="ca.uwaterloo.cs.todoodle.ui.achievements.AchievementsFragment"
+        android:label="@string/menu_achievements"
+        tools:layout="@layout/fragment_achievements" />
+
+    <fragment
+        android:id="@+id/nav_rewards"
+        android:name="ca.uwaterloo.cs.todoodle.ui.rewards.RewardsFragment"
+        android:label="@string/menu_rewards"
+        tools:layout="@layout/fragment_rewards" />
 
     <fragment
         android:id="@+id/nav_slideshow"
